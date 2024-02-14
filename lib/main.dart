@@ -68,6 +68,10 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _onPressed() {
+    print("Hello wold");
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -83,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // change color while the other colors stay the same.
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
+        // the App.build method, and use it to set our app bar title.
         title: Text(widget.title),
       ),
       body: Center(
@@ -102,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
           //
           // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
           // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
+          // wire frame for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
@@ -112,6 +116,11 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            const Text("Hello World"),
+            ElevatedButton(
+              onPressed: _onPressed,
+              child: const Text("Press me"),
+              )
           ],
         ),
       ),
