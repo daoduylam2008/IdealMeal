@@ -45,9 +45,7 @@ class Student {
   }
 }
 
-class Teacher {
-  
-}
+class Teacher {}
 
 class User {
   final int id;
@@ -68,3 +66,5 @@ class User {
     };
   }
 }
+
+User user = User();
