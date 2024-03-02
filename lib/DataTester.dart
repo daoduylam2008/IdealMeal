@@ -15,11 +15,9 @@ class UserTest {
 }
 
 class ImportData {
-  final List<UserTest> data;
+  // final List<UserTest> data;
 
-  const ImportData({
-    required this.data,
-  });
+  const ImportData();
 
   factory ImportData.fromJson(Map<String, dynamic> json) {
     return switch (json) {
@@ -33,7 +31,7 @@ class ImportData {
             'phone': String phone,
             }
           ]
-        } => ImportData(data: [UserTest(id: id, name: name, ethnic: ethnic, address: address, phone: phone)]),
+      } => const ImportData(),
       _ => throw const FormatException('Failed to load album.'),
     };
 }
