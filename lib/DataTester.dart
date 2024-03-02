@@ -10,29 +10,24 @@ class UserTest {
       required this.name,
       required this.ethnic,
       required this.address,
-      required this.phoneNumber}
-      );
-}
+      required this.phoneNumber});
 
-class ImportData {
-  final List<UserTest> data;
-
-  const ImportData({required this.data});
-
-  factory ImportData.fromJson(Map<String, dynamic> json) {
+  factory UserTest.fromJson(Map<String, dynamic> json) {
     return switch (json) {
       {
-          'data': [
-          {
-            'id': int id,
-            'name': String name,
-            'ethnic': String ethnic,
-            'address': String address,
-            'phoneNumber': String phoneNumber,
-            }
-          ]
-      } => ImportData(data: [UserTest(id: id, name: name, ethnic: ethnic, address: address, phoneNumber: phoneNumber)]),
+        'id': int id,
+        'name': String name,
+        'ethnic': String ethnic,
+        'address': String address,
+        'phoneNumber': String phoneNumber,
+      } =>
+        UserTest(
+            id: id,
+            name: name,
+            ethnic: ethnic,
+            address: address,
+            phoneNumber: phoneNumber),
       _ => throw const FormatException('Failed to load album.'),
     };
-}
+  }
 }
