@@ -38,7 +38,3 @@ class ImportData {
     };
 }
 }
-
-class DataTest {
-
-}
