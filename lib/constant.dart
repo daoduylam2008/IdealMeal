@@ -66,5 +66,3 @@ class User {
     };
   }
 }
-
-User user = User();
