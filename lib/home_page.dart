@@ -25,7 +25,7 @@ class _HomePage extends State<HomePage> {
       future: futureData,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Text(snapshot.data!.data.name);
+          return Text(snapshot.data!.data[0].name);
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }

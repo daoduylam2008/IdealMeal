@@ -15,7 +15,7 @@ class UserTest {
 }
 
 class ImportData {
-  final UserTest data;
+  final List<UserTest> data;
 
   const ImportData({
     required this.data,
@@ -33,7 +33,7 @@ class ImportData {
             'phone': String phone,
             }
           ]
-        } => ImportData(data: UserTest(id: id, name: name, ethnic: ethnic, address: address, phone: phone)),
+        } => ImportData(data: [UserTest(id: id, name: name, ethnic: ethnic, address: address, phone: phone)]),
       _ => throw const FormatException('Failed to load album.'),
     };
 }
