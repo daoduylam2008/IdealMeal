@@ -16,7 +16,7 @@ class _HomePage extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    futureAlbum = fetchAlbum();
+    futureAlbum = fetchData();
   }
 
   void pressed() {
