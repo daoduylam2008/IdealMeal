@@ -10,26 +10,32 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
-  late Future<ImportData> futureAlbum;
-
+  late Future<ImportData> futureData;
 
   @override
   void initState() {
     super.initState();
-    futureAlbum = fetchData();
+    futureData = fetchData();
   }
 
   void pressed() {
-    print(futureAlbum);
+    print(futureData);
   }
 
   Widget build(BuildContext context) {
     return Center(
-        child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(onPressed: pressed, child: const Text("Press to get data"))
-      ],
+        child: FutureBuilder(
+      future: futureData,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Text(snapshot.data!.data.name);
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
+        
+      // By default, show a loading spinner.
+      return const CircularProgressIndicator();
+      },
     ));
   }
 }
