@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'dart:async';
 
 const Color accentColor = Color.fromRGBO(107, 31, 23, 1);
 const Color accentColorLow = Color.fromRGBO(107, 31, 23, .9);
@@ -17,6 +19,8 @@ class Student {
   final String email;
   final String parents_phone_number;
   final String cls;
+  final String address;
+  final String ethnic;
 
   Student({
     required this.id,
@@ -28,6 +32,8 @@ class Student {
     required this.email,
     required this.parents_phone_number,
     required this.cls,
+    required this.address,
+    required this.ethnic,
   });
 
   Map<String, Object?> toMap() {
