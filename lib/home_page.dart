@@ -19,14 +19,16 @@ class _HomePage extends State<HomePage> {
     futureAlbum = fetchAlbum();
   }
 
-  void pressed() {}
+  void pressed() {
+    print(futureAlbum);
+  }
 
   Widget build(BuildContext context) {
     return Center(
         child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ElevatedButton(onPressed: pressed, child: const Text("Get data"))
+        ElevatedButton(onPressed: pressed, child: const Text("Press to get data"))
       ],
     ));
   }

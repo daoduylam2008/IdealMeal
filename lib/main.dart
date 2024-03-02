@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:student_attendance/constant.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:student_attendance/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,21 +42,21 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: null,
       body: IndexedStack(
         children: [
-
+          const HomePage(),
         ],
         index: pageIndex,
-        ),
+      ),
       bottomNavigationBar: CurvedNavigationBar(
         items: const [
           Icon(Icons.home, color: Colors.white),
           Icon(Icons.fastfood, color: Colors.white)
         ],
         index: pageIndex,
-                backgroundColor: Colors.white10,
+        backgroundColor: Colors.white10,
         color: accentColor,
         onTap: (pageSelectedIndex) =>
             setState(() => pageIndex = pageSelectedIndex),
-        ),
+      ),
     );
   }
 }
