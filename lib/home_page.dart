@@ -17,14 +17,11 @@ class _HomePage extends State<HomePage> {
     super.initState();
     futureData = fetchData();
   }
-
-  void pressed() {
-    print(futureData);
-  }
-
+  
+  @override
   Widget build(BuildContext context) {
     return Center(
-        child: FutureBuilder(
+      child: FutureBuilder(
       future: futureData,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
