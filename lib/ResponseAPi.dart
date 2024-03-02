@@ -7,9 +7,9 @@ import 'dart:convert';
 
 String path = 'http://127.0.0.1:8000/api/v1/customers/151';
 
-Future<ImportData> fetchAlbum() async {
+Future<ImportData> fetchData() async {
   final response = await http
-      .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
+      .get(Uri.parse(path));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
