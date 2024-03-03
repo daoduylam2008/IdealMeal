@@ -4,9 +4,11 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:student_attendance/DataTester.dart';
+
 String path = 'http://127.0.0.1:8000/api/v1/customers/151';
 
-Future<String> fetchData() async {
+Future<UserTest> fetchData() async {
   // List<UserTest> userList = [];
 
   final response = await http.get(Uri.parse(path));
@@ -15,7 +17,7 @@ Future<String> fetchData() async {
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
-    return data['name'];
+    return UserTest.fromJson(data as Map<String, dynamic>);
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
