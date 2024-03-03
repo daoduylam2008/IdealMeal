@@ -24,3 +24,7 @@ Future<UserTest> fetchData() async {
     throw Exception('Failed to load json file');
   }
 }
+
+Future<Map> fetchDatas() async {
+  final response = await http.get(Uri.parse(path))
+}
