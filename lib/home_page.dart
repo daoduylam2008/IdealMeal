@@ -10,7 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
-  late Future<String> futureData; //late keyword is important
+  late Future<UserTest> futureData; //late keyword is important
 
   @override
   void initState() {
