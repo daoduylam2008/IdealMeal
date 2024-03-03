@@ -26,7 +26,7 @@ class _HomePage extends State<HomePage> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           var n = snapshot.data!;
-          return Text("$n}");
+          return Text("${n.phoneNumber}");
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
