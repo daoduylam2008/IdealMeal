@@ -10,7 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
-  late Future<List<UserTest>> futureData; //late keyword is important
+  late Future<String> futureData; //late keyword is important
 
   @override
   void initState() {
@@ -25,7 +25,7 @@ class _HomePage extends State<HomePage> {
       future: futureData,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          String n = snapshot.data![0].name;
+          String n = snapshot.data!;
           return Text("$n}");
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
