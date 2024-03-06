@@ -16,11 +16,11 @@ class StudentsResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'Sinh nhật'=>$this->birth,
-            'Tên học sinh' =>$this->name,
-            'Dân tộc'=> $this->ethnic,
-            "Địa chỉ" => $this->address,
-            'Điện thoại'=> $this->phone
+            'birth'=>$this->birth,
+            'name' =>$this->name,
+            'ethnic'=> $this->ethnic,
+            "address" => $this->address,
+            'phone'=> $this->phone
         ];
     }
 }

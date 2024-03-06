@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:student_attendance/ResponseAPi.dart';
 import 'package:student_attendance/constant.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:student_attendance/home_page.dart';
+import 'package:student_attendance/DataTester.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,29 +34,40 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int pageIndex = 0;
+  late Future<UserTest> userData;
+  late Future<List<dynamic>> data;
+
+  @override
+  void initState() {
+    super.initState();
+    userData = fetchStudentData();
+    data = fetchStudentsData();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: null,
-      body: IndexedStack(
-        children: [
-          const HomePage(),
-        ],
-        index: pageIndex,
-      ),
-      bottomNavigationBar: CurvedNavigationBar(
-        items: const [
-          Icon(Icons.home, color: Colors.white),
-          Icon(Icons.fastfood, color: Colors.white)
-        ],
-        index: pageIndex,
-        backgroundColor: Colors.white10,
-        color: accentColor,
-        onTap: (pageSelectedIndex) =>
-            setState(() => pageIndex = pageSelectedIndex),
-      ),
-    );
+        appBar: null,
+        body: Center(
+            child: FutureBuilder(
+                future: data,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    var user = snapshot.data!.first;
+                    return Center(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("$user"),
+                        // Text("${snapshot.data!.address}"),
+                        // Text("${snapshot.data!.phone}"),
+                      ],
+                    ));
+                  } else if (snapshot.hasError) {
+                    return Text('${snapshot.error}');
+                  }
+                  // By default, show a loading spinner.
+                  return const CircularProgressIndicator();
+                })));
   }
 }

@@ -6,9 +6,9 @@ import 'dart:convert';
 
 import 'package:student_attendance/DataTester.dart';
 
-String path = 'http://127.0.0.1:8000/api/v1/customers/151';
+String path = 'http://127.0.0.1:8000/api/v1/students';
 
-Future<UserTest> fetchData() async {
+Future<UserTest> fetchStudentData() async {
   // List<UserTest> userList = [];
 
   final response = await http.get(Uri.parse(path));
@@ -25,6 +25,13 @@ Future<UserTest> fetchData() async {
   }
 }
 
-Future<Map> fetchDatas() async {
-  final response = await http.get(Uri.parse(path))
+Future<List<dynamic>> fetchStudentsData() async {
+  final response = await http.get(Uri.parse(path));
+  var data = jsonDecode(response.body);
+
+  if (response.statusCode == 200) {
+    return data;
+  } else {
+    throw Exception("Failed to load json file");
+  }
 }

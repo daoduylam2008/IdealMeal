@@ -13,11 +13,9 @@ class Student {
   final int id;
   final String name;
   final DateTime birth;
-  final String place_of_birth;
   final Gender gender;
   final String phone_number;
   final String email;
-  final String parents_phone_number;
   final String cls;
   final String address;
   final String ethnic;
@@ -26,11 +24,9 @@ class Student {
     required this.id,
     required this.name,
     required this.birth,
-    required this.place_of_birth,
     required this.gender,
     required this.phone_number,
     required this.email,
-    required this.parents_phone_number,
     required this.cls,
     required this.address,
     required this.ethnic,
@@ -41,11 +37,9 @@ class Student {
       'id': id,
       "name": name,
       "birth": birth,
-      "place of birth": place_of_birth,
       "gender": gender,
       "phone number": phone_number,
       "email": email,
-      "parents phone number": parents_phone_number,
       "class": cls,
     };
   }
