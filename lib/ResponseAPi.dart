@@ -5,8 +5,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:student_attendance/DataTester.dart';
+import 'package:student_attendance/constant.dart';
 
-String path = 'http://127.0.0.1:8000/api/v1/students';
+String path = 'http://127.0.0.1:8000/api/v1/students/1';
 
 Future<UserTest> fetchStudentData() async {
   // List<UserTest> userList = [];
@@ -26,7 +27,7 @@ Future<UserTest> fetchStudentData() async {
 }
 
 Future<List<dynamic>> fetchStudentsData() async {
-  final response = await http.get(Uri.parse(path));
+  final response = await http.get(Uri.parse(pathToData));
   var data = jsonDecode(response.body);
 
   if (response.statusCode == 200) {

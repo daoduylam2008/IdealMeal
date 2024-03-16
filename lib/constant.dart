@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 const Color accentColor = Color.fromRGBO(107, 31, 23, 1);
 const Color accentColorLow = Color.fromRGBO(107, 31, 23, .9);
 
-const String pathToData = 'http://127.0.0.1:8000/api/v1/customers/151';
+const String pathToData = 'http://127.0.0.1:8000/api/v1/students';
 
 enum Gender { male, female }
 

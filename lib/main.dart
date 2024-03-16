@@ -19,7 +19,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: accentColor),
           useMaterial3: true,
-          primarySwatch: Colors.blue),
+          primarySwatch: Colors.blue
+          ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -50,24 +51,26 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: null,
         body: Center(
             child: FutureBuilder(
-                future: data,
+                future: userData,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    var user = snapshot.data!.first;
+                    var user = snapshot.data!;
                     return Center(
                         child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("$user"),
-                        // Text("${snapshot.data!.address}"),
-                        // Text("${snapshot.data!.phone}"),
+                        Text("${user.name}"),
                       ],
-                    ));
+                    )
+                  );
                   } else if (snapshot.hasError) {
                     return Text('${snapshot.error}');
                   }
                   // By default, show a loading spinner.
                   return const CircularProgressIndicator();
-                })));
+                }
+              )
+            )
+          );
   }
 }
