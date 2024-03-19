@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Resources\V1\StudentsResource;
-use App\Http\Controllers\StudentsController;
+use App\Http\Controllers\V1\StudentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix'=>'v1','namespace'=>'App\Http\Controllers'],function(){
+Route::group(['prefix'=>'v1','namespace'=>'App\Http\Controllers\V1'],function(){
     Route::apiResource('students',StudentsController::class);
 });
  

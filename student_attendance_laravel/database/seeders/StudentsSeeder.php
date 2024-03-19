@@ -22,7 +22,6 @@ class StudentsSeeder extends Seeder
             $data ='';
             while (!feof($handle)) {
                 $data .= fgets($handle, 5000);
-
             }
             // convert encoding
             $data = mb_convert_encoding($data, "UTF-8", "auto");

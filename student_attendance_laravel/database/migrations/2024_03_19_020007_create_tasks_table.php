@@ -11,19 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tasks',function(Blueprint $table){
+        Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('meals');
+            $table->string('meal');
+            $table->date('order_day');
             $table->timestamps();
         });
     }
 
     /**
-     * Reverse the migrations
+     * Reverse the migrations.
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('tasks');
     }
 };
