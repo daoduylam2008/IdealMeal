@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:student_attendance/constant.dart';
 import 'responsive_layout/responsive_management.dart';
 import 'responsive_layout/mobile_layout/mobile_layout.dart';
