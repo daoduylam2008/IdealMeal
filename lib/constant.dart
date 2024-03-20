@@ -19,18 +19,19 @@ class Student {
   final String cls;
   final String address;
   final String ethnic;
+  final String room;
 
-  Student({
-    required this.id,
-    required this.name,
-    required this.birth,
-    required this.gender,
-    required this.phone_number,
-    required this.email,
-    required this.cls,
-    required this.address,
-    required this.ethnic,
-  });
+  Student(
+      {required this.id,
+      required this.name,
+      required this.birth,
+      required this.gender,
+      required this.phone_number,
+      required this.email,
+      required this.cls,
+      required this.address,
+      required this.ethnic,
+      required this.room});
 
   Map<String, Object?> toMap() {
     return {
@@ -41,6 +42,7 @@ class Student {
       "phone number": phone_number,
       "email": email,
       "class": cls,
+      "room": room,
     };
   }
 }
@@ -50,11 +52,13 @@ class Teacher {}
 class User {
   final int id;
   final String username;
+  final String password;
   final Users type;
 
   User({
     required this.id,
     required this.username,
+    required this.password,
     required this.type,
   });
 
@@ -62,6 +66,7 @@ class User {
     return {
       "id": id,
       "username": username,
+      "password": password,
       "type": type,
     };
   }
