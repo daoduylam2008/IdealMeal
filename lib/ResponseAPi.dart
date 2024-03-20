@@ -7,12 +7,13 @@ import 'dart:convert';
 import 'package:student_attendance/DataTester.dart';
 import 'package:student_attendance/constant.dart';
 
-String path = 'http://127.0.0.1:8000/api/v1/students/1';
+String urlToStudenData = 'http://127.0.0.1:8000/api/v1/students/1';
+String urlToMealsData = 'http://127.0.0.1:8000/api/v1/meals/1';
 
 Future<UserTest> fetchStudentData() async {
   // List<UserTest> userList = [];
 
-  final response = await http.get(Uri.parse(path));
+  final response = await http.get(Uri.parse(urlToStudenData));
   var data = jsonDecode(response.body)["data"];
 
   if (response.statusCode == 200) {
