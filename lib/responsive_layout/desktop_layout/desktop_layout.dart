@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:student_attendance/ResponseAPi.dart';
 import 'package:student_attendance/constant.dart';
 import 'package:student_attendance/DataTester.dart';
-
-
+import 'desktop_home.dart';
+import 'desktop_profile.dart';
 
 class DesktopScaffold extends StatefulWidget {
   const DesktopScaffold({super.key});
@@ -13,13 +13,18 @@ class DesktopScaffold extends StatefulWidget {
 }
 
 class _DesktopScaffoldState extends State<DesktopScaffold> {
+  var view = WidgetsBinding.instance.platformDispatcher.views.first;
+  int _selectedIndex = 0;
+  TextStyle textFont(String color, double size){
+    size/= view.devicePixelRatio;
+    return color == 'black' ? TextStyle(color:Colors.black, fontSize: size, fontWeight: FontWeight.bold) : TextStyle(color: const Color.fromRGBO(187, 187, 187, 1), fontSize: size);
+  }
+  final List<Widget> _screen = [
+    const Home(),
+    const Profile()
+  ];
   @override
   Widget build(BuildContext context) {
-    var view = WidgetsBinding.instance.platformDispatcher.views.first;
-    TextStyle textFont(String color, double size){
-      size/= view.devicePixelRatio;
-      return color == 'black' ? TextStyle(color:Colors.black, fontSize: size, fontWeight: FontWeight.bold) : TextStyle(color: const Color.fromRGBO(187, 187, 187, 1), fontSize: size);
-}
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 70/view.devicePixelRatio,
@@ -30,10 +35,11 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
         ),
         centerTitle: false,
       ),
+      
       body: Row(
         children: [
           Container(
-            width: 70/view.devicePixelRatio,
+            width: 72/view.devicePixelRatio,
             decoration: BoxDecoration(
               color: Colors.white10,
               border: Border(
@@ -47,38 +53,26 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
                 ),
               )
             ),
-          ),
-          Container(
-            width: 340/view.devicePixelRatio,
-            decoration: BoxDecoration(
-              color: Colors.white10,
-              border: Border(
-                top: BorderSide(
-                  color: const Color.fromRGBO(220, 220, 220, 1),
-                  width: 2/view.devicePixelRatio,
-                ),
-                right: BorderSide(
-                  color: const Color.fromRGBO(220, 220, 220, 1),
-                  width: 2/view.devicePixelRatio,
-                ),
-              )
+            child: NavigationRail(
+              indicatorColor: const Color.fromRGBO(220, 220, 220, 1),
+              minWidth: 70/view.devicePixelRatio,
+              selectedIndex: _selectedIndex,
+              onDestinationSelected: (int index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+              destinations: const [
+                NavigationRailDestination(icon: Icon(Icons.home), label: Text('Home')),
+                NavigationRailDestination(icon: Icon(Icons.person), label: Text('Profile'))
+              ],
             ),
           ),
           Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white10,
-                border: Border(
-                  top: BorderSide(
-                    color: const Color.fromRGBO(220, 220, 220, 1),
-                    width: 2/view.devicePixelRatio,
-                  ),
-                )
-              ),
-            ),
+            child: _screen[_selectedIndex],
           )
         ],
-      ),
+      )
     );
   }
 }
