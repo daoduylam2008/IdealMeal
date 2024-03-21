@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:student_attendance/ResponseAPi.dart';
 import 'package:student_attendance/constant.dart';
 import 'package:student_attendance/DataTester.dart';
+import 'package:student_attendance/responsive_layout/mobile_layout/mobile_layout.dart';
 import 'desktop_home.dart';
 import 'desktop_profile.dart';
 
@@ -27,6 +28,8 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: const Placeholder(color: Colors.white10),
+        leadingWidth: 5/view.devicePixelRatio,
         toolbarHeight: 70/view.devicePixelRatio,
         backgroundColor: Colors.white10,
         title: Text(
@@ -55,6 +58,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
             ),
             child: NavigationRail(
               indicatorColor: const Color.fromRGBO(220, 220, 220, 1),
+              useIndicator: false,
               minWidth: 70/view.devicePixelRatio,
               selectedIndex: _selectedIndex,
               onDestinationSelected: (int index) {
@@ -62,9 +66,21 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
                   _selectedIndex = index;
                 });
               },
-              destinations: const [
-                NavigationRailDestination(icon: Icon(Icons.home), label: Text('Home')),
-                NavigationRailDestination(icon: Icon(Icons.person), label: Text('Profile'))
+              destinations: [
+                NavigationRailDestination(
+                  icon: Image.asset(
+                    iconPath('home'),
+                    color: _selectedIndex == 0 ? Colors.black : null
+                  ),
+                  label: const Text('Home')
+                ),
+                NavigationRailDestination(
+                  icon: Image.asset(
+                    iconPath('profile'),
+                    color: _selectedIndex == 1 ? Colors.black : null
+                  ),
+                  label: const Text('Profile')
+                )
               ],
             ),
           ),

@@ -27,7 +27,34 @@ class _ProfileState extends State<Profile> {
               width: 2/view.devicePixelRatio,
             )
           ),
-        )
+        ),
+        child: Column(
+          children: [
+            Container(
+              height: 72/view.devicePixelRatio,
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: const Color.fromRGBO(220, 220, 220, 1),
+                    width: 2/view.devicePixelRatio,
+                  )
+                )
+              ),
+              child: Row(
+                children: [
+                  SizedBox(width: 20/view.devicePixelRatio),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Profile',
+                      style: textFont('black', 30),
+                    ),
+                  ),
+                ]
+              ),
+            )
+          ],
+        ),
       )
     );
   }
