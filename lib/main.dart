@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:student_attendance/ResponseAPi.dart';
 import 'package:student_attendance/constant.dart';
-import 'package:student_attendance/DataTester.dart';
+import 'responsive_layout/responsive_management.dart';
+import 'responsive_layout/mobile_layout/mobile_layout.dart';
+import 'responsive_layout/tablet_layout/tablet_layout.dart';
+import 'responsive_layout/desktop_layout/desktop_layout.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,58 +21,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: accentColor),
           useMaterial3: true,
-          primarySwatch: Colors.blue
-          ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+          primarySwatch: Colors.blue),
+      home: ResponsiveLayout(
+        mobileBody: const MobileScaffold(),
+        tabletBody: const TabletScaffold(),
+        desktopBody: const DesktopScaffold(),
+      ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  late Future<UserTest> userData;
-  late Future<List<dynamic>> data;
-
-  @override
-  void initState() {
-    super.initState();
-    userData = fetchStudentData();
-    data = fetchStudentsData();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: null,
-        body: Center(
-            child: FutureBuilder(
-                future: userData,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    var user = snapshot.data!;
-                    return Center(
-                        child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("${user.name}"),
-                      ],
-                    )
-                  );
-                  } else if (snapshot.hasError) {
-                    return Text('${snapshot.error}');
-                  }
-                  // By default, show a loading spinner.
-                  return const CircularProgressIndicator();
-                }
-              )
-            )
-          );
-  }
-}

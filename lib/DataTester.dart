@@ -26,7 +26,7 @@ class UserTest {
       } =>
         UserTest(
             id: id, birth: birth, name: name, ethnic: ethnic, address: address, phone: phone),
-      _ => throw const FormatException('Failed to load album.'),
+      _ => throw const FormatException('Failed to load user.'),
     };
   }
 }

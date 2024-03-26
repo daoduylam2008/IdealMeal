@@ -39,6 +39,7 @@ dependencies:
   path: ^1.8.3
   curved_navigation_bar: ^1.0.3
   http: ^1.2.1
+  blurrycontainer: 1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -62,10 +63,13 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/icons/home icon.png
+    - assets/icons/meal icon.png
+    - assets/icons/order icon.png
+    - assets/icons/profile icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
