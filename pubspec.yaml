@@ -39,6 +39,7 @@ dependencies:
   path: ^1.8.3
   curved_navigation_bar: ^1.0.3
   http: ^1.2.1
+  blurrycontainer: 1.0.2
 
 dev_dependencies:
   flutter_test:

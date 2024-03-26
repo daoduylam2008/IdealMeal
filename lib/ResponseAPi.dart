@@ -6,13 +6,10 @@ import 'dart:convert';
 import 'package:student_attendance/DataTester.dart';
 import 'package:student_attendance/constant.dart';
 
-String urlToStudenData = 'http://127.0.0.1:8000/api/v1/students/1';
-String urlToMealsData = 'http://127.0.0.1:8000/api/v1/meals/1';
-
 Future<UserTest> fetchStudentData() async {
   // List<UserTest> userList = [];
 
-  final response = await http.get(Uri.parse(urlToStudenData));
+  final response = await http.get(Uri.parse(urlToStudentData));
   var data = jsonDecode(response.body)["data"];
 
   if (response.statusCode == 200) {
