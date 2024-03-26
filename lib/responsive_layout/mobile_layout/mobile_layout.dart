@@ -76,7 +76,7 @@ class _MobileScaffold extends State<MobileScaffold> {
                       setState(
                         () {
                           selection = 0;
-                          offset = const Offset(88, blackRectDY);
+                          offset = const Offset(79, blackRectDY);
                         },
                       );
                     },
