@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('meal_days', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->integer('student_id');
+            $table->string('Monday');
+            $table->string('Tuesday');
+            $table->string('Wednesday');
+            $table->string('Thursday');
+            $table->string('Friday');
+            $table->foreign('student_id')->references('student_id')->on('students')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -23,5 +28,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('meal_days');
+    
     }
 };

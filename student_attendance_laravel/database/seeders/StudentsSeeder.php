@@ -42,19 +42,21 @@ class StudentsSeeder extends Seeder
         ->each(function(LazyCollection $chunk){
             $records = $chunk->map(function($splitColumns){
                 for ($i = 0; $i < count($splitColumns); $i++) {
-                    $name = $splitColumns[$i][0];
-                    $birth = $splitColumns[$i][1];
-                    $ethnic = $splitColumns[$i][2];
-                    $address = $splitColumns[$i][3];
-                    $phone  = $splitColumns[$i][4];
-                    $my_array = array($name,$birth, $ethnic, $address, $phone);
+                    $id = $splitColumns[$i][0];
+                    $name = $splitColumns[$i][1];
+                    $birth = $splitColumns[$i][2];
+                    $ethnic = $splitColumns[$i][3];
+                    $address = $splitColumns[$i][4];
+                    $phone  = $splitColumns[$i][5];
+                    $my_array = array($id,$name,$birth, $ethnic, $address, $phone);
                 }
                 return [
-                    'name' => $my_array[0],
-                    'birth' => $my_array[1],
-                    'ethnic' => $my_array[2],
-                    'address' => $my_array[3],
-                    'phone' => $my_array[4],
+                    'student_id' => $my_array[0],
+                    'name' => $my_array[1],
+                    'birth' => $my_array[2],
+                    'ethnic' => $my_array[3],
+                    'address' => $my_array[4],
+                    'phone' => $my_array[5],
                     
                 ];
                 
