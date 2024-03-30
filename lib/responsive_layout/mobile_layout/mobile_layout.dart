@@ -56,7 +56,7 @@ class _MobileScaffold extends State<MobileScaffold> {
         centerTitle: false,
         title: Container(
             child:
-                Text(appBarTitle, style: TextStyle(fontWeight: FontWeight.w700))),
+                Text(appBarTitle, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 30))),
       ),
       body: IndexedStack(index: selection, children: const [
         HomeView(),
@@ -125,7 +125,7 @@ class _MobileScaffold extends State<MobileScaffold> {
                         () {
                           selection = 1;
                           offset = mealOffset;
-                          appBarTitle = "Order";
+                          appBarTitle = "Meal";
                         },
                       );
                     },
@@ -144,7 +144,7 @@ class _MobileScaffold extends State<MobileScaffold> {
                         () {
                           selection = 2;
                           offset = orderOffset;
-                          appBarTitle = "Meal";
+                          appBarTitle = "Order";
                         },
                       );
                     },

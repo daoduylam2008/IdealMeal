@@ -8,6 +8,13 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileView extends State<ProfileView> {
+  late Future data;
+
+  @override
+  void initState() {
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center();

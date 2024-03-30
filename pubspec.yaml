@@ -41,6 +41,7 @@ dependencies:
   http: ^1.2.1
   blurrycontainer: 1.0.2
   in_app_review: ^2.0.9
+  table_calendar: ^3.0.0
 
 dev_dependencies:
   flutter_test:
