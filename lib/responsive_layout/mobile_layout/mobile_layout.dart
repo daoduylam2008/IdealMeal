@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:student_attendance/constant.dart';
@@ -25,15 +24,39 @@ class MobileScaffold extends StatefulWidget {
 
 class _MobileScaffold extends State<MobileScaffold> {
   int selection = 0;
-  Offset offset = Offset.zero;
+  late Offset offset;
+  late String appBarTitle;
+
+  @override
+  void initState() {
+    super.initState();
+    if (selection == 0) {
+      offset = homeOffset;
+      appBarTitle = "Meal";
+    } else if (selection == 1) {
+      offset = mealOffset;
+      appBarTitle = "Meal";
+    } else if (selection == 2) {
+      offset = orderOffset;
+      appBarTitle = "Order";
+    } else if (selection == 3) {
+      offset = profileOffset;
+      appBarTitle = "Meal";
+    } else {
+      offset = Offset.zero;
+      appBarTitle = "App Bar";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [Text("App bar")]),
+        automaticallyImplyLeading: false,
+        centerTitle: false,
+        title: Container(
+            child:
+                Text(appBarTitle, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 30))),
       ),
       body: IndexedStack(index: selection, children: const [
         HomeView(),
@@ -76,7 +99,8 @@ class _MobileScaffold extends State<MobileScaffold> {
                       setState(
                         () {
                           selection = 0;
-                          offset = const Offset(79, blackRectDY);
+                          offset = homeOffset;
+                          appBarTitle = "Meal";
                         },
                       );
                     },
@@ -100,7 +124,8 @@ class _MobileScaffold extends State<MobileScaffold> {
                       setState(
                         () {
                           selection = 1;
-                          offset = const Offset(166, blackRectDY); 
+                          offset = mealOffset;
+                          appBarTitle = "Meal";
                         },
                       );
                     },
@@ -118,7 +143,8 @@ class _MobileScaffold extends State<MobileScaffold> {
                       setState(
                         () {
                           selection = 2;
-                          offset = const Offset(250.5, blackRectDY);
+                          offset = orderOffset;
+                          appBarTitle = "Order";
                         },
                       );
                     },
@@ -136,7 +162,8 @@ class _MobileScaffold extends State<MobileScaffold> {
                       setState(
                         () {
                           selection = 3;
-                          offset = const Offset(335, blackRectDY);
+                          offset = profileOffset;
+                          appBarTitle = "Meal";
                         },
                       );
                     },

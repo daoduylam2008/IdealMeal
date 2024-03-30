@@ -2,8 +2,20 @@ import 'package:flutter/material.dart';
 
 const double blackRectDY = 86;
 
+const Offset homeOffset = Offset(79, blackRectDY);
+const Offset mealOffset = Offset(166, blackRectDY);
+const Offset orderOffset = Offset(250.5, blackRectDY);
+const Offset profileOffset = Offset(335, blackRectDY);
+
 const Color accentColor = Color.fromRGBO(107, 31, 23, 1);
 const Color accentColorLow = Color.fromRGBO(107, 31, 23, .9);
+const linearColor = LinearGradient(
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+          colors: [
+            Color.fromRGBO(45, 154, 255, .9),
+            Color.fromRGBO(255, 51, 112, .9),
+            ]);
 
 const String pathToData = 'http://127.0.0.1:8000/api/v1/students';
 String urlToStudentData = 'http://127.0.0.1:8000/api/v1/students/1';
@@ -48,7 +60,18 @@ class Student {
         'address': String address,
         'ethnic': String ethnic,
         'room': String room,
-      } => Student(id: id, name: name, birth: birth, gender: gender,phone: phone, email: email,  cls: cls, address: address, ethnic: ethnic, room : room),
+      } =>
+        Student(
+            id: id,
+            name: name,
+            birth: birth,
+            gender: gender,
+            phone: phone,
+            email: email,
+            cls: cls,
+            address: address,
+            ethnic: ethnic,
+            room: room),
       _ => throw const FormatException('Failed to load user.')
     };
   }
