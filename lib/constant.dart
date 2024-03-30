@@ -10,12 +10,12 @@ const Offset profileOffset = Offset(335, blackRectDY);
 const Color accentColor = Color.fromRGBO(107, 31, 23, 1);
 const Color accentColorLow = Color.fromRGBO(107, 31, 23, .9);
 const linearColor = LinearGradient(
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-          colors: [
-            Color.fromRGBO(45, 154, 255, .9),
-            Color.fromRGBO(255, 51, 112, .9),
-            ]);
+    begin: Alignment.bottomLeft,
+    end: Alignment.topRight,
+    colors: [
+      Color.fromRGBO(45, 154, 255, .9),
+      Color.fromRGBO(255, 51, 112, .9),
+    ]);
 
 const String pathToData = 'http://127.0.0.1:8000/api/v1/students';
 String urlToStudentData = 'http://127.0.0.1:8000/api/v1/students/1';
@@ -28,7 +28,7 @@ class Student {
   final String name;
   final String birth;
   final String gender;
-  final int phone;
+  final String phone;
   final String email;
   final String cls;
   final String address;
@@ -54,7 +54,7 @@ class Student {
         'name': String name,
         'birth': String birth,
         'gender': String gender,
-        'phone': int phone,
+        'phone': String phone,
         'email': String email,
         'class': String cls,
         'address': String address,
@@ -83,13 +83,11 @@ class User {
   final int id;
   final String username;
   final String password;
-  final Users type;
 
   User({
     required this.id,
     required this.username,
     required this.password,
-    required this.type,
   });
 
   Map<String, Object?> toMap() {
@@ -97,7 +95,6 @@ class User {
       "id": id,
       "username": username,
       "password": password,
-      "type": type,
     };
   }
 }
@@ -128,3 +125,19 @@ class Rating {
     };
   }
 }
+
+var studentTest = Student(
+    id: 100112,
+    name: "Đào Duy Lâm",
+    birth: "2008/08/31",
+    gender: "boy",
+    phone: "0909687714",
+    email: "daoduylam2020@gmail.com",
+    cls: "10A01",
+    address: "address",
+    ethnic: "kinh",
+    room: "D4116");
+var userTest = User(
+    id: 100112,
+    username: "Đào Duy Lâm", 
+    password: "1234");
