@@ -50,7 +50,8 @@ class _MobileScaffold extends State<MobileScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return LayoutBuilder(builder: ((context, constraints) {
+      return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: false,
@@ -67,7 +68,7 @@ class _MobileScaffold extends State<MobileScaffold> {
       bottomNavigationBar: SafeArea(
           child: Stack(children: [
         AnimatedPositioned(
-            duration: const Duration(milliseconds: 400),
+            duration: const Duration(milliseconds: 350),
             top: offset.dy,
             left: offset.dx,
             child: Container(
@@ -173,5 +174,6 @@ class _MobileScaffold extends State<MobileScaffold> {
             ))
       ])),
     );
+    }));
   }
 }
