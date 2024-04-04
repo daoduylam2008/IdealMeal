@@ -21,7 +21,6 @@ const String pathToData = 'http://127.0.0.1:8000/api/v1/students';
 String urlToStudentData = 'http://127.0.0.1:8000/api/v1/students/1';
 String urlToMealsData = 'http://127.0.0.1:8000/api/v1/meals/1';
 
-enum Users { student, teacher, admin }
 
 class Student {
   final int id;
@@ -29,10 +28,8 @@ class Student {
   final String birth;
   final String gender;
   final String phone;
-  final String email;
   final String cls;
   final String address;
-  final String ethnic;
   final String room;
 
   Student(
@@ -41,10 +38,8 @@ class Student {
       required this.birth,
       required this.gender,
       required this.phone,
-      required this.email,
       required this.cls,
       required this.address,
-      required this.ethnic,
       required this.room});
 
   factory Student.fromJson(Map<String, dynamic> json) {
@@ -55,10 +50,8 @@ class Student {
         'birth': String birth,
         'gender': String gender,
         'phone': String phone,
-        'email': String email,
         'class': String cls,
         'address': String address,
-        'ethnic': String ethnic,
         'room': String room,
       } =>
         Student(
@@ -67,10 +60,8 @@ class Student {
             birth: birth,
             gender: gender,
             phone: phone,
-            email: email,
             cls: cls,
             address: address,
-            ethnic: ethnic,
             room: room),
       _ => throw const FormatException('Failed to load user.')
     };
@@ -132,11 +123,10 @@ var studentTest = Student(
     birth: "2008/08/31",
     gender: "boy",
     phone: "0909687714",
-    email: "daoduylam2020@gmail.com",
     cls: "10A01",
     address: "address",
-    ethnic: "kinh",
     room: "D4116");
+
 var userTest = User(
     id: 100112,
     username: "Đào Duy Lâm", 

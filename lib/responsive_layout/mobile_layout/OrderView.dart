@@ -33,7 +33,7 @@ class _OrderView extends State<OrderView> {
           calendarStyle: const CalendarStyle(
             todayDecoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.grey
+              color: Color.fromRGBO(200, 200, 200, 1)
             ),
             selectedDecoration: BoxDecoration(
               shape: BoxShape.circle,
