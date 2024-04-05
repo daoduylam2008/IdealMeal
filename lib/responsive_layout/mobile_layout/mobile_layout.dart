@@ -10,10 +10,6 @@ import 'MealView.dart';
 import 'OrderView.dart';
 import 'ProfileView.dart';
 
-String iconPath(String name) {
-  return "assets/icons/$name icon.png";
-}
-
 class MobileScaffold extends StatefulWidget {
   const MobileScaffold({super.key});
 

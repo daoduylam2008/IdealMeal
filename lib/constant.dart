@@ -22,6 +22,10 @@ String urlToStudentData = 'http://127.0.0.1:8000/api/v1/students/1';
 String urlToMealsData = 'http://127.0.0.1:8000/api/v1/meals/1';
 
 
+String iconPath(String name) {
+  return "assets/icons/$name icon.png";
+}
+
 class Student {
   final int id;
   final String name;
@@ -67,8 +71,6 @@ class Student {
     };
   }
 }
-
-class Teacher {}
 
 class User {
   final int id;

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:student_attendance/constant.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:student_attendance/responsive_layout/mobile_layout/profile_tab/History.dart';
+import 'package:student_attendance/responsive_layout/mobile_layout/profile_tab/MyProfile.dart';
+import 'package:student_attendance/responsive_layout/mobile_layout/profile_tab/Settings.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -22,6 +25,7 @@ TextStyle font(double size, Color color, FontWeight weight) {
 class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
   Student student = studentTest;
   TabController? tabController;
+  int _selection = 0;
 
   final selectedColor = Colors.white;
 
@@ -31,10 +35,22 @@ class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
     const Tab(text: "Settings")
   ];
 
+  var tab_view = [
+    MyProfile(),
+    History(),
+    Settings(),
+  ];
+
+  void onTpa(int selection) {
+    setState(() {
+      _selection = selection;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    
+
     tabController = TabController(length: tabs.length, vsync: this);
   }
 
@@ -42,7 +58,7 @@ class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-        const SizedBox(height: 40),
+        const SizedBox(height: 36),
         Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           // Show student's profile
           Container(
@@ -117,19 +133,24 @@ class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
             indicatorPadding: const EdgeInsets.all(5),
             indicatorSize: TabBarIndicatorSize.tab,
             controller: tabController,
-            indicator: BoxDecoration(
-                boxShadow : const [ BoxShadow(
-                    color: Color.fromRGBO(0, 0, 0, 0.25),
-                    offset: Offset(0,4),
-                    blurRadius: 15
-                )],
-                borderRadius: BorderRadius.circular(7.0),
-                color: selectedColor),
+            indicator: BoxDecoration(boxShadow: const [
+              BoxShadow(
+                  color: Color.fromRGBO(0, 0, 0, 0.25),
+                  offset: Offset(0, 4),
+                  blurRadius: 15)
+            ], borderRadius: BorderRadius.circular(7.0), color: selectedColor),
             labelColor: Colors.black,
             unselectedLabelColor: Colors.grey,
             tabs: tabs,
+            onTap: onTpa,
           ),
         ),
+        const SizedBox(height: 27),
+        // Navigation tab
+        IndexedStack(
+          index: _selection,
+          children: tab_view,
+        )
       ]),
     );
   }
