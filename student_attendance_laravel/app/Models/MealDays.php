@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class MealDays extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+       'student_id',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+    ];
 }

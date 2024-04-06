@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('Wednesday');
             $table->string('Thursday');
             $table->string('Friday');
+            $table->timestamps();
             $table->foreign('student_id')->references('student_id')->on('students')->onDelete('cascade')->onUpdate('cascade');
+            
         });
     }
 
