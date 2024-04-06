@@ -18,8 +18,6 @@ class _OrderView extends State<OrderView> {
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();
 
-  List item = ["Tom", "Bill"];
-
   @override
   Widget build(BuildContext context) {
     return Center(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-const double blackRectDY = 86;
+
+const double blackRectDY = 87;
 
 const Offset homeOffset = Offset(79, blackRectDY);
 const Offset mealOffset = Offset(166, blackRectDY);
@@ -25,6 +27,17 @@ String urlToMealsData = 'http://127.0.0.1:8000/api/v1/meals/1';
 String iconPath(String name) {
   return "assets/icons/$name icon.png";
 }
+
+
+TextStyle font(double size, Color color, FontWeight weight) {
+  return GoogleFonts.inter(
+      textStyle: TextStyle(
+    fontSize: size,
+    color: color,
+    fontWeight: weight,
+  ));
+}
+
 
 class Student {
   final int id;
@@ -132,4 +145,4 @@ var studentTest = Student(
 var userTest = User(
     id: 100112,
     username: "Đào Duy Lâm", 
-    password: "1234");
+    password: "Lamdao");
