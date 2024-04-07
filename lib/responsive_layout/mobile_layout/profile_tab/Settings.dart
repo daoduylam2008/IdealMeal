@@ -13,7 +13,6 @@ class Settings extends StatefulWidget {
 
 class _Settings extends State<Settings> {
   var user = userTest;
-  var biometricsLogin = false;
 
   void loginSwitch(bool value) {
     setState(() {
@@ -43,7 +42,7 @@ class _Settings extends State<Settings> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => const PasswordChanging())));
+                              builder: ((context) => PasswordChanging())));
                     },
                     child: BlurryContainer(
                         borderRadius:
@@ -60,7 +59,15 @@ class _Settings extends State<Settings> {
                   Text("Log in with biometrics",
                       style: font(20, Colors.black, FontWeight.bold)),
                   const SizedBox(width: 70),
-                  Switch(value: biometricsLogin, onChanged: loginSwitch)
+                  Switch(
+                    trackOutlineWidth: const MaterialStatePropertyAll(0),
+                    inactiveThumbColor: Colors.white,
+                    inactiveTrackColor: const Color.fromRGBO(200, 200, 200, .8),
+                    activeColor: Color.fromARGB(255, 67, 200, 71),
+                    thumbColor: const MaterialStatePropertyAll(Colors.white ),
+                    value: biometricsLogin,
+                     onChanged: loginSwitch
+                    )
                 ])
               ],
             )));

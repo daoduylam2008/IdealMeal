@@ -6,8 +6,8 @@ import 'package:student_attendance/constant.dart';
 // import 'package:student_attendance/constant.dart';
 // import 'package:student_attendance/DataTester.dart';
 import 'HomeView.dart';
-import 'MealView.dart';
 import 'OrderView.dart';
+import 'MealView.dart';
 import 'ProfileView.dart';
 
 class MobileScaffold extends StatefulWidget {
@@ -19,26 +19,20 @@ class MobileScaffold extends StatefulWidget {
 
 class _MobileScaffold extends State<MobileScaffold> {
   int selection = 0;
-  late Offset offset;
   late String appBarTitle;
 
   @override
   void initState() {
     super.initState();
     if (selection == 0) {
-      offset = homeOffset;
       appBarTitle = "Meal";
     } else if (selection == 1) {
-      offset = mealOffset;
       appBarTitle = "Meal";
     } else if (selection == 2) {
-      offset = orderOffset;
       appBarTitle = "Order";
     } else if (selection == 3) {
-      offset = profileOffset;
       appBarTitle = "Meal";
     } else {
-      offset = Offset.zero;
       appBarTitle = "App Bar";
     }
   }
@@ -85,7 +79,7 @@ class _MobileScaffold extends State<MobileScaffold> {
                           );
                         },
                         child: Container(
-                            padding: EdgeInsets.all(constraints.maxWidth*5/430),
+                            padding: const EdgeInsets.all(15),
                             child: Image.asset(
                               iconPath("home"),
                               color: selection == 0 ? Colors.black : null,
@@ -95,7 +89,7 @@ class _MobileScaffold extends State<MobileScaffold> {
                       // Meal tab
                       InkWell(
                         child: Container(
-                            padding: EdgeInsets.all(constraints.maxWidth*5/430),
+                            padding: const EdgeInsets.all(15),
                             child: Image.asset(
                               iconPath("meal"),
                               color: selection == 1 ? Colors.black : null,
@@ -113,7 +107,7 @@ class _MobileScaffold extends State<MobileScaffold> {
                       // Order tab
                       InkWell(
                         child: Container(
-                            padding: EdgeInsets.all(constraints.maxWidth*5/430),
+                            padding: const EdgeInsets.all(15),
                             child: Image.asset(
                               iconPath("order"),
                               color: selection == 2 ? Colors.black : null,
@@ -131,7 +125,7 @@ class _MobileScaffold extends State<MobileScaffold> {
                       // Profile tab
                       InkWell(
                         child: Container(
-                            padding: EdgeInsets.all(constraints.maxWidth*5 /430),
+                            padding: const EdgeInsets.all(15),
                             child: Image.asset(
                               iconPath("profile"),
                               color: selection == 3 ? Colors.black : null,

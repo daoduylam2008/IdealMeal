@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path_provider/path_provider.dart';
 
+var biometricsLogin = false;
 
-const double blackRectDY = 87;
-
-const Offset homeOffset = Offset(79, blackRectDY);
-const Offset mealOffset = Offset(166, blackRectDY);
-const Offset orderOffset = Offset(250.5, blackRectDY);
-const Offset profileOffset = Offset(335, blackRectDY);
 
 const Color accentColor = Color.fromRGBO(107, 31, 23, 1);
 const Color accentColorLow = Color.fromRGBO(107, 31, 23, .9);
@@ -21,13 +17,11 @@ const linearColor = LinearGradient(
 
 const String pathToData = 'http://127.0.0.1:8000/api/v1/students';
 String urlToStudentData = 'http://127.0.0.1:8000/api/v1/students/1';
-String urlToMealsData = 'http://127.0.0.1:8000/api/v1/meals/1';
-
+String urlToMealsData = 'http://127.0.0.1:8000/api/v1/mealsday';
 
 String iconPath(String name) {
   return "assets/icons/$name icon.png";
 }
-
 
 TextStyle font(double size, Color color, FontWeight weight) {
   return GoogleFonts.inter(
@@ -38,6 +32,11 @@ TextStyle font(double size, Color color, FontWeight weight) {
   ));
 }
 
+Future<String> get _localPath async {
+  final directory = await getApplicationDocumentsDirectory();
+
+  return directory.path;
+}
 
 class Student {
   final int id;
@@ -88,11 +87,13 @@ class Student {
 class User {
   final int id;
   final String username;
+  final String phone;
   final String password;
 
   User({
     required this.id,
     required this.username,
+    required this.phone,
     required this.password,
   });
 
@@ -100,6 +101,7 @@ class User {
     return {
       "id": id,
       "username": username,
+      "phone": phone,
       "password": password,
     };
   }
@@ -142,7 +144,4 @@ var studentTest = Student(
     address: "address",
     room: "D4116");
 
-var userTest = User(
-    id: 100112,
-    username: "Đào Duy Lâm", 
-    password: "Lamdao");
+var userTest = User(id: 100112, username: "Đào Duy Lâm", password: "Lamdao", phone: "090968714");
