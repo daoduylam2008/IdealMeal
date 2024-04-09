@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:student_attendance/ResponseAPi.dart';
 import 'package:student_attendance/constant.dart';
 import 'package:student_attendance/DataTester.dart';
-import 'package:student_attendance/responsive_layout/desktop_layout/desktop_home.dart';
-import 'package:student_attendance/responsive_layout/desktop_layout/desktop_profile.dart';
+import '../mobile_layout/ProfileView.dart';
+import 'tablet_home.dart';
+import 'tablet_profile.dart';
 
 class TabletScaffold extends StatefulWidget {
   const TabletScaffold({super.key});
@@ -23,13 +24,9 @@ class _TabletScaffoldState extends State<TabletScaffold> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 70,
-        title: const Text(
+        title: Text(
           'Ideal Meal',
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            color: Colors.black
-          ),
+          style: font(30, Colors.black, FontWeight.bold)
         ),
         bottom: const PreferredSize(
           preferredSize: Size.fromHeight(2),
@@ -42,31 +39,55 @@ class _TabletScaffoldState extends State<TabletScaffold> {
       ),
       body: Row(
         children: [
-          NavigationRail(
-            minWidth: 70,
-            selectedIndex: _selectedIndex,
-            onDestinationSelected: (value) {
-              _selectedIndex = value;
-            },
-            destinations: [
-              NavigationRailDestination(
-                icon: Image.asset(
-                  iconPath('home'),
-                  color: _selectedIndex == 0 ? Colors.black : null
-                ), 
-                label: const Text('Home'),
-              ),
-              NavigationRailDestination(
-                icon: Image.asset(
-                  iconPath('profile'),
-                  color: _selectedIndex == 1 ? Colors.black : null
-                ), 
-                label: const Text('Profile')
-              ),
-            ],
+          Container(
+            width: 72,
+            decoration: const BoxDecoration(
+              color: Colors.white10,
+              border: Border(
+                right: BorderSide(
+                  color: Color.fromRGBO(220, 220, 220, 1),
+                  width: 2,
+                ),
+              )
+            ),
+            child: NavigationRail(
+              indicatorColor: const Color.fromRGBO(220, 220, 220, 1),
+              useIndicator: false,
+              minWidth: 70,
+              selectedIndex: _selectedIndex,
+              onDestinationSelected: (int index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+              destinations: [
+                NavigationRailDestination(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  icon: Center(
+                    child: Image.asset(
+                      iconPath('home'),
+                      color: _selectedIndex == 0 ? Colors.black : null
+                    ),
+                  ), 
+                  label: const Text('Home'),
+                ),
+                NavigationRailDestination(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  icon: Center(
+                    child: Image.asset(
+                      iconPath('profile'),
+                      color: _selectedIndex == 1 ? Colors.black : null
+                    ),
+                  ), 
+                  label: const Text('Profile')
+                ),
+              ],
+            ),
           ),
-          const VerticalDivider(thickness: 2, color: Color.fromRGBO(220, 220, 220, 1),),
-
+          //const VerticalDivider(thickness: 2, color: Color.fromRGBO(220, 220, 220, 1),),
+          Expanded(
+            child: view[_selectedIndex],
+          )
         ],
       ),
     );
