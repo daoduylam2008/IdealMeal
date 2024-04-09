@@ -1,7 +1,7 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:student_attendance/constant.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:student_attendance/responsive_layout/mobile_layout/profile_tab/History.dart';
 import 'package:student_attendance/responsive_layout/mobile_layout/profile_tab/MyProfile.dart';
 import 'package:student_attendance/responsive_layout/mobile_layout/profile_tab/Settings.dart';
@@ -11,15 +11,6 @@ class ProfileView extends StatefulWidget {
 
   @override
   State<ProfileView> createState() => _ProfileView();
-}
-
-TextStyle font(double size, Color color, FontWeight weight) {
-  return GoogleFonts.inter(
-      textStyle: TextStyle(
-    fontSize: size,
-    color: color,
-    fontWeight: weight,
-  ));
 }
 
 class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
@@ -38,8 +29,8 @@ class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
   var tab_view = [
     MyProfile(),
     History(),
-    Settings(),
-  ];
+    const Settings(),
+  ]; 
 
   void onTpa(int selection) {
     setState(() {
@@ -148,6 +139,7 @@ class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
         const SizedBox(height: 27),
         // Navigation tab
         IndexedStack(
+          alignment: Alignment.topLeft,
           index: _selection,
           children: tab_view,
         )

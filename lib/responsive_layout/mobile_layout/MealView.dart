@@ -1,4 +1,10 @@
+// ignore_for_file: avoid_init_to_null
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
+import 'package:student_attendance/constant.dart';
+import 'package:table_calendar/table_calendar.dart';
+
 
 class MealView extends StatefulWidget {
   const MealView({super.key});
@@ -8,10 +14,54 @@ class MealView extends StatefulWidget {
 }
 
 class _MealView extends State<MealView> {
+  DateTime _focusedDay = DateTime.now();
+  DateTime _selectedDay = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Hii")
+    return Center(
+      child: Column(children: [
+        TableCalendar(
+          startingDayOfWeek: StartingDayOfWeek.monday,
+          headerStyle: const HeaderStyle(
+            formatButtonVisible: false,
+            titleCentered: true,
+          ),
+          calendarStyle: const CalendarStyle(
+            todayDecoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color.fromRGBO(200, 200, 200, 1)
+            ),
+            selectedDecoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: linearColor,
+              // borderRadius: BorderRadius.all(Radius.circular(6.22))
+            )
+          ),
+          focusedDay: _focusedDay,
+          firstDay: DateTime(1990),
+          lastDay: DateTime(2050),
+          selectedDayPredicate: (day) {
+            return isSameDay(_selectedDay, day);
+          },
+          onDaySelected: (selectedDay, focusedDay) {
+            setState(() {
+              _selectedDay = selectedDay;
+              _focusedDay = focusedDay; // update `_focusedDay` here as well
+            });
+          },
+        ),
+        Container(
+          padding: const EdgeInsets.all(10),
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children:[
+              Text("Hello", style: TextStyle(fontSize: 20),),
+              Text("World"),
+            ]
+            )
+        )
+      ]),
     );
   }
 }

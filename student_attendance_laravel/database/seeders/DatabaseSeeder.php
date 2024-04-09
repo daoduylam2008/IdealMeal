@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             StudentsSeeder::class,
             BtCodeSeeder::class,
-            
+            MealCodeSeeder::class,
         ]);
     }
 }

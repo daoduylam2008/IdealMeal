@@ -17,34 +17,23 @@ class BtCodeSeeder extends Seeder
         DB::disableQueryLog();
 
         LazyCollection::make(function(){
-            $handle = fopen('bt_code.csv', 'r');
+            $importfilecsv = new ImportFileCsv('csv/bt_code.csv');
+            $splitColumns = $importfilecsv->importFile();
+            $result = [];
 
-            $data ='';
-            while (!feof($handle)) {
-                $data .= fgets($handle, 5000);
-            }
-            // convert encoding
-            $data = mb_convert_encoding($data, "UTF-8", "auto");
-
-            $splitLines = explode("\n", $data);
-            
-            $splitColumns = [];
-            foreach($splitLines as $line){
-                $splitColumns[] = explode(";", $line);
-                yield $splitColumns;
+            foreach($splitColumns as $splitColumn){
+                $result[] = $splitColumn;
+                yield $result;
             }
             
-            
-            
-            fclose($handle);
         })
         ->chunk(5000)
         ->each(function(LazyCollection $chunk){
-            $records = $chunk->map(function($splitColumns){
-                for ($i = 0; $i < count($splitColumns); $i++) {
-                    $bt_code= $splitColumns[$i][0];
-                    $name_bt = $splitColumns[$i][1];
-                    $teacher_bt  = $splitColumns[$i][2];
+            $records = $chunk->map(function($result){
+                for ($i = 0; $i < count($result); $i++) {
+                    $bt_code= $result[$i][0];
+                    $name_bt = $result[$i][1];
+                    $teacher_bt  = $result[$i][2];
                     $my_array = array($bt_code,$name_bt,$teacher_bt);
                 }
                 return [
@@ -52,9 +41,7 @@ class BtCodeSeeder extends Seeder
                     'name_bt' => $my_array[1],
                     'teacher_bt' => $my_array[2],
                     
-                ];
-                
-                    
+                ];       
             })->toArray();
 
             DB::table('bt_codes')->insert($records);

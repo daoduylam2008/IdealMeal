@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Exports\StudentsExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Route;
-use App\Http\Resources\V1\StudentsResource;
+use App\Http\Controllers\V1\MealDaysController;
 use App\Http\Controllers\V1\StudentsController;
 
 /*
@@ -22,5 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix'=>'v1','namespace'=>'App\Http\Controllers\V1'],function(){
     Route::apiResource('students',StudentsController::class);
+    Route::apiResource('mealday',MealDaysController::class);
 });
- 
+

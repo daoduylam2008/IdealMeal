@@ -1,19 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\V1;
 
-use App\Http\Requests\StoreMealCodeRequest;
-use App\Http\Requests\UpdateMealCodeRequest;
-use App\Models\MealCode;
+use App\Models\MealDays;
+use Illuminate\Routing\Controller;
+use App\Http\Resources\V1\MealDayResource;
+use App\Http\Requests\V1\StoreMealDaysRequest;
+use App\Http\Requests\UpdateMealDaysRequest;
 
-class MealCodeController extends Controller
+class MealDaysController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return MealDays::all();
     }
 
     /**
@@ -27,15 +29,15 @@ class MealCodeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMealCodeRequest $request)
+    public function store(StoreMealDaysRequest $request)
     {
-        //
+        return new MealDayResource(MealDays::create($request->all()));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(MealCode $mealCode)
+    public function show(MealDays $mealDays)
     {
         //
     }
@@ -43,7 +45,7 @@ class MealCodeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MealCode $mealCode)
+    public function edit(MealDays $mealDays)
     {
         //
     }
@@ -51,7 +53,7 @@ class MealCodeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMealCodeRequest $request, MealCode $mealCode)
+    public function update(UpdateMealDaysRequest $request, MealDays $mealDays)
     {
         //
     }
@@ -59,7 +61,7 @@ class MealCodeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MealCode $mealCode)
+    public function destroy(MealDays $mealDays)
     {
         //
     }
