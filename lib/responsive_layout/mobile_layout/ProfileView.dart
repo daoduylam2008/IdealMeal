@@ -83,7 +83,7 @@ class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
                       Text("Phòng  ",
                           style: font(
                               15,
-                              const Color.fromRGBO(150, 150, 150, 1),
+                              myGrey,
                               FontWeight.normal)),
                       Text(student.room,
                           style: font(20, Colors.black, FontWeight.bold)),
@@ -100,7 +100,7 @@ class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
                       Text("Lớp  ",
                           style: font(
                               15,
-                              const Color.fromRGBO(150, 150, 150, 1),
+                              myGrey,
                               FontWeight.normal)),
                       Text(student.cls,
                           style: font(20, Colors.black, FontWeight.bold))

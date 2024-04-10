@@ -30,7 +30,7 @@ class _PasswordChanging extends State<PasswordChanging> {
             title: Text("Change password",
                 style: font(30, Colors.black, FontWeight.bold)),
             leading: const BackButton(
-              color: Color.fromRGBO(150, 150, 150, 1),
+              color: myGrey,
             )),
         body: SafeArea(
             child: Padding(
@@ -41,7 +41,7 @@ class _PasswordChanging extends State<PasswordChanging> {
               const SizedBox(height: 29),
               // Old password widgets
               Text("Old password",
-                  style: font(15, const Color.fromRGBO(150, 150, 150, 1),
+                  style: font(15, myGrey,
                       FontWeight.normal)),
               const SizedBox(height: 5),
               SizedBox(
@@ -60,13 +60,13 @@ class _PasswordChanging extends State<PasswordChanging> {
                             icon: (_showOldPassword == true)
                                 ? const Icon(Icons.visibility_off)
                                 : const Icon(Icons.visibility)),
-                        suffixIconColor: const Color.fromRGBO(150, 150, 150, 1),
+                        suffixIconColor: myGrey,
                         filled: true,
                         fillColor: const Color.fromRGBO(231, 231, 231, .5),
                         hintText: "Old Password",
                         hintStyle: font(
                             20,
-                            const Color.fromRGBO(150, 150, 150, 1),
+                            myGrey,
                             FontWeight.normal),
                         focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide.none,
@@ -84,7 +84,7 @@ class _PasswordChanging extends State<PasswordChanging> {
               const SizedBox(height: 26),
               // New password widgets
               Text("New password",
-                  style: font(15, const Color.fromRGBO(150, 150, 150, 1),
+                  style: font(15, myGrey,
                       FontWeight.normal)),
               const SizedBox(height: 5),
               SizedBox(
@@ -103,13 +103,13 @@ class _PasswordChanging extends State<PasswordChanging> {
                             icon: (_showNewPassword == true)
                                 ? const Icon(Icons.visibility_off)
                                 : const Icon(Icons.visibility)),
-                        suffixIconColor: const Color.fromRGBO(150, 150, 150, 1),
+                        suffixIconColor: myGrey,
                         filled: true,
                         fillColor: const Color.fromRGBO(231, 231, 231, .5),
                         hintText: "New Password",
                         hintStyle: font(
                             20,
-                            const Color.fromRGBO(150, 150, 150, 1),
+                            myGrey,
                             FontWeight.normal),
                         focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide.none,
@@ -127,7 +127,7 @@ class _PasswordChanging extends State<PasswordChanging> {
               const SizedBox(height: 26),
               // Confirm password widgets
               Text("Confirm password",
-                  style: font(15, const Color.fromRGBO(150, 150, 150, 1),
+                  style: font(15, myGrey,
                       FontWeight.normal)),
               const SizedBox(height: 5),
               SizedBox(
@@ -146,13 +146,13 @@ class _PasswordChanging extends State<PasswordChanging> {
                             icon: (_showConfirmPassword == true)
                                 ? const Icon(Icons.visibility_off)
                                 : const Icon(Icons.visibility)),
-                        suffixIconColor: const Color.fromRGBO(150, 150, 150, 1),
+                        suffixIconColor: myGrey,
                         filled: true,
                         fillColor: const Color.fromRGBO(231, 231, 231, .5),
                         hintText: "Confirm Password",
                         hintStyle: font(
                             20,
-                            const Color.fromRGBO(150, 150, 150, 1),
+                            myGrey,
                             FontWeight.normal),
                         focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide.none,

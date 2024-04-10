@@ -74,8 +74,10 @@ flutter:
     - assets/icons/meal icon.png
     - assets/icons/order icon.png
     - assets/icons/profile icon.png
+    - assets/icons/note icon.png
     - assets/images/card.png
     - assets/images/logo.png
+    - assets/user/user.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

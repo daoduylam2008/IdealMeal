@@ -11,7 +11,9 @@ class _OrderView extends State<OrderView> {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text("Hii")
+      child: Column(
+        
+      )
     );
   }
 }
