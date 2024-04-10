@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:student_attendance/DataTester.dart';
 import 'package:student_attendance/constant.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -60,6 +59,7 @@ class _MealView extends State<MealView> {
             });
           },
         ),
+        
         const SizedBox(height: 18),
         Text("Họ và tên", style: font(15, myGrey, FontWeight.normal)),
         Text(user.username, style: font(20, Colors.black, FontWeight.bold)),
@@ -69,6 +69,7 @@ class _MealView extends State<MealView> {
         Text("Món ăn", style: font(15, myGrey, FontWeight.normal)),
         Text("None", style: font(20, Colors.black, FontWeight.bold)),
         const SizedBox(height: 34),
+
         InkWell(
             onTap: () {
               print("Hello");
