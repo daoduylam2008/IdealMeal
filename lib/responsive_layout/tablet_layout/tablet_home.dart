@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:student_attendance/responsive_layout/mobile_layout/ProfileView.dart';
 
+import 'package:student_attendance/constant.dart';
+
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -129,7 +132,7 @@ class _HomeState extends State<Home> {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

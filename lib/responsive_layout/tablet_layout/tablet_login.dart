@@ -45,7 +45,7 @@ class _LoginState extends State<Login> {
                 ),
               ]
             ),
-            padding: EdgeInsets.all(100),
+            padding: const EdgeInsets.all(100),
             child: Column(
               children: [
                 Text('data')
