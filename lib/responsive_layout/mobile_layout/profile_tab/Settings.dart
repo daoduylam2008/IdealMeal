@@ -24,7 +24,9 @@ class _Settings extends State<Settings> {
   Widget build(context) {
     return SafeArea(
         child: Padding(
-            padding: const EdgeInsets.only(left: 31),
+            padding: const EdgeInsets.only(
+              left: 31
+              ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -63,7 +65,7 @@ class _Settings extends State<Settings> {
                     trackOutlineWidth: const MaterialStatePropertyAll(0),
                     inactiveThumbColor: Colors.white,
                     inactiveTrackColor: const Color.fromRGBO(200, 200, 200, .8),
-                    activeColor: Color.fromARGB(255, 67, 200, 71),
+                    activeColor: const Color.fromARGB(184, 56, 223, 70),
                     thumbColor: const MaterialStatePropertyAll(Colors.white ),
                     value: biometricsLogin,
                      onChanged: loginSwitch
