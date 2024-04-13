@@ -7,6 +7,7 @@ var biometricsLogin = false;
 const Color accentColor = Color.fromRGBO(107, 31, 23, 1);
 const Color accentColorLow = Color.fromRGBO(107, 31, 23, .9);
 const Color myGrey = Color.fromRGBO(180, 180, 180, 1);
+const Color appBarBackground = Color.fromRGBO(242, 242, 242, 1);
 
 // Own gradient color
 const linearColor = LinearGradient(
@@ -106,7 +107,7 @@ class User {
   final String id;
   final String username;
   final String phone;
-  final String password;
+  String password;
 
   User({
     required this.id,

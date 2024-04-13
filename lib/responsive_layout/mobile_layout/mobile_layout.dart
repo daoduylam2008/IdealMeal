@@ -41,6 +41,8 @@ class _MobileScaffold extends State<MobileScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:  (selection==3) ? null :AppBar(
+        backgroundColor: const Color.fromRGBO(242, 242, 242, 1),
+        scrolledUnderElevation: 0,
         automaticallyImplyLeading: false,
         centerTitle: false,
         title: Text(appBarTitle,
