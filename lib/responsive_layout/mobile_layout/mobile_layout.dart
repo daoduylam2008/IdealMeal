@@ -40,20 +40,27 @@ class _MobileScaffold extends State<MobileScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  (selection==3) ? null :AppBar(
-        backgroundColor: const Color.fromRGBO(242, 242, 242, 1),
-        scrolledUnderElevation: 0,
-        automaticallyImplyLeading: false,
-        centerTitle: false,
-        title: Text(appBarTitle,
-            style: font(30, Colors.black, FontWeight.bold)),
-      ),
+      appBar: (selection == 3)
+          ? null
+          : AppBar(
+              backgroundColor: appBarBackground,
+              scrolledUnderElevation: 0,
+              automaticallyImplyLeading: false,
+              centerTitle: false,
+              title: Text(appBarTitle,
+                  style: font(30, Colors.black, FontWeight.bold)),
+            ),
       body: IndexedStack(index: selection, children: const [
         HomeView(),
         MealView(),
         OrderView(),
         ProfileView(),
       ]),
+      
+      bottomSheet: (selection == 0)
+          ? Container()
+          : null,
+      // backgroundColor: Colors.white70,
       bottomNavigationBar: LayoutBuilder(
         builder: ((context, constraints) {
           return SafeArea(
@@ -63,7 +70,7 @@ class _MobileScaffold extends State<MobileScaffold> {
                     const EdgeInsets.symmetric(horizontal: 37, vertical: 32),
                 child: BlurryContainer(
                   blur: 14,
-                  width: constraints.maxWidth*(368/430),
+                  width: constraints.maxWidth * (368 / 430),
                   height: 70,
                   borderRadius: const BorderRadius.all(Radius.circular(25)),
                   color: const Color.fromRGBO(231, 231, 231, .5),

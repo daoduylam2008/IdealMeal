@@ -7,7 +7,7 @@ var biometricsLogin = false;
 const Color accentColor = Color.fromRGBO(107, 31, 23, 1);
 const Color accentColorLow = Color.fromRGBO(107, 31, 23, .9);
 const Color myGrey = Color.fromRGBO(180, 180, 180, 1);
-const Color appBarBackground = Color.fromRGBO(242, 242, 242, 1);
+const Color appBarBackground = Color.fromRGBO(238, 238, 238, 1);
 
 // Own gradient color
 const linearColor = LinearGradient(
