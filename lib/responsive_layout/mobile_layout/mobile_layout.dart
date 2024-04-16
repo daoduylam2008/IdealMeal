@@ -21,6 +21,13 @@ class _MobileScaffold extends State<MobileScaffold> {
   int selection = 0;
   late String appBarTitle;
 
+  final _view = [
+        const HomeView(),
+        const MealView(),
+        const OrderView(),
+        const ProfileView(),
+      ];
+
   @override
   void initState() {
     super.initState();
@@ -40,6 +47,7 @@ class _MobileScaffold extends State<MobileScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: (selection == 3)
           ? null
           : AppBar(
@@ -50,16 +58,9 @@ class _MobileScaffold extends State<MobileScaffold> {
               title: Text(appBarTitle,
                   style: font(30, Colors.black, FontWeight.bold)),
             ),
-      body: IndexedStack(index: selection, children: const [
-        HomeView(),
-        MealView(),
-        OrderView(),
-        ProfileView(),
-      ]),
-      
-      bottomSheet: (selection == 0)
-          ? Container()
-          : null,
+      body: IndexedStack(index: selection, children: _view ),
+
+      bottomSheet: (selection == 0) ? Container() : null,
       // backgroundColor: Colors.white70,
       bottomNavigationBar: LayoutBuilder(
         builder: ((context, constraints) {

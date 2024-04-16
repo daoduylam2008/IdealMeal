@@ -7,7 +7,7 @@ var biometricsLogin = false;
 const Color accentColor = Color.fromRGBO(107, 31, 23, 1);
 const Color accentColorLow = Color.fromRGBO(107, 31, 23, .9);
 const Color myGrey = Color.fromRGBO(180, 180, 180, 1);
-const Color appBarBackground = Color.fromRGBO(238, 238, 238, 1);
+const Color appBarBackground = Color.fromRGBO(242, 242, 242, 1);
 
 // Own gradient color
 const linearColor = LinearGradient(
@@ -27,7 +27,7 @@ const String urlToMealsData = 'http://127.0.0.1:8000/api/v1/mealday';
 String dateToString(DateTime date) {
   String month = "${date.month}";
   String day = "${date.day}";
-  
+
   if (month.length == 1) {
     month = "0${date.month}";
   } else {
@@ -36,8 +36,7 @@ String dateToString(DateTime date) {
 
   if (day.length == 1) {
     day = "0${date.day}";
-  }
-  else {
+  } else {
     day = "${date.day}";
   }
 
@@ -50,7 +49,8 @@ String iconPath(String name) {
 }
 
 TextStyle font(double size, Color color, FontWeight weight) {
-  return GoogleFonts.inter(textStyle: TextStyle(
+  return GoogleFonts.inter(
+      textStyle: TextStyle(
     fontSize: size,
     color: color,
     fontWeight: weight,
@@ -67,15 +67,15 @@ class Student {
   final String address;
   final String room;
 
-  Student({
-    required this.id,
-    required this.name,
-    required this.birth,
-    required this.gender,
-    required this.phone,
-    required this.cls,
-    required this.address,
-    required this.room});
+  Student(
+      {required this.id,
+      required this.name,
+      required this.birth,
+      required this.gender,
+      required this.phone,
+      required this.cls,
+      required this.address,
+      required this.room});
 
   factory Student.fromJson(Map<String, dynamic> json) {
     return switch (json) {
@@ -131,19 +131,50 @@ class User {
 }
 
 class Meal {
-  final String id;
-  final String date;
+  final String student_id;
+  final String monday;
+  final String tuesday;
+  final String wednesday;
+  final String thursday;
+  final String friday;
 
-  Meal({required this.id, required this.date});
+  Meal(
+      {required this.student_id,
+      required this.monday,
+      required this.tuesday,
+      required this.wednesday,
+      required this.thursday,
+      required this.friday});
+
+  Map<String, String> toMap() {
+    return {
+        'student_id': student_id,
+        'Monday': monday,
+        'Tuesday': tuesday,
+        "Wednesday": wednesday,
+        "Thursday": thursday,
+        'Friday': friday,
+    };
+  }
 
   factory Meal.fromJson(Map<String, dynamic> json) {
     return switch (json) {
       {
-        'id': String id,
-        'date': String date,
+        'student_id': String id,
+        'Monday': String monday,
+        'Tuesday': String tuesday,
+        "Wednesday": String wednesday,
+        "Thursday": String thursday,
+        'Friday': String friday,
       } =>
-        Meal(id: id, date: date),
-      _ => throw const FormatException('Failed to load meal.')
+        Meal(
+            student_id: id,
+            monday: monday,
+            tuesday: tuesday,
+            wednesday: wednesday,
+            thursday: thursday,
+            friday: friday),
+      _ => throw const FormatException('Failed to load album.'),
     };
   }
 }

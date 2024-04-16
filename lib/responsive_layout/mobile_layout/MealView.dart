@@ -24,11 +24,13 @@ class _MealView extends State<MealView> {
           color: appBarBackground,
           child: Container(
             decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(35))),
-            alignment: Alignment.center,
+            alignment: Alignment.topCenter,
             padding: const EdgeInsets.only(left: 29, right: 29),
             child: SingleChildScrollView(
               child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, 
+                children: [
+                  const SizedBox(height: 10),
                   TableCalendar(
                     startingDayOfWeek: StartingDayOfWeek.monday,
                     daysOfWeekStyle: DaysOfWeekStyle(
@@ -68,7 +70,12 @@ class _MealView extends State<MealView> {
                       });
                     },
                   ),
-                  const SizedBox(height: 18),
+                  const SizedBox(height: 5),
+                  const Divider(
+                    thickness: 1,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 9),
                   Text("Họ và tên", style: font(15, myGrey, FontWeight.normal)),
                   Text(user.username, style: font(20, Colors.black, FontWeight.bold)),
                   Text("Ngày ăn", style: font(15, myGrey, FontWeight.normal)),
