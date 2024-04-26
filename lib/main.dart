@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:student_attendance/constant.dart';
 import 'responsive_layout/responsive_management.dart';
 import 'responsive_layout/mobile_layout/mobile_layout.dart';
-import 'responsive_layout/tablet_layout/tablet_login.dart';
+import 'responsive_layout/tablet_layout/tablet_layout.dart';
 import 'responsive_layout/desktop_layout/desktop_layout.dart';
 
 void main() {
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue),
       home: ResponsiveLayout(
         mobileBody: const MobileScaffold(),
-        tabletBody: const Login(),
+        tabletBody: const TabletScaffold(),
         desktopBody: const DesktopScaffold(),
       ),
     );

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:student_attendance/ResponseAPi.dart';
 import 'package:student_attendance/constant.dart';
-import 'package:student_attendance/DataTester.dart';
-import '../mobile_layout/ProfileView.dart';
 import 'tablet_home.dart';
 import 'tablet_profile.dart';
 
@@ -21,9 +18,10 @@ class _TabletScaffoldState extends State<TabletScaffold> {
   ];
   @override
   Widget build(BuildContext context) {
+    double _width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 70,
+        toolbarHeight: (_width/3)/5,
         title: Text(
           'Ideal Meal',
           style: font(30, Colors.black, FontWeight.bold)
@@ -40,7 +38,7 @@ class _TabletScaffoldState extends State<TabletScaffold> {
       body: Row(
         children: [
           Container(
-            width: 72,
+            width: ((_width/3)/5)+2,
             decoration: const BoxDecoration(
               color: Colors.white10,
               border: Border(
@@ -53,7 +51,7 @@ class _TabletScaffoldState extends State<TabletScaffold> {
             child: NavigationRail(
               indicatorColor: const Color.fromRGBO(220, 220, 220, 1),
               useIndicator: false,
-              minWidth: 70,
+              minWidth: (_width/3)/5,
               selectedIndex: _selectedIndex,
               onDestinationSelected: (int index) {
                 setState(() {

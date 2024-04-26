@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
 
 class MyProfile extends StatelessWidget {
+  // const MyProfile({super.key});
+
   @override
   Widget build(context) {
-    return Center(
-        child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Stack(
-          alignment: Alignment.bottomLeft,
-          children: [
-            Image.asset("assets/images/card.png"),
-            Row(
-              children: [
-                Image.asset("assets/images/logo.png"),
-                Text("Hello world")
-              ]
-            ),
+    return LayoutBuilder(builder: ((context, constraints) {
+      return Center(
+          child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Stack(
+            alignment: Alignment.bottomLeft,
+            children: [
+              Row(children: [
+                SizedBox(
+                  width: constraints.maxWidth*0.9,
+                  child: Image.asset("assets/images/card.png", fit: BoxFit.cover)
+                )
+              ]),
             ],
-        )
-      ],
-    ));
+          )
+        ],
+      ));
+    }));
   }
 }

@@ -1,10 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:student_attendance/responsive_layout/mobile_layout/ProfileView.dart';
-
 import 'package:student_attendance/constant.dart';
-
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -21,21 +17,16 @@ class _HomeState extends State<Home> {
       children: [
         Row(
           children: [
+            // next meal
             Container(
-              height: _width/3,
-              width: _width/3,
+              height: _width / 3,
+              width: _width / 3,
               decoration: const BoxDecoration(
-                border: Border(
-                  right: BorderSide(
-                    color: Color.fromRGBO(220, 220, 220, 1),
-                    width: 2
-                  ),
-                  bottom: BorderSide(
-                    color: Color.fromRGBO(220, 220, 220, 1),
-                    width: 2
-                  )
-                )
-              ),
+                  border: Border(
+                      right: BorderSide(
+                          color: Color.fromRGBO(220, 220, 220, 1), width: 2),
+                      bottom: BorderSide(
+                          color: Color.fromRGBO(220, 220, 220, 1), width: 2))),
               child: Column(
                 children: [
                   Expanded(
@@ -44,17 +35,12 @@ class _HomeState extends State<Home> {
                       alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                       decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: Color.fromRGBO(220, 220, 220, 1),
-                            width: 2
-                          ) 
-                        )
-                      ),
-                      child: Text(
-                        'Your next meal',
-                        style: font(25, Colors.black, FontWeight.bold)
-                      ),
+                          border: Border(
+                              bottom: BorderSide(
+                                  color: Color.fromRGBO(220, 220, 220, 1),
+                                  width: 2))),
+                      child: Text('Your next meal',
+                          style: font(25, Colors.black, FontWeight.bold)),
                     ),
                   ),
                   Expanded(
@@ -70,69 +56,60 @@ class _HomeState extends State<Home> {
                               children: [
                                 Text(
                                   'Name',
-                                  style: font(15, const Color.fromRGBO(187, 187, 187, 1), FontWeight.normal),
+                                  style: font(
+                                      15,
+                                      const Color.fromRGBO(187, 187, 187, 1),
+                                      FontWeight.normal),
                                 ),
                                 Text(
                                   'XXXX XXXX XXXX',
-                                  style: font(20, Colors.black, FontWeight.bold),
+                                  style:
+                                      font(20, Colors.black, FontWeight.bold),
                                 ),
                                 Text(
                                   'Date',
-                                  style: font(15, const Color.fromRGBO(187, 187, 187, 1), FontWeight.normal),
+                                  style: font(
+                                      15,
+                                      const Color.fromRGBO(187, 187, 187, 1),
+                                      FontWeight.normal),
                                 ),
                                 Text(
                                   'DD/MM/YYYY',
-                                  style: font(20, Colors.black, FontWeight.bold),
+                                  style:
+                                      font(20, Colors.black, FontWeight.bold),
                                 ),
                                 Text(
                                   'Your set',
-                                  style: font(15, const Color.fromRGBO(187, 187, 187, 1), FontWeight.normal),
+                                  style: font(
+                                      15,
+                                      const Color.fromRGBO(187, 187, 187, 1),
+                                      FontWeight.normal),
                                 ),
                                 Text(
                                   'Xúc Xích Lúc Lắc',
-                                  style: font(20, Colors.black, FontWeight.bold),
+                                  style:
+                                      font(20, Colors.black, FontWeight.bold),
                                 ),
                               ],
                             ),
                           ),
                         ),
-                        // Container(
-                        //   padding: const EdgeInsets.fromLTRB(0, 0, 10, 10),
-                        //   alignment: Alignment.bottomRight,
-                        //   child: DecoratedBox(
-                        //     decoration: BoxDecoration(
-                        //       color: Colors.white,
-                        //       shape: BoxShape.circle,
-                        //       boxShadow: 
-                        //       [
-                        //         BoxShadow(
-                        //           color: Colors.grey,
-                        //           offset: Offset(0, 3),
-                        //           blurRadius: 10
-                        //         )
-                        //       ]
-                        //     ),
-                        //     child: CircleAvatar(
-                        //       backgroundColor: Colors.white,
-                        //       child: Container(
-                        //         alignment: Alignment.center,
-                        //         child: Text(
-                        //           '1',
-                        //           style: font(25, Colors.black, FontWeight.bold),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // )
                       ],
                     ),
                   )
                 ],
               ),
             ),
+            // feedback
             Expanded(
-              child: Padding(
+              child: Container(
+                height: _width / 3,
                 padding: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                            color: Color.fromRGBO(220, 220, 220, 1),
+                            width: 2))),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -141,34 +118,160 @@ class _HomeState extends State<Home> {
                       style: font(20, Colors.black, FontWeight.bold),
                     ),
                     Row(
-                      children: List.generate(5, (index) => const Icon(Icons.star)),
+                      children: List.generate(
+                          5,
+                          (index) => const Icon(
+                                Icons.star_border_rounded,
+                                color: Color.fromRGBO(187, 187, 187, 1),
+                              )),
                     ),
                     Text(
                       'Anything that can be improve?',
                       style: font(20, Colors.black, FontWeight.bold),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(const Color.fromRGBO(242, 242, 242, 1), )
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          return SizedBox(
+                            height: constraints.maxHeight,
+                            child: TextField(
+                              textAlignVertical: TextAlignVertical.top,
+                              maxLines: null,
+                              expands: true,
+                              decoration: const InputDecoration(
+                                contentPadding: EdgeInsets.all(12),
+                                hintText: 'Your feedback (Optional)',
+                                hintStyle: TextStyle(
+                                  color: Color.fromRGBO(187, 187, 187, 1),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color.fromRGBO(220, 220, 220, 1),
+                                      width: 2.0),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color.fromRGBO(220, 220, 220, 1),
+                                      width: 2.0),
+                                ),
+                              ),
+                              onChanged: (value) {},
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      side: const BorderSide(
+                                          color:
+                                              Color.fromRGBO(220, 220, 220, 1),
+                                          width: 2)),
+                                ),
+                                backgroundColor: MaterialStateProperty.all(
+                                  const Color.fromRGBO(242, 242, 242, 1),
+                                )),
+                            child: Text(
+                              'Send',
+                              style: font(15, Colors.black, FontWeight.bold),
+                            ),
                           ),
-                          
-                          child: Text(
-                            'Send',
-                            style: font(15, Colors.black, FontWeight.bold),
-                          ),
-                        )
-                      ],
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Icon(
+                                Icons.check_circle_outline_rounded,
+                                color: Color.fromRGBO(187, 187, 187, 1),
+                                size: 20,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Thanks for your feedback!',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(187, 187, 187, 1),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),
               ),
             )
           ],
+        ),
+        // indicator
+        Container(
+          height: ((_width / 3) / 5) + 2,
+          decoration: const BoxDecoration(
+              border: Border(
+            bottom: BorderSide(
+              width: 2,
+              color: Color.fromRGBO(220, 220, 220, 1),
+            ),
+          )),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: Icon(Icons.calendar_month_rounded),
+                  ),
+                  Text(
+                    'January, 2024',
+                    style: font(25, Colors.black, FontWeight.bold),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        setState(() {});
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_ios_rounded,
+                        color: Color.fromRGBO(187, 187, 187, 1),
+                        size: 17,
+                      )),
+                  IconButton(
+                      onPressed: () {
+                        setState(() {});
+                      },
+                      icon: const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: Color.fromRGBO(187, 187, 187, 1),
+                        size: 17,
+                      )),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                child: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.edit_rounded),
+                ),
+              )
+            ],
+          ),
         )
       ],
     );

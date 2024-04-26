@@ -22,56 +22,75 @@ class _Settings extends State<Settings> {
 
   @override
   Widget build(context) {
-    return SafeArea(
-        child: Padding(
-            padding: const EdgeInsets.only(
-              left: 31
-              ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Password",
-                    style: font(15, const Color.fromRGBO(150, 150, 150, 1),
-                        FontWeight.normal)),
-                const SizedBox(height: 7),
-                Text("●" * user.password.length,
-                    style: const TextStyle(
-                        fontSize: 15)),
-                const SizedBox(height: 20),
-                InkWell(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: ((context) => PasswordChanging())));
-                    },
-                    child: BlurryContainer(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20)),
-                        height: 62,
-                        width: 368,
-                        color: const Color.fromRGBO(231, 231, 231, .5),
-                        child: Center(
-                            child: Text("Change Password",
-                                style: font(
-                                    20, Colors.black, FontWeight.normal))))),
-                const SizedBox(height: 51),
-                Row(children: [
-                  Text("Log in with biometrics",
-                      style: font(20, Colors.black, FontWeight.bold)),
-                  const SizedBox(width: 70),
-                  Switch(
+    setState(() {
+      user = userTest;
+    });
+    return LayoutBuilder(builder: ((context, constraints) {
+      return SingleChildScrollView(
+        child: Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.only(
+              left: constraints.maxWidth * (31 / 430),
+              right: constraints.maxWidth * (31 / 430)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Password",
+                  style: font(15, const Color.fromRGBO(150, 150, 150, 1),
+                      FontWeight.normal)),
+              const SizedBox(height: 7),
+              Text("●" * user.password.length,
+                  style: const TextStyle(fontSize: 15)),
+              const SizedBox(height: 20),
+              InkWell(
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => PasswordChanging())));
+                  },
+                  child: BlurryContainer(
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      width: constraints.maxWidth * 368 / 430,
+                      height: 62,
+                      color: const Color.fromRGBO(231, 231, 231, .5),
+                      child: Center(
+                          child: Text("Change Password",
+                              style:
+                                  font(20, Colors.black, FontWeight.normal))))),
+              const SizedBox(height: 51),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                Text("Log in with biometrics",
+                    style: font(20, Colors.black, FontWeight.bold)),
+                Switch(
                     trackOutlineWidth: const MaterialStatePropertyAll(0),
                     inactiveThumbColor: Colors.white,
                     inactiveTrackColor: const Color.fromRGBO(200, 200, 200, .8),
                     activeColor: const Color.fromARGB(184, 56, 223, 70),
-                    thumbColor: const MaterialStatePropertyAll(Colors.white ),
+                    thumbColor: const MaterialStatePropertyAll(Colors.white),
                     value: biometricsLogin,
-                     onChanged: loginSwitch
-                    )
-                ])
-              ],
-            )));
+                    onChanged: loginSwitch)
+              ]),
+              const SizedBox(height: 120),
+              InkWell(
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  onTap: () {
+                    print("Sign out");
+                  },
+                  child: BlurryContainer(
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      width: constraints.maxWidth * 368 / 430,
+                      height: 62,
+                      color: const Color.fromRGBO(231, 231, 231, .5),
+                      child: Center(
+                          child: Text("Sign out",
+                              style:
+                                  font(20, Colors.black, FontWeight.normal))))),
+            ],
+          ),
+        ),
+      );
+    }));
   }
 }
