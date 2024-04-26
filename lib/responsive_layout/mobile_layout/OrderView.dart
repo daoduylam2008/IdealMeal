@@ -21,8 +21,8 @@ class _OrderView extends State<OrderView> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: ListView.builder(itemBuilder: ((context, index) {
-      OrderWidget(lists: const ["Xíu mại sốt cà", "Thịt kho chả lụa"," Bò lúc lắc"],);
-    })));
+    return SafeArea(child: Column(children: [
+      OrderWidget(lists: const ["Thịt kho trứng", "Xíu mại kho cà", "Cá thu kho cà"],)
+    ]));
   }
 }
