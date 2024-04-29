@@ -13,12 +13,28 @@ return new class extends Migration
     {
         Schema::create('meal_days', function (Blueprint $table) {
             $table->integer('student_id');
-            $table->string('Monday');
-            $table->string('Tuesday');
-            $table->string('Wednesday');
-            $table->string('Thursday');
-            $table->string('Friday');
-            $table->timestamps();
+            $table->string('Monday#1');
+            $table->string('Tuesday#1');
+            $table->string('Wednesday#1');
+            $table->string('Thursday#1');
+            $table->string('Friday#1');
+            $table->string("Monday#2");
+            $table->string("Tuesday#2");
+            $table->string("Wednesday#2");
+            $table->string("Thursday#2");
+            $table->string("Friday#2");
+            $table->string("Monday#3");
+            $table->string("Tuesday#3");
+            $table->string("Wednesday#3");
+            $table->string("Thursday#3");
+            $table->string("Friday#3");
+            $table->string("Monday#4");
+            $table->string("Tuesday#4");
+            $table->string("Wednesday#4");
+            $table->string("Thursday#4");
+            $table->string("Friday#4");
+            
+            
             $table->foreign('student_id')->references('student_id')->on('students')->onDelete('cascade')->onUpdate('cascade');
             
         });

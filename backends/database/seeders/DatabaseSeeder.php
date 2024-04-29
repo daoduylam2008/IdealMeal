@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             StudentsSeeder::class,
             BtCodeSeeder::class,
             MealCodeSeeder::class,
+            MealDaysSeeder::class,
         ]);
     }
 }
