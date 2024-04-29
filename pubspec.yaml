@@ -45,6 +45,7 @@ dependencies:
   passwordfield: ^0.2.0
   flutter_inset_box_shadow: ^1.0.8
   dropdown_button2: ^2.3.9
+  intl: ^0.16.0
   
 
 dev_dependencies:

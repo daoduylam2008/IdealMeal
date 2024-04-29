@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 var biometricsLogin = false;
 
@@ -148,12 +149,12 @@ class Meal {
 
   Map<String, String> toMap() {
     return {
-        'student_id': student_id,
-        'Monday': monday,
-        'Tuesday': tuesday,
-        "Wednesday": wednesday,
-        "Thursday": thursday,
-        'Friday': friday,
+      'student_id': student_id,
+      'Monday': monday,
+      'Tuesday': tuesday,
+      "Wednesday": wednesday,
+      "Thursday": thursday,
+      'Friday': friday,
     };
   }
 
@@ -195,3 +196,9 @@ var userTest = User(
     username: "Đào Duy Lâm",
     password: "Lamdao",
     phone: "090968714");
+
+String dateOfWeek() {
+  var todayDate = DateTime.now();
+  var firstDay = DateTime.utc(todayDate.year, todayDate.month + 1, 1);;
+  return "";
+}

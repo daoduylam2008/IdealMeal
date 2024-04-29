@@ -47,7 +47,7 @@ class _MobileScaffold extends State<MobileScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: (selection == 2)? appBarBackground: Colors.white,
       appBar: (selection == 3)
           ? null
           : AppBar(

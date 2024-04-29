@@ -22,7 +22,7 @@ class _OrderView extends State<OrderView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(child: Column(children: [
-      OrderWidget(lists: const ["Thịt kho trứng", "Xíu mại kho cà", "Cá thu kho cà"],)
+      OrderWidget(date: "Monday", lists: const ["Thịt kho trứng", "Xíu mại kho cà", "Cá thu kho cà"],)
     ]));
   }
 }
