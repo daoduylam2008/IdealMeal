@@ -19,6 +19,14 @@ const linearColor = LinearGradient(
       Color.fromRGBO(255, 51, 112, .9),
     ]);
 
+const overlayLinearColor = LinearGradient(
+    begin: Alignment.bottomLeft,
+    end: Alignment.topRight,
+    colors: [
+      Color.fromRGBO(45, 154, 255, .7),
+      Color.fromRGBO(255, 51, 112, .7),
+    ]);
+
 // constants path/url to data
 const String pathToData = 'http://127.0.0.1:8000/api/v1/students';
 const String urlToStudentData = 'http://127.0.0.1:8000/api/v1/students/1';
@@ -197,8 +205,20 @@ var userTest = User(
     password: "Lamdao",
     phone: "090968714");
 
-String dateOfWeek() {
+DateTime firstDate() {
   var todayDate = DateTime.now();
-  var firstDay = DateTime.utc(todayDate.year, todayDate.month + 1, 1);;
-  return "";
+  var firstDay = DateTime.utc(todayDate.year, todayDate.month, 1);
+
+  return firstDay;
+}
+
+DateTime lastDate() {
+  var todayDate = DateTime.now();
+  var lastDay = DateTime.utc(todayDate.year, todayDate.month + 1, 0);
+
+  return lastDay;
+}
+
+String dateToDay(DateTime date) {
+  return DateFormat('EEEE').format(date);
 }
