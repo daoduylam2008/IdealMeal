@@ -1,4 +1,4 @@
-package com.example.student_attendance
+package com.example.ideal_meal
 
 import io.flutter.embedding.android.FlutterActivity
 

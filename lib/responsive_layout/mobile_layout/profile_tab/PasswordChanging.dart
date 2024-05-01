@@ -1,7 +1,7 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:student_attendance/constant.dart';
+import 'package:ideal_meal/constant.dart';
 
 class PasswordChanging extends StatefulWidget {
   PasswordChanging({super.key});

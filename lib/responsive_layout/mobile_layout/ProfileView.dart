@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:student_attendance/constant.dart';
-import 'package:student_attendance/responsive_layout/mobile_layout/profile_tab/History.dart';
-import 'package:student_attendance/responsive_layout/mobile_layout/profile_tab/MyProfile.dart';
-import 'package:student_attendance/responsive_layout/mobile_layout/profile_tab/Settings.dart';
+import 'package:ideal_meal/constant.dart';
+import 'package:ideal_meal/responsive_layout/mobile_layout/profile_tab/History.dart';
+import 'package:ideal_meal/responsive_layout/mobile_layout/profile_tab/MyProfile.dart';
+import 'package:ideal_meal/responsive_layout/mobile_layout/profile_tab/Settings.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:student_attendance/FileManager.dart';
-import 'package:student_attendance/constant.dart';
+import 'package:ideal_meal/FileManager.dart';
+import 'package:ideal_meal/constant.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
 class OrderView extends StatefulWidget {

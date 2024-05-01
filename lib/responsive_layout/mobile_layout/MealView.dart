@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:student_attendance/constant.dart';
+import 'package:ideal_meal/constant.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class MealView extends StatefulWidget {

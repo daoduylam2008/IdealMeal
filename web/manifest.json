@@ -1,6 +1,6 @@
 {
-    "name": "student_attendance",
-    "short_name": "student_attendance",
+    "name": "ideal_meal",
+    "short_name": "ideal_meal",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

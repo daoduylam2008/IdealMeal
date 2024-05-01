@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:student_attendance/constant.dart';
+import 'package:ideal_meal/constant.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

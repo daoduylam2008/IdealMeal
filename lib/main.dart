@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:student_attendance/constant.dart';
+import 'package:ideal_meal/constant.dart';
 import 'responsive_layout/responsive_management.dart';
 import 'responsive_layout/mobile_layout/mobile_layout.dart';
 import 'responsive_layout/tablet_layout/tablet_layout.dart';

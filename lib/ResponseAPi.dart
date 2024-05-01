@@ -3,8 +3,8 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:student_attendance/DataTester.dart';
-import 'package:student_attendance/constant.dart';
+import 'package:ideal_meal/DataTester.dart';
+import 'package:ideal_meal/constant.dart';
 
 Future<UserTest> fetchStudentData() async {
   // List<UserTest> userList = [];

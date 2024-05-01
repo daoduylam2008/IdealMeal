@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:student_attendance/ResponseAPi.dart';
-import 'package:student_attendance/constant.dart';
-import 'package:student_attendance/DataTester.dart';
-import 'package:student_attendance/responsive_layout/mobile_layout/mobile_layout.dart';
+import 'package:ideal_meal/ResponseAPi.dart';
+import 'package:ideal_meal/constant.dart';
+import 'package:ideal_meal/DataTester.dart';
+import 'package:ideal_meal/responsive_layout/mobile_layout/mobile_layout.dart';
 import 'desktop_home.dart';
 import 'desktop_profile.dart';
 

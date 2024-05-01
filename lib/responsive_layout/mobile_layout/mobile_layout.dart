@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
-import 'package:student_attendance/constant.dart';
+import 'package:ideal_meal/constant.dart';
 
-// import 'package:student_attendance/ResponseAPi.dart';
-// import 'package:student_attendance/constant.dart';
-// import 'package:student_attendance/DataTester.dart';
+// import 'package:ideal_meal/ResponseAPi.dart';
+// import 'package:ideal_meal/constant.dart';
+// import 'package:ideal_meal/DataTester.dart';
 import 'HomeView.dart';
 import 'OrderView.dart';
 import 'MealView.dart';

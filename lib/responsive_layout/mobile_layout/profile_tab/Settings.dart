@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
 
-import 'package:student_attendance/constant.dart';
+import 'package:ideal_meal/constant.dart';
 import "PasswordChanging.dart";
 
 class Settings extends StatefulWidget {

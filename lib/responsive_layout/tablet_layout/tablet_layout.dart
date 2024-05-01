@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:student_attendance/constant.dart';
+import 'package:ideal_meal/constant.dart';
 import 'tablet_home.dart';
 import 'tablet_profile.dart';
 
