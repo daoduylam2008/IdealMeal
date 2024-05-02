@@ -10,6 +10,62 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  DateTime now = DateTime.now();
+
+  String getMonth(int month) {
+    switch (month) {
+      case 1:
+        {
+          return 'January';
+        }
+      case 2:
+        {
+          return 'February';
+        }
+      case 3:
+        {
+          return 'March';
+        }
+      case 4:
+        {
+          return 'April';
+        }
+      case 5:
+        {
+          return 'May';
+        }
+      case 6:
+        {
+          return 'June';
+        }
+      case 7:
+        {
+          return 'July';
+        }
+      case 8:
+        {
+          return 'August';
+        }
+      case 9:
+        {
+          return 'September';
+        }
+      case 10:
+        {
+          return 'October';
+        }
+      case 11:
+        {
+          return 'November';
+        }
+      case 12:
+        {
+          return 'December';
+        }
+    }
+    return "";
+  }
+
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
@@ -241,12 +297,14 @@ class _HomeState extends State<Home> {
                     child: Icon(Icons.calendar_month_rounded),
                   ),
                   Text(
-                    'January, 2024',
+                    '${getMonth(now.month)}, ${now.year}',
                     style: font(25, Colors.black, FontWeight.bold),
                   ),
                   IconButton(
                       onPressed: () {
-                        setState(() {});
+                        setState(() {
+                          now = now.subtract((const Duration(days: 30)));
+                        });
                       },
                       icon: const Icon(
                         Icons.arrow_back_ios_rounded,
@@ -255,7 +313,9 @@ class _HomeState extends State<Home> {
                       )),
                   IconButton(
                       onPressed: () {
-                        setState(() {});
+                        setState(() {
+                          now = now.add((const Duration(days: 30)));
+                        });
                       },
                       icon: const Icon(
                         Icons.arrow_forward_ios_rounded,
