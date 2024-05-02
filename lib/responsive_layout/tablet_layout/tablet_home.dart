@@ -13,6 +13,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
+    double _height = MediaQuery.of(context).size.height;
     return Column(
       children: [
         Row(
@@ -133,7 +134,7 @@ class _HomeState extends State<Home> {
                       height: 10,
                     ),
                     Expanded(
-                      flex: 2,
+                      flex: 1,
                       child: LayoutBuilder(
                         builder: (context, constraints) {
                           return SizedBox(
@@ -271,6 +272,138 @@ class _HomeState extends State<Home> {
                 ),
               )
             ],
+          ),
+        ),
+        // calendar
+        Expanded(
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 7,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  Container(
+                    width: (_width - ((_width / 15) + 2)) /
+                        5, //(_width-(((_width / 3) / 5) + 2))/5
+                    height: ((_width / 15) + 2) * (2 / 3),
+                    decoration: const BoxDecoration(
+                        color: Color.fromRGBO(242, 242, 242, 1),
+                        border: Border(
+                          right: BorderSide(
+                            color: Color.fromRGBO(220, 220, 220, 1),
+                            width: 2,
+                          ),
+                          bottom: BorderSide(
+                            color: Color.fromRGBO(220, 220, 220, 1),
+                            width: 2,
+                          ),
+                        )),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Mon",
+                        style: font(15, Colors.black, FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: (_width - ((_width / 15) + 2)) /
+                        5, //(_width-(((_width / 3) / 5) + 2))/5
+                    height: (_height -
+                            ((_width / 15) + 2) * (2 + (2 / 3)) -
+                            (_width / 3)) /
+                        5,
+                    decoration: const BoxDecoration(
+                        border: Border(
+                      right: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                      bottom: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                    )),
+                  ),
+                  Container(
+                    width: (_width - ((_width / 15) + 2)) /
+                        5, //(_width-(((_width / 3) / 5) + 2))/5
+                    height: (_height -
+                            ((_width / 15) + 2) * (2 + (2 / 3)) -
+                            (_width / 3)) /
+                        5,
+                    decoration: const BoxDecoration(
+                        border: Border(
+                      right: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                      bottom: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                    )),
+                  ),
+                  Container(
+                    width: (_width - ((_width / 15) + 2)) /
+                        5, //(_width-(((_width / 3) / 5) + 2))/5
+                    height: (_height -
+                            ((_width / 15) + 2) * (2 + (2 / 3)) -
+                            (_width / 3)) /
+                        5,
+                    decoration: const BoxDecoration(
+                        border: Border(
+                      right: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                      bottom: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                    )),
+                  ),
+                  Container(
+                    width: (_width - ((_width / 15) + 2)) /
+                        5, //(_width-(((_width / 3) / 5) + 2))/5
+                    height: (_height -
+                            ((_width / 15) + 2) * (2 + (2 / 3)) -
+                            (_width / 3)) /
+                        5,
+                    decoration: const BoxDecoration(
+                        border: Border(
+                      right: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                      bottom: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                    )),
+                  ),
+                  Container(
+                    width: (_width - ((_width / 15) + 2)) /
+                        5, //(_width-(((_width / 3) / 5) + 2))/5
+                    height: (_height -
+                            ((_width / 15) + 2) * (2 + (2 / 3)) -
+                            (_width / 3)) /
+                        5,
+                    decoration: const BoxDecoration(
+                        border: Border(
+                      right: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                      bottom: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                    )),
+                  ),
+                ],
+              );
+            },
           ),
         )
       ],
