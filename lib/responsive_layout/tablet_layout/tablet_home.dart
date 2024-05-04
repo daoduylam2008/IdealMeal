@@ -10,9 +10,66 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  DateTime now = DateTime.now();
+
+  String getMonth(int month) {
+    switch (month) {
+      case 1:
+        {
+          return 'January';
+        }
+      case 2:
+        {
+          return 'February';
+        }
+      case 3:
+        {
+          return 'March';
+        }
+      case 4:
+        {
+          return 'April';
+        }
+      case 5:
+        {
+          return 'May';
+        }
+      case 6:
+        {
+          return 'June';
+        }
+      case 7:
+        {
+          return 'July';
+        }
+      case 8:
+        {
+          return 'August';
+        }
+      case 9:
+        {
+          return 'September';
+        }
+      case 10:
+        {
+          return 'October';
+        }
+      case 11:
+        {
+          return 'November';
+        }
+      case 12:
+        {
+          return 'December';
+        }
+    }
+    return "";
+  }
+
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
+    double _height = MediaQuery.of(context).size.height;
     return Column(
       children: [
         Row(
@@ -133,7 +190,7 @@ class _HomeState extends State<Home> {
                       height: 10,
                     ),
                     Expanded(
-                      flex: 2,
+                      flex: 1,
                       child: LayoutBuilder(
                         builder: (context, constraints) {
                           return SizedBox(
@@ -240,12 +297,14 @@ class _HomeState extends State<Home> {
                     child: Icon(Icons.calendar_month_rounded),
                   ),
                   Text(
-                    'January, 2024',
+                    '${getMonth(now.month)}, ${now.year}',
                     style: font(25, Colors.black, FontWeight.bold),
                   ),
                   IconButton(
                       onPressed: () {
-                        setState(() {});
+                        setState(() {
+                          now = now.subtract((const Duration(days: 30)));
+                        });
                       },
                       icon: const Icon(
                         Icons.arrow_back_ios_rounded,
@@ -254,7 +313,9 @@ class _HomeState extends State<Home> {
                       )),
                   IconButton(
                       onPressed: () {
-                        setState(() {});
+                        setState(() {
+                          now = now.add((const Duration(days: 30)));
+                        });
                       },
                       icon: const Icon(
                         Icons.arrow_forward_ios_rounded,
@@ -271,6 +332,138 @@ class _HomeState extends State<Home> {
                 ),
               )
             ],
+          ),
+        ),
+        // calendar
+        Expanded(
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 7,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  Container(
+                    width: (_width - ((_width / 15) + 2)) /
+                        5, //(_width-(((_width / 3) / 5) + 2))/5
+                    height: ((_width / 15) + 2) * (2 / 3),
+                    decoration: const BoxDecoration(
+                        color: Color.fromRGBO(242, 242, 242, 1),
+                        border: Border(
+                          right: BorderSide(
+                            color: Color.fromRGBO(220, 220, 220, 1),
+                            width: 2,
+                          ),
+                          bottom: BorderSide(
+                            color: Color.fromRGBO(220, 220, 220, 1),
+                            width: 2,
+                          ),
+                        )),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Mon",
+                        style: font(15, Colors.black, FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: (_width - ((_width / 15) + 2)) /
+                        5, //(_width-(((_width / 3) / 5) + 2))/5
+                    height: (_height -
+                            ((_width / 15) + 2) * (2 + (2 / 3)) -
+                            (_width / 3)) /
+                        5,
+                    decoration: const BoxDecoration(
+                        border: Border(
+                      right: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                      bottom: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                    )),
+                  ),
+                  Container(
+                    width: (_width - ((_width / 15) + 2)) /
+                        5, //(_width-(((_width / 3) / 5) + 2))/5
+                    height: (_height -
+                            ((_width / 15) + 2) * (2 + (2 / 3)) -
+                            (_width / 3)) /
+                        5,
+                    decoration: const BoxDecoration(
+                        border: Border(
+                      right: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                      bottom: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                    )),
+                  ),
+                  Container(
+                    width: (_width - ((_width / 15) + 2)) /
+                        5, //(_width-(((_width / 3) / 5) + 2))/5
+                    height: (_height -
+                            ((_width / 15) + 2) * (2 + (2 / 3)) -
+                            (_width / 3)) /
+                        5,
+                    decoration: const BoxDecoration(
+                        border: Border(
+                      right: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                      bottom: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                    )),
+                  ),
+                  Container(
+                    width: (_width - ((_width / 15) + 2)) /
+                        5, //(_width-(((_width / 3) / 5) + 2))/5
+                    height: (_height -
+                            ((_width / 15) + 2) * (2 + (2 / 3)) -
+                            (_width / 3)) /
+                        5,
+                    decoration: const BoxDecoration(
+                        border: Border(
+                      right: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                      bottom: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                    )),
+                  ),
+                  Container(
+                    width: (_width - ((_width / 15) + 2)) /
+                        5, //(_width-(((_width / 3) / 5) + 2))/5
+                    height: (_height -
+                            ((_width / 15) + 2) * (2 + (2 / 3)) -
+                            (_width / 3)) /
+                        5,
+                    decoration: const BoxDecoration(
+                        border: Border(
+                      right: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                      bottom: BorderSide(
+                        color: Color.fromRGBO(220, 220, 220, 1),
+                        width: 2,
+                      ),
+                    )),
+                  ),
+                ],
+              );
+            },
           ),
         )
       ],
