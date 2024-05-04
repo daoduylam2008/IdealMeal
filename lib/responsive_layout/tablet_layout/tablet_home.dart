@@ -11,7 +11,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   DateTime now = DateTime.now();
-  final List<String> _date = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
   String getMonth(int month) {
     switch (month) {
       case 1:
@@ -336,19 +336,46 @@ class _HomeState extends State<Home> {
         ),
         // calendar
         Expanded(
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 7,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  Container(
-                    width: (_width - ((_width / 15) + 2)) /
-                        5, //(_width-(((_width / 3) / 5) + 2))/5
-                    height: ((_width / 15) + 2) * (2 / 3),
-                    decoration: const BoxDecoration(
-                        color: Color.fromRGBO(242, 242, 242, 1),
-                        border: Border(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 7,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      Container(
+                        width: (_width - ((_width / 15) + 2)) /
+                            5, //(_width-(((_width / 3) / 5) + 2))/5
+                        height: ((_width / 15) + 2) * (2 / 3),
+                        decoration: const BoxDecoration(
+                            color: Color.fromRGBO(242, 242, 242, 1),
+                            border: Border(
+                              right: BorderSide(
+                                color: Color.fromRGBO(220, 220, 220, 1),
+                                width: 2,
+                              ),
+                              bottom: BorderSide(
+                                color: Color.fromRGBO(220, 220, 220, 1),
+                                width: 2,
+                              ),
+                            )),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Mon",
+                            style: font(15, Colors.black, FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: (_width - ((_width / 15) + 2)) /
+                            5, //(_width-(((_width / 3) / 5) + 2))/5
+                        height: (constraints.maxHeight -
+                                ((_width / 15) + 2) * (2 / 3)) /
+                            5,
+                        decoration: const BoxDecoration(
+                            border: Border(
                           right: BorderSide(
                             color: Color.fromRGBO(220, 220, 220, 1),
                             width: 2,
@@ -358,110 +385,82 @@ class _HomeState extends State<Home> {
                             width: 2,
                           ),
                         )),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        _date[index],
-                        style: font(15, Colors.black, FontWeight.bold),
                       ),
-                    ),
-                  ),
-                  Container(
-                    width: (_width - ((_width / 15) + 2)) /
-                        5, //(_width-(((_width / 3) / 5) + 2))/5
-                    height: (_height -
-                            ((_width / 15) + 2) * (2 + (2 / 3)) -
-                            (_width / 3)) /
-                        5,
-                    decoration: const BoxDecoration(
-                        border: Border(
-                      right: BorderSide(
-                        color: Color.fromRGBO(220, 220, 220, 1),
-                        width: 2,
+                      Container(
+                        width: (_width - ((_width / 15) + 2)) /
+                            5, //(_width-(((_width / 3) / 5) + 2))/5
+                        height: (constraints.maxHeight -
+                                ((_width / 15) + 2) * (2 / 3)) /
+                            5,
+                        decoration: const BoxDecoration(
+                            border: Border(
+                          right: BorderSide(
+                            color: Color.fromRGBO(220, 220, 220, 1),
+                            width: 2,
+                          ),
+                          bottom: BorderSide(
+                            color: Color.fromRGBO(220, 220, 220, 1),
+                            width: 2,
+                          ),
+                        )),
                       ),
-                      bottom: BorderSide(
-                        color: Color.fromRGBO(220, 220, 220, 1),
-                        width: 2,
+                      Container(
+                        width: (_width - ((_width / 15) + 2)) /
+                            5, //(_width-(((_width / 3) / 5) + 2))/5
+                        height: (constraints.maxHeight -
+                                ((_width / 15) + 2) * (2 / 3)) /
+                            5,
+                        decoration: const BoxDecoration(
+                            border: Border(
+                          right: BorderSide(
+                            color: Color.fromRGBO(220, 220, 220, 1),
+                            width: 2,
+                          ),
+                          bottom: BorderSide(
+                            color: Color.fromRGBO(220, 220, 220, 1),
+                            width: 2,
+                          ),
+                        )),
                       ),
-                    )),
-                  ),
-                  Container(
-                    width: (_width - ((_width / 15) + 2)) /
-                        5, //(_width-(((_width / 3) / 5) + 2))/5
-                    height: (_height -
-                            ((_width / 15) + 2) * (2 + (2 / 3)) -
-                            (_width / 3)) /
-                        5,
-                    decoration: const BoxDecoration(
-                        border: Border(
-                      right: BorderSide(
-                        color: Color.fromRGBO(220, 220, 220, 1),
-                        width: 2,
+                      Container(
+                        width: (_width - ((_width / 15) + 2)) /
+                            5, //(_width-(((_width / 3) / 5) + 2))/5
+                        height: (constraints.maxHeight -
+                                ((_width / 15) + 2) * (2 / 3)) /
+                            5,
+                        decoration: const BoxDecoration(
+                            border: Border(
+                          right: BorderSide(
+                            color: Color.fromRGBO(220, 220, 220, 1),
+                            width: 2,
+                          ),
+                          bottom: BorderSide(
+                            color: Color.fromRGBO(220, 220, 220, 1),
+                            width: 2,
+                          ),
+                        )),
                       ),
-                      bottom: BorderSide(
-                        color: Color.fromRGBO(220, 220, 220, 1),
-                        width: 2,
+                      Container(
+                        width: (_width - ((_width / 15) + 2)) /
+                            5, //(_width-(((_width / 3) / 5) + 2))/5
+                        height: (constraints.maxHeight -
+                                ((_width / 15) + 2) * (2 / 3)) /
+                            5,
+                        decoration: const BoxDecoration(
+                            border: Border(
+                          right: BorderSide(
+                            color: Color.fromRGBO(220, 220, 220, 1),
+                            width: 2,
+                          ),
+                          bottom: BorderSide(
+                            color: Color.fromRGBO(220, 220, 220, 1),
+                            width: 2,
+                          ),
+                        )),
                       ),
-                    )),
-                  ),
-                  Container(
-                    width: (_width - ((_width / 15) + 2)) /
-                        5, //(_width-(((_width / 3) / 5) + 2))/5
-                    height: (_height -
-                            ((_width / 15) + 2) * (2 + (2 / 3)) -
-                            (_width / 3)) /
-                        5,
-                    decoration: const BoxDecoration(
-                        border: Border(
-                      right: BorderSide(
-                        color: Color.fromRGBO(220, 220, 220, 1),
-                        width: 2,
-                      ),
-                      bottom: BorderSide(
-                        color: Color.fromRGBO(220, 220, 220, 1),
-                        width: 2,
-                      ),
-                    )),
-                  ),
-                  Container(
-                    width: (_width - ((_width / 15) + 2)) /
-                        5, //(_width-(((_width / 3) / 5) + 2))/5
-                    height: (_height -
-                            ((_width / 15) + 2) * (2 + (2 / 3)) -
-                            (_width / 3)) /
-                        5,
-                    decoration: const BoxDecoration(
-                        border: Border(
-                      right: BorderSide(
-                        color: Color.fromRGBO(220, 220, 220, 1),
-                        width: 2,
-                      ),
-                      bottom: BorderSide(
-                        color: Color.fromRGBO(220, 220, 220, 1),
-                        width: 2,
-                      ),
-                    )),
-                  ),
-                  Container(
-                    width: (_width - ((_width / 15) + 2)) /
-                        5, //(_width-(((_width / 3) / 5) + 2))/5
-                    height: (_height -
-                            ((_width / 15) + 2) * (2 + (2 / 3)) -
-                            (_width / 3)) /
-                        5,
-                    decoration: const BoxDecoration(
-                        border: Border(
-                      right: BorderSide(
-                        color: Color.fromRGBO(220, 220, 220, 1),
-                        width: 2,
-                      ),
-                      bottom: BorderSide(
-                        color: Color.fromRGBO(220, 220, 220, 1),
-                        width: 2,
-                      ),
-                    )),
-                  ),
-                ],
+                    ],
+                  );
+                },
               );
             },
           ),
