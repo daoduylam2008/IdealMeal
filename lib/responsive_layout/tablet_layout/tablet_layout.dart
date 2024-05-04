@@ -21,6 +21,7 @@ class _TabletScaffoldState extends State<TabletScaffold> {
         toolbarHeight: (_width / 3) / 5,
         title:
             Text('Ideal Meal', style: font(30, Colors.black, FontWeight.bold)),
+        centerTitle: false,
         bottom: const PreferredSize(
           preferredSize: Size.fromHeight(2),
           child: Divider(

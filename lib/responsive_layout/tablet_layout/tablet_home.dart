@@ -11,7 +11,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   DateTime now = DateTime.now();
-
+  final List<String> _date = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
   String getMonth(int month) {
     switch (month) {
       case 1:
@@ -361,7 +361,7 @@ class _HomeState extends State<Home> {
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        "Mon",
+                        _date[index],
                         style: font(15, Colors.black, FontWeight.bold),
                       ),
                     ),
