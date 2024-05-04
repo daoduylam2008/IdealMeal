@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreRegisterRequest;
-use App\Http\Requests\UpdateRegisterRequest;
-use App\Models\Register;
+use App\Http\Requests\StoreMealDaysRequest;
+use App\Http\Requests\UpdateMealDaysRequest;
+use App\Models\MealDays;
 
-class RegisterController extends Controller
+class MealDaysController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class RegisterController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRegisterRequest $request)
+    public function store(StoreMealDaysRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class RegisterController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Register $register)
+    public function show(MealDays $mealDays)
     {
         //
     }
@@ -43,7 +43,7 @@ class RegisterController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Register $register)
+    public function edit(MealDays $mealDays)
     {
         //
     }
@@ -51,7 +51,7 @@ class RegisterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRegisterRequest $request, Register $register)
+    public function update(UpdateMealDaysRequest $request, MealDays $mealDays)
     {
         //
     }
@@ -59,7 +59,7 @@ class RegisterController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Register $register)
+    public function destroy(MealDays $mealDays)
     {
         //
     }

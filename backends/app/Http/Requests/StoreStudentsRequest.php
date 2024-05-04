@@ -11,7 +11,7 @@ class StoreStudentsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class StoreStudentsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "student_id" => ["required"],
+            "name" => ["required"],
+            "birth" => ["required"],
+            "ethnic"=>["required"],
+            "address" => ["required"],
+            "phone" => ["required"],
         ];
     }
 }

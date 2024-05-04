@@ -2,12 +2,10 @@
 
 namespace Database\Seeders;
 
-use DB;
-use Illuminate\Database\Seeder;
-use Database\Seeders;
-use Illuminate\Support\LazyCollection;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 use Spatie\SimpleExcel\SimpleExcelReader;
+use DB;
 
 class StudentsSeeder extends Seeder
 {
@@ -17,13 +15,11 @@ class StudentsSeeder extends Seeder
     public function run(): void
     {
         DB::disableQueryLog();
-
-        SimpleExcelReader::create('public/csv/student.xlsx')
+        SimpleExcelReader::create("data/student.xlsx")
         ->getRows()
         ->each(function(array $rowProperties){
-            DB::table('students')->insert($rowProperties);
+            DB::table("students")->insert($rowProperties);
         });
 
-        
     }
 }

@@ -2,22 +2,18 @@
 
 namespace App\Http\Controllers\V1;
 
-use DB;
 use App\Models\Students;
-use Illuminate\Http\Request;
-use App\Exports\StudentsExport;
 use App\Http\Controllers\Controller;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Resources\StudentsResource;
 use App\Http\Requests\StoreStudentsRequest;
-use App\Http\Resources\V1\StudentsResource;
 use App\Http\Requests\UpdateStudentsRequest;
-
+use DB;
 class StudentsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
         return Students::all();
     }
@@ -35,17 +31,18 @@ class StudentsController extends Controller
      */
     public function store(StoreStudentsRequest $request)
     {
-        //
+        return new StudentsResource(Students::create($request->all()));
     }
 
     /**
      * Display the specified resource.
      */
     public function show($id)
-    {
-        $result = DB::table('students')
-                ->where('id', '=', $id)
-                ->get();
+    {   
+        $result = DB::table("students")
+                    ->where("student_id","=",$id)
+                    ->get();
+    
         return new StudentsResource($result[0]);
     }
 
@@ -72,6 +69,4 @@ class StudentsController extends Controller
     {
         //
     }
-
-    
 }

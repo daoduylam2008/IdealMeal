@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('meal_days', function (Blueprint $table) {
-            $table->integer('student_id');
-            $table->string('Monday#1');
-            $table->string('Tuesday#1');
-            $table->string('Wednesday#1');
-            $table->string('Thursday#1');
-            $table->string('Friday#1');
+            $table->id();
+            $table->string("Monday#1");
+            $table->string("Tuesday#1");
+            $table->string("Wednesday#1");
+            $table->string("Thursday#1");
+            $table->string("Friday#1");
             $table->string("Monday#2");
             $table->string("Tuesday#2");
             $table->string("Wednesday#2");
@@ -34,9 +34,6 @@ return new class extends Migration
             $table->string("Thursday#4");
             $table->string("Friday#4");
             
-            
-            $table->foreign('student_id')->references('student_id')->on('students')->onDelete('cascade')->onUpdate('cascade');
-            
         });
     }
 
@@ -46,6 +43,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('meal_days');
-    
     }
 };
