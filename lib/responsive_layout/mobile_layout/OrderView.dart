@@ -1,8 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:ideal_meal/FileManager.dart';
 import 'package:ideal_meal/constant.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:ideal_meal/responsive_layout/mobile_layout/mobile_layout.dart';
 
 class OrderView extends StatefulWidget {
   const OrderView({super.key});
@@ -17,6 +21,7 @@ class _OrderView extends State<OrderView> {
 
   // Check if user submitted or not
   bool onSubmit = false;
+  bool onRead = false;
 
   var buttonColor = linearColor;
 
@@ -38,6 +43,7 @@ class _OrderView extends State<OrderView> {
         Navigator.pop(context);
         setState(() {
           onSubmit = true;
+          writeMealData(submitData);
         });
       },
     );
@@ -60,36 +66,46 @@ class _OrderView extends State<OrderView> {
       },
     );
   }
+  
+  @override initState() {
+    List<String> days = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ];
+    super.initState();
+
+    for (var i = 1; i <= 6; i++) {
+      for (var day in days) {
+        submitData["$day#$i"] = "";
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (onSubmit) {
-      return Container(
-        child: const Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                "You have been already submitted",
-                style: TextStyle(fontSize: 17),
-              ),
-            ),
-          ],
-        )),
-      );
-    }
+
     return LayoutBuilder(builder: (context, constraints) {
+      if (onSubmit) {
+        return  Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Submitted already!\nGo to Meals to change your dishes",
+                style: TextStyle(fontSize: constraints.maxWidth*20/430), textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        );
+      }
       return FutureBuilder(
           future: data,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               var data = dayMeal(snapshot.data!);
-              var days = [];
-              for (var i in data.keys) {
-                days.add(i);
-              }
               return Container(
                 color: appBarBackground,
                 width: constraints.maxWidth,
@@ -100,14 +116,10 @@ class _OrderView extends State<OrderView> {
                       SizedBox(
                         height: constraints.maxHeight * 560 / 649,
                         child: ListView.builder(
-                          itemCount: data.length,
+                          itemCount: data.length-1,
                           itemBuilder: (context, index) {
-                            var lists = data[days[index]];
-                            var date = days[index];
-
-                            for (var element in days) {
-                              submitData[element] = "";
-                            }
+                            var meal = data.values.toList()[index];
+                            var date = data.keys.toList()[index];
 
                             return index == 0
                                 ? Container()
@@ -120,57 +132,76 @@ class _OrderView extends State<OrderView> {
                                           Container(
                                             decoration: const BoxDecoration(
                                                 color: Colors.white,
-                                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20))),
                                             alignment: Alignment.center,
-                                            width: constraints.maxWidth * 397 / 430,
+                                            width: constraints.maxWidth *
+                                                397 /
+                                                430,
                                             height: 130,
                                             padding: EdgeInsets.only(
-                                              left: constraints.maxWidth * 16 / 430,
-                                              right: constraints.maxWidth * 16 / 430,
+                                              left: constraints.maxWidth *
+                                                  16 /
+                                                  430,
+                                              right: constraints.maxWidth *
+                                                  16 /
+                                                  430,
                                             ),
                                             child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                Text(date!, style: font(20, Colors.black, FontWeight.normal)),
+                                                Text(date,
+                                                    style: font(
+                                                        constraints.maxWidth *
+                                                            20 /
+                                                            430,
+                                                        Colors.black,
+                                                        FontWeight.normal)),
                                                 DropdownButtonFormField2(
-                                                    buttonStyleData: const ButtonStyleData(
-                                                        height: 20,
-                                                        overlayColor: MaterialStatePropertyAll(myGrey)),
-                                                    iconStyleData: const IconStyleData(
-                                                      icon: Icon(Icons.expand_more),
-                                                    ),
-                                                    dropdownStyleData: const DropdownStyleData(
-                                                        decoration: BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius:
-                                                                BorderRadius.all(Radius.circular(15)))),
-                                                    menuItemStyleData: const MenuItemStyleData(
-                                                        overlayColor: MaterialStatePropertyAll(
-                                                            Color.fromRGBO(243, 243, 243, 1))),
-                                                    decoration: const InputDecoration(
-                                                        hintText: "Select your dish",
-                                                        hintStyle: TextStyle(
-                                                            color: Color.fromRGBO(200, 200, 200, 1),
-                                                            fontSize: 20,
-                                                            fontWeight: FontWeight.normal),
-                                                        fillColor: Color.fromRGBO(243, 243, 243, 1),
-                                                        filled: true,
-                                                        border: OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(width: 0, style: BorderStyle.none),
-                                                            borderRadius:
-                                                                BorderRadius.all(Radius.circular(15)))),
-                                                    items: lists!.map((items) {
+                                                  value: submitData[date],
+                                                  buttonStyleData:  const ButtonStyleData(
+                                                    padding: EdgeInsets.all(0),
+                                                    decoration:  BoxDecoration(),
+                                                    height: 25,
+                                                    overlayColor:
+                                                       MaterialStatePropertyAll(
+                                                            myGrey)),
+                                                  iconStyleData:
+                                                      const IconStyleData(
+                                                    icon: Icon(
+                                                        Icons.expand_more),
+                                                  ),
+                                                  dropdownStyleData: const DropdownStyleData(
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius: BorderRadius.all(
+                                                            Radius.circular(
+                                                                15)))),
+                                                  menuItemStyleData: const MenuItemStyleData(
+                                                      overlayColor: MaterialStatePropertyAll(
+                                                          Color.fromRGBO(
+                                                              243, 243, 243, 1))),
+                                                  decoration: InputDecoration(
+                                                      labelStyle: TextStyle(color: Colors.black, fontSize: constraints.maxWidth * 20 / 430),
+                                                      hintText: "Select your dish",
+                                                      hintStyle: TextStyle(color:  const Color.fromRGBO(200, 200, 200, 1), fontSize: constraints.maxWidth * 20 / 430, fontWeight: FontWeight.normal),
+                                                      fillColor: const Color.fromRGBO(243, 243, 243, 1),
+                                                      filled: true,
+                                                      border: const OutlineInputBorder(borderSide: BorderSide(width: 0, style: BorderStyle.none), borderRadius: BorderRadius.all(Radius.circular(15)))),
+                                                  items: (meal).map((items) {
                                                       return DropdownMenuItem(
-                                                          value: items, child: Text(items));
-                                                    }).toList(),
-                                                    onChanged: (String? newValue) {
-                                                      setState(() {
-                                                        submitData[date] = newValue!;
-                                                        print(submitData[date]);
-                                                      });
-                                                    }),
+                                                          value: items,
+                                                          child: Text(items));
+                                                    
+                                                  }).toList(),
+                                                  onChanged: (String? newValue) {
+                                                    setState(() {
+                                                      submitData[date] = newValue.toString();
+                                                    });
+                                                  }),
                                               ],
                                             ),
                                           )
@@ -188,8 +219,8 @@ class _OrderView extends State<OrderView> {
                         decoration: const BoxDecoration(
                           color: Colors.transparent,
                           borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(15),
-                              topRight: Radius.circular(15)),
+                              topLeft: Radius.circular(17),
+                              topRight: Radius.circular(17)),
                         ),
                         child: Container(
                           padding: const EdgeInsets.only(top: 12),
@@ -197,8 +228,8 @@ class _OrderView extends State<OrderView> {
                           margin: const EdgeInsets.only(top: 5), // ***
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15)),
+                                topLeft: Radius.circular(17),
+                                topRight: Radius.circular(17)),
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
@@ -219,7 +250,6 @@ class _OrderView extends State<OrderView> {
                                   });
                                 },
                                 onTapUp: (details) {
-                                  print(submitData["Friday#1"]);
                                   setState(() {
                                     buttonColor = linearColor;
                                     showAlertDialog(context);
@@ -227,7 +257,7 @@ class _OrderView extends State<OrderView> {
                                 },
                                 child: Container(
                                     width: constraints.maxWidth * 368 / 430,
-                                    height: 72,
+                                    height: constraints.maxHeight * 72 / 649,
                                     decoration: BoxDecoration(
                                       gradient: buttonColor,
                                       borderRadius: const BorderRadius.all(

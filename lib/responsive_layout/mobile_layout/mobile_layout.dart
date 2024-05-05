@@ -10,6 +10,8 @@ import 'OrderView.dart';
 import 'MealView.dart';
 import 'ProfileView.dart';
 
+Map<String, String> meal_data = {};
+
 class MobileScaffold extends StatefulWidget {
   const MobileScaffold({super.key});
 
@@ -22,11 +24,11 @@ class _MobileScaffold extends State<MobileScaffold> {
   late String appBarTitle;
 
   final _view = [
-        const HomeView(),
-        const MealView(),
-        const OrderView(),
-        const ProfileView(),
-      ];
+    const HomeView(),
+    const MealView(),
+    const OrderView(),
+    const ProfileView(),
+  ];
 
   @override
   void initState() {
@@ -58,8 +60,7 @@ class _MobileScaffold extends State<MobileScaffold> {
               title: Text(appBarTitle,
                   style: font(30, Colors.black, FontWeight.bold)),
             ),
-      body: IndexedStack(index: selection, children: _view ),
-      
+      body: IndexedStack(index: selection, children: _view),
       bottomNavigationBar: SizedBox(
         child: LayoutBuilder(
           builder: ((context, constraints) {
@@ -94,7 +95,7 @@ class _MobileScaffold extends State<MobileScaffold> {
                                 color: selection == 0 ? Colors.black : null,
                               )),
                         ),
-        
+
                         // Meal tab
                         InkWell(
                           child: Container(
@@ -112,7 +113,7 @@ class _MobileScaffold extends State<MobileScaffold> {
                             );
                           },
                         ),
-        
+
                         // Order tab
                         InkWell(
                           child: Container(
@@ -130,7 +131,7 @@ class _MobileScaffold extends State<MobileScaffold> {
                             );
                           },
                         ),
-        
+
                         // Profile tab
                         InkWell(
                           child: Container(

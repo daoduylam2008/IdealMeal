@@ -1,4 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages
 import 'dart:convert';
 import 'dart:async';
 import 'dart:io';
@@ -13,25 +12,26 @@ Future<String> get localPath async {
   return directory.path;
 }
 
-Future<dynamic> loadUserData() async {
-  final String jsonString =
-      await rootBundle.loadString('assets/user/user.json');
-  final data = jsonDecode(jsonString);
+Future<File> getLocalFile() async {
+  String path = await localPath;
+
+  return File('$path/meal_data.json');
+}
+
+Future<File> writeMealData(Map<String, String>data) async {
+  File file = await getLocalFile();
+
+  return file.writeAsString("$data");
+}
+
+Future<Map<String, String>> readMealData() async {
+  File file = await getLocalFile();
+
+  final String response = await rootBundle.loadString(file.path);
+  final data = await json.decode(response);
 
   return data;
 }
-
-Future<File> get userData async {
-  final path = await localPath;
-  return File('$path/assets/user/user.json');
-}
-
-// Future<File> updatePassword(String password) async {
-//   final file = await loadUserData;
-
-//   // Write the file
-//   return file('$counter');
-// }
 
 Future<List<List<dynamic>>> processCsv(String path) async {
   var result = await rootBundle.loadString(
@@ -54,13 +54,13 @@ Map<String, List<String>> dayMeal(List<List<dynamic>> data) {
   Map<String, List<String>> map = {};
   for (var element1 in data) {
     List<String> temp = [];
-    
+
     for (var element2 in data) {
       if (element1[0].split(";")[2] == element2[0].split(";")[2]) {
         temp.add(element2[0].split(";")[1]);
       }
     }
-    map[element1[0].split(";")[2]] = temp;
+    map[element1[0].split(";")[2]] = temp + ["Không chọn"];
   }
   return map;
 }

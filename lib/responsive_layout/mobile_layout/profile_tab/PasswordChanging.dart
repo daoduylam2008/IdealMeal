@@ -36,6 +36,9 @@ class _PasswordChanging extends State<PasswordChanging> {
       onPressed: () {
         Navigator.pop(context);
         Navigator.pop(context);
+        setState(() {
+          
+        });
         userTest.password = confirmPassController.text;
       },
     );
@@ -94,7 +97,7 @@ class _PasswordChanging extends State<PasswordChanging> {
                 const SizedBox(height: 5),
                 SizedBox(
                     height: 59,
-                    width: 368,
+                    width: constraints.maxWidth * 368 / 430,
                     child: TextField(
                         controller: oldPassController,
                         cursorColor: Colors.black,
@@ -176,7 +179,7 @@ class _PasswordChanging extends State<PasswordChanging> {
                 const SizedBox(height: 5),
                 SizedBox(
                     height: 59,
-                    width: 368,
+                    width: constraints.maxWidth * 368 / 430,
                     child: TextField(
                         controller: confirmPassController,
                         cursorColor: Colors.black,
@@ -215,52 +218,55 @@ class _PasswordChanging extends State<PasswordChanging> {
             ),
           );
         })),
-        bottomNavigationBar: SafeArea(
-          child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 37, vertical: 32),
-              child: BlurryContainer(
-                  blur: 14,
-                  width: 368,
-                  height: 72,
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: const Color.fromRGBO(231, 231, 231, .5),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 72,
-                          width: 150,
-                          child: IconButton(
-                              splashRadius: 1,
-                              padding: const EdgeInsets.all(0.0),
-                              icon: const Icon(Icons.check, size: 34),
-                              onPressed: () {
-                                User user = userTest;
+        bottomNavigationBar: LayoutBuilder(builder: (context, constraints) {
+          return SafeArea(
+            child: Container(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 37, vertical: 32),
+                child: BlurryContainer(
+                    blur: 14,
+                    width: constraints.maxWidth * 368 / 430,
+                    height: 72,
+                    borderRadius: const BorderRadius.all(Radius.circular(25)),
+                    color: const Color.fromRGBO(231, 231, 231, .5),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 72,
+                            width: constraints.maxWidth * 150 / 430,
+                            child: IconButton(
+                                splashRadius: 1,
+                                padding: const EdgeInsets.all(0.0),
+                                icon: const Icon(Icons.check, size: 34),
+                                onPressed: () {
+                                  User user = userTest;
                                   if (oldPassController.text != user.password) {
                                     setState(() {
                                       error = "Your old password is not fitted";
                                     });
-                                  } else if (newPassController.text != confirmPassController.text) {
+                                  } else if (newPassController.text !=
+                                      confirmPassController.text) {
                                     setState(() {
                                       error = "Confirm your password again";
-
                                     });
                                   } else {
                                     showAlertDialog(context);
                                   }
-                              }),
-                        ),
-                        SizedBox(
-                          height: 72,
-                          width: 150,
-                          child: IconButton(
-                              padding: const EdgeInsets.all(0.0),
-                              icon: const Icon(Icons.close, size: 34),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              }),
-                        ),
-                      ]))),
-        ));
+                                }),
+                          ),
+                          SizedBox(
+                            height: 72,
+                            width: constraints.maxWidth * 150 / 430,
+                            child: IconButton(
+                                padding: const EdgeInsets.all(0.0),
+                                icon: const Icon(Icons.close, size: 34),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                }),
+                          ),
+                        ]))),
+          );
+        }));
   }
 }

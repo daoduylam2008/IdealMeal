@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:ideal_meal/responsive_layout/mobile_layout/Widget/CardWidget.dart';
 
-class MyProfile extends StatelessWidget {
+
+class MyProfile extends StatefulWidget {
+  const MyProfile({super.key});
+
+  @override
+  State<MyProfile> createState() => _MyProfile();
+}
+
+class _MyProfile extends State<MyProfile> {
   // const MyProfile({super.key});
 
   @override
   Widget build(context) {
     return LayoutBuilder(builder: ((context, constraints) {
-      return Center(
-          child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Stack(
-            alignment: Alignment.bottomLeft,
-            children: [
-              Row(children: [
-                SizedBox(
-                  width: constraints.maxWidth*0.9,
-                  child: Image.asset("assets/images/card.png", fit: BoxFit.cover)
-                )
-              ]),
-            ],
-          )
-        ],
-      ));
+      return SingleChildScrollView(
+        child: Center(
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CardWidget(width: constraints.maxWidth)
+          ],
+        )),
+      );
     }));
   }
 }
