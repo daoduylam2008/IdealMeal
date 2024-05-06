@@ -160,7 +160,7 @@ class _OrderView extends State<OrderView> {
                                                         Colors.black,
                                                         FontWeight.normal)),
                                                 DropdownButtonFormField2(
-                                                  value: submitData[date],
+                                                  value: (submitData[date].toString() == "") ? null : submitData[date].toString(),
                                                   buttonStyleData: const ButtonStyleData(
                                                     padding: EdgeInsets.all(0),
                                                     decoration:  BoxDecoration(),
@@ -256,7 +256,7 @@ class _OrderView extends State<OrderView> {
                                 },
                                 child: Container(
                                     width: constraints.maxWidth * 368 / 430,
-                                    height: constraints.maxHeight * 69 / 649,
+                                    height: constraints.maxHeight * 65 / 649,
                                     decoration: BoxDecoration(
                                       gradient: buttonColor,
                                       borderRadius: const BorderRadius.all(
