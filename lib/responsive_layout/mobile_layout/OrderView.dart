@@ -6,7 +6,6 @@ import 'package:flutter/widgets.dart';
 import 'package:ideal_meal/FileManager.dart';
 import 'package:ideal_meal/constant.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:ideal_meal/responsive_layout/mobile_layout/mobile_layout.dart';
 
 class OrderView extends StatefulWidget {
   const OrderView({super.key});
@@ -162,7 +161,7 @@ class _OrderView extends State<OrderView> {
                                                         FontWeight.normal)),
                                                 DropdownButtonFormField2(
                                                   value: submitData[date],
-                                                  buttonStyleData:  const ButtonStyleData(
+                                                  buttonStyleData: const ButtonStyleData(
                                                     padding: EdgeInsets.all(0),
                                                     decoration:  BoxDecoration(),
                                                     height: 25,
@@ -193,13 +192,13 @@ class _OrderView extends State<OrderView> {
                                                       border: const OutlineInputBorder(borderSide: BorderSide(width: 0, style: BorderStyle.none), borderRadius: BorderRadius.all(Radius.circular(15)))),
                                                   items: (meal).map((items) {
                                                       return DropdownMenuItem(
-                                                          value: items,
+                                                          value: items.toString(),
                                                           child: Text(items));
                                                     
                                                   }).toList(),
                                                   onChanged: (String? newValue) {
                                                     setState(() {
-                                                      submitData[date] = newValue.toString();
+                                                      submitData[date] = newValue!;
                                                     });
                                                   }),
                                               ],
@@ -257,7 +256,7 @@ class _OrderView extends State<OrderView> {
                                 },
                                 child: Container(
                                     width: constraints.maxWidth * 368 / 430,
-                                    height: constraints.maxHeight * 72 / 649,
+                                    height: constraints.maxHeight * 69 / 649,
                                     decoration: BoxDecoration(
                                       gradient: buttonColor,
                                       borderRadius: const BorderRadius.all(
