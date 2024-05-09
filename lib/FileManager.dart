@@ -2,35 +2,51 @@ import 'dart:convert';
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:ideal_meal/constant.dart';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:csv/csv.dart';
 
-Future<String> get localPath async {
-  final directory = await getApplicationDocumentsDirectory();
+class MealStorage {
+  bool _fileExists = true;
+  Future<String> get localPath async {
+    final directory = await getApplicationDocumentsDirectory();
 
-  return directory.path;
-}
+    return directory.path;
+  }
 
-Future<File> getLocalFile() async {
-  String path = await localPath;
+  Future<File> getLocalFile() async {
+    String path = await localPath;
 
-  return File('$path/meal_data.json');
-}
+    return File('$path/meal_data.json');
+  }
 
-Future<File> writeMealData(Map<String, String>data) async {
-  File file = await getLocalFile();
+  Future<File> writeMealData(Map<String, String> data) async {
+    File file = await getLocalFile();
 
-  return file.writeAsString("$data");
-}
+    String jsonString = jsonEncode(data);
 
-Future<Map<String, String>> readMealData() async {
-  File file = await getLocalFile();
+    return file.writeAsString(jsonString);
+  }
 
-  final String response = await rootBundle.loadString(file.path);
-  final data = await json.decode(response);
+  Future<Map<String, dynamic>> readMealData() async {
+    File file = await getLocalFile();
+    _fileExists = file.existsSync();
+    if (_fileExists) {
+      final String response = file.readAsStringSync();
+      final data = json.decode(response);
+      for (var value in data.values) {
+        if (data[value] == "") {
+          data[value] = "Không chọn";
+        }
+      }
 
-  return data;
+      print(data);
+      return data;
+    } else {
+      return {};
+    }
+  }
 }
 
 Future<List<List<dynamic>>> processCsv(String path) async {
@@ -63,4 +79,43 @@ Map<String, List<String>> dayMeal(List<List<dynamic>> data) {
     map[element1[0].split(";")[2]] = temp + ["Không chọn"];
   }
   return map;
+}
+
+class Date {
+  DateTime firstDay = firstDate();
+  DateTime lastDat = lastDate();
+
+  late final List<List<DateTime>> dateMatrix;
+
+  void init() {
+    dateMatrix = matrix();
+  }
+
+  List<List<DateTime>> matrix() {
+    List<String> days = [
+      "Monday",
+      "Tuesday",
+      " Wednesday",
+      " Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ];
+    List<List<DateTime>> m = [];
+
+    for (var i = 1; i <= 6; i++) {
+      List<DateTime> d = [];
+      for (var j = 1; j <= 7; j++) {
+        d.add(DateTime.now());
+      }
+      m.add(d);
+    }
+
+    for (var day in days) {
+      if (day == dateToString(firstDay)) {
+        
+      }
+    }
+    return m;
+  }
 }

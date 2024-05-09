@@ -29,7 +29,7 @@ const overlayLinearColor = LinearGradient(
 
 // constants path/url to data
 const String pathToData = 'http://127.0.0.1:8000/api/v1/students';
-const String urlToStudentData = 'http://127.0.0.1:8000/api/v1/students/1';
+const String urlToStudentData = 'http://127.0.0.1:8000/api/v1/students/100101';
 const String urlToMealsData = 'http://127.0.0.1:8000/api/v1/mealday';
 
 // convert Datetime to "DD/MM/YYYY"

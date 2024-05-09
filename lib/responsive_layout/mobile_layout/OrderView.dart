@@ -1,14 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:ideal_meal/FileManager.dart';
 import 'package:ideal_meal/constant.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
 class OrderView extends StatefulWidget {
-  const OrderView({super.key});
+  const OrderView({super.key, required this.storage});
+
+  final MealStorage storage;
 
   @override
   State<OrderView> createState() => _OrderView();
@@ -42,8 +40,8 @@ class _OrderView extends State<OrderView> {
         Navigator.pop(context);
         setState(() {
           onSubmit = true;
-          writeMealData(submitData);
         });
+       widget.storage.writeMealData(submitData);
       },
     );
     // set up the AlertDialog
@@ -65,8 +63,9 @@ class _OrderView extends State<OrderView> {
       },
     );
   }
-  
-  @override initState() {
+
+  @override
+  initState() {
     List<String> days = [
       "Monday",
       "Tuesday",
@@ -85,16 +84,16 @@ class _OrderView extends State<OrderView> {
 
   @override
   Widget build(BuildContext context) {
-
     return LayoutBuilder(builder: (context, constraints) {
       if (onSubmit) {
-        return  Center(
+        return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "Submitted already!\nGo to Meals to change your dishes",
-                style: TextStyle(fontSize: constraints.maxWidth*20/430), textAlign: TextAlign.center,
+                style: TextStyle(fontSize: constraints.maxWidth * 20 / 430),
+                textAlign: TextAlign.center,
               ),
             ],
           ),
@@ -115,7 +114,7 @@ class _OrderView extends State<OrderView> {
                       SizedBox(
                         height: constraints.maxHeight * 560 / 649,
                         child: ListView.builder(
-                          itemCount: data.length-1,
+                          itemCount: data.length - 1,
                           itemBuilder: (context, index) {
                             var meal = data.values.toList()[index];
                             var date = data.keys.toList()[index];
@@ -160,47 +159,50 @@ class _OrderView extends State<OrderView> {
                                                         Colors.black,
                                                         FontWeight.normal)),
                                                 DropdownButtonFormField2(
-                                                  value: (submitData[date].toString() == "") ? null : submitData[date].toString(),
-                                                  buttonStyleData: const ButtonStyleData(
-                                                    padding: EdgeInsets.all(0),
-                                                    decoration:  BoxDecoration(),
-                                                    height: 25,
-                                                    overlayColor:
-                                                       MaterialStatePropertyAll(
+                                                    value: (submitData[date].toString() == "")
+                                                        ? null
+                                                        : submitData[date]
+                                                            .toString(),
+                                                    buttonStyleData: const ButtonStyleData(
+                                                        padding:
+                                                            EdgeInsets.all(0),
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        height: 25,
+                                                        overlayColor: MaterialStatePropertyAll(
                                                             myGrey)),
-                                                  iconStyleData:
-                                                      const IconStyleData(
-                                                    icon: Icon(
-                                                        Icons.expand_more),
-                                                  ),
-                                                  dropdownStyleData: const DropdownStyleData(
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius: BorderRadius.all(
-                                                            Radius.circular(
+                                                    iconStyleData:
+                                                        const IconStyleData(
+                                                      icon: Icon(
+                                                          Icons.expand_more),
+                                                    ),
+                                                    dropdownStyleData: const DropdownStyleData(
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius: BorderRadius.all(Radius.circular(
                                                                 15)))),
-                                                  menuItemStyleData: const MenuItemStyleData(
-                                                      overlayColor: MaterialStatePropertyAll(
-                                                          Color.fromRGBO(
-                                                              243, 243, 243, 1))),
-                                                  decoration: InputDecoration(
-                                                      labelStyle: TextStyle(color: Colors.black, fontSize: constraints.maxWidth * 20 / 430),
-                                                      hintText: "Select your dish",
-                                                      hintStyle: TextStyle(color:  const Color.fromRGBO(200, 200, 200, 1), fontSize: constraints.maxWidth * 20 / 430, fontWeight: FontWeight.normal),
-                                                      fillColor: const Color.fromRGBO(243, 243, 243, 1),
-                                                      filled: true,
-                                                      border: const OutlineInputBorder(borderSide: BorderSide(width: 0, style: BorderStyle.none), borderRadius: BorderRadius.all(Radius.circular(15)))),
-                                                  items: (meal).map((items) {
+                                                    menuItemStyleData: const MenuItemStyleData(
+                                                        overlayColor: MaterialStatePropertyAll(Color.fromRGBO(
+                                                            243, 243, 243, 1))),
+                                                    decoration: InputDecoration(
+                                                        labelStyle: TextStyle(color: Colors.black, fontSize: constraints.maxWidth * 20 / 430),
+                                                        hintText: "Select your dish",
+                                                        hintStyle: TextStyle(color: const Color.fromRGBO(200, 200, 200, 1), fontSize: constraints.maxWidth * 20 / 430, fontWeight: FontWeight.normal),
+                                                        fillColor: const Color.fromRGBO(243, 243, 243, 1),
+                                                        filled: true,
+                                                        border: const OutlineInputBorder(borderSide: BorderSide(width: 0, style: BorderStyle.none), borderRadius: BorderRadius.all(Radius.circular(15)))),
+                                                    items: (meal).map((items) {
                                                       return DropdownMenuItem(
-                                                          value: items.toString(),
+                                                          value:
+                                                              items.toString(),
                                                           child: Text(items));
-                                                    
-                                                  }).toList(),
-                                                  onChanged: (String? newValue) {
-                                                    setState(() {
-                                                      submitData[date] = newValue!;
-                                                    });
-                                                  }),
+                                                    }).toList(),
+                                                    onChanged: (String? newValue) {
+                                                      setState(() {
+                                                        submitData[date] =
+                                                            newValue!;
+                                                      });
+                                                    }),
                                               ],
                                             ),
                                           )

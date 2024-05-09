@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:ideal_meal/FileManager.dart';
 import 'package:ideal_meal/constant.dart';
 
 // import 'package:ideal_meal/ResponseAPi.dart';
@@ -24,9 +25,9 @@ class _MobileScaffold extends State<MobileScaffold> {
   late String appBarTitle;
 
   final _view = [
-    const HomeView(),
-    const MealView(),
-    const OrderView(),
+    HomeView(storage: MealStorage()),
+    MealView(storage: MealStorage()),
+    OrderView(storage: MealStorage()),
     const ProfileView(),
   ];
 
@@ -34,13 +35,13 @@ class _MobileScaffold extends State<MobileScaffold> {
   void initState() {
     super.initState();
     if (selection == 0) {
-      appBarTitle = "Meal";
+      appBarTitle = "Up coming";
     } else if (selection == 1) {
-      appBarTitle = "Meal";
+      appBarTitle = "Meals";
     } else if (selection == 2) {
       appBarTitle = "Order";
     } else if (selection == 3) {
-      appBarTitle = "Meal";
+      appBarTitle = "";
     } else {
       appBarTitle = "App Bar";
     }
@@ -108,7 +109,7 @@ class _MobileScaffold extends State<MobileScaffold> {
                             setState(
                               () {
                                 selection = 1;
-                                appBarTitle = "Meal";
+                                appBarTitle = "Meals";
                               },
                             );
                           },
