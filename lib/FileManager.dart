@@ -40,8 +40,6 @@ class MealStorage {
           data[value] = "Không chọn";
         }
       }
-
-      print(data);
       return data;
     } else {
       return {};
@@ -95,8 +93,8 @@ class Date {
     List<String> days = [
       "Monday",
       "Tuesday",
-      " Wednesday",
-      " Thursday",
+      "Wednesday",
+      "Thursday",
       "Friday",
       "Saturday",
       "Sunday"
@@ -106,14 +104,22 @@ class Date {
     for (var i = 1; i <= 6; i++) {
       List<DateTime> d = [];
       for (var j = 1; j <= 7; j++) {
-        d.add(DateTime.now());
+        d.add(DateTime(2024));
       }
       m.add(d);
     }
 
     for (var day in days) {
       if (day == dateToString(firstDay)) {
-        
+        int index = days.indexOf(day);
+        m[0][index] = firstDay;
+        for (var j = 1; j <= (days.length - index); j++) {
+          m[0][index + j] = firstDay.copyWith(day: firstDay.day + j);
+        }
+        for (var j = 1; j <= 5; j++) {
+          f
+        }
+        break;
       }
     }
     return m;
