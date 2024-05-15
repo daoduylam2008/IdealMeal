@@ -3,10 +3,12 @@ import 'package:ideal_meal/FileManager.dart';
 import 'package:ideal_meal/constant.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
+
 class OrderView extends StatefulWidget {
-  const OrderView({super.key, required this.storage});
+  const OrderView({super.key, required this.storage, required this.datetime});
 
   final MealStorage storage;
+  final Date datetime;
 
   @override
   State<OrderView> createState() => _OrderView();
@@ -23,7 +25,7 @@ class _OrderView extends State<OrderView> {
   var buttonColor = linearColor;
 
   // Submit Data
-  Map<String, String> submitData = {};
+  Map<String, String?> submitData = {};
 
   // Alert for pop-up window for user to confirm their selections
   showAlertDialog(BuildContext context) {
@@ -41,7 +43,7 @@ class _OrderView extends State<OrderView> {
         setState(() {
           onSubmit = true;
         });
-       widget.storage.writeMealData(submitData);
+        widget.storage.writeMealData(submitData);
       },
     );
     // set up the AlertDialog
@@ -77,7 +79,7 @@ class _OrderView extends State<OrderView> {
 
     for (var i = 1; i <= 6; i++) {
       for (var day in days) {
-        submitData["$day#$i"] = "";
+        submitData["$day#$i"] = null;
       }
     }
   }
@@ -118,7 +120,6 @@ class _OrderView extends State<OrderView> {
                           itemBuilder: (context, index) {
                             var meal = data.values.toList()[index];
                             var date = data.keys.toList()[index];
-
                             return index == 0
                                 ? Container()
                                 : Container(
@@ -151,26 +152,29 @@ class _OrderView extends State<OrderView> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(date,
-                                                    style: font(
-                                                        constraints.maxWidth *
-                                                            20 /
-                                                            430,
-                                                        Colors.black,
-                                                        FontWeight.normal)),
+                                                Column(
+                                                  children: [
+                                                    Text(date,
+                                                        style: font(
+                                                            constraints.maxWidth *
+                                                                20 /
+                                                                430,
+                                                            Colors.black,
+                                                            FontWeight.normal)),
+                                                    Text((date == null) ? "" : widget.datetime.dateDay(date).toString()),
+                                                  ],
+                                                ),
                                                 DropdownButtonFormField2(
-                                                    value: (submitData[date].toString() == "")
-                                                        ? null
-                                                        : submitData[date]
-                                                            .toString(),
+                                                    value: submitData[date],
                                                     buttonStyleData: const ButtonStyleData(
                                                         padding:
                                                             EdgeInsets.all(0),
                                                         decoration:
                                                             BoxDecoration(),
                                                         height: 25,
-                                                        overlayColor: MaterialStatePropertyAll(
-                                                            myGrey)),
+                                                        overlayColor:
+                                                            MaterialStatePropertyAll(
+                                                                myGrey)),
                                                     iconStyleData:
                                                         const IconStyleData(
                                                       icon: Icon(
@@ -179,13 +183,17 @@ class _OrderView extends State<OrderView> {
                                                     dropdownStyleData: const DropdownStyleData(
                                                         decoration: BoxDecoration(
                                                             color: Colors.white,
-                                                            borderRadius: BorderRadius.all(Radius.circular(
-                                                                15)))),
+                                                            borderRadius: BorderRadius.all(
+                                                                Radius.circular(
+                                                                    15)))),
                                                     menuItemStyleData: const MenuItemStyleData(
-                                                        overlayColor: MaterialStatePropertyAll(Color.fromRGBO(
-                                                            243, 243, 243, 1))),
+                                                        overlayColor: MaterialStatePropertyAll(
+                                                            Color.fromRGBO(
+                                                                243, 243, 243, 1))),
                                                     decoration: InputDecoration(
-                                                        labelStyle: TextStyle(color: Colors.black, fontSize: constraints.maxWidth * 20 / 430),
+                                                        labelStyle: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: constraints.maxWidth * 20 / 430),
                                                         hintText: "Select your dish",
                                                         hintStyle: TextStyle(color: const Color.fromRGBO(200, 200, 200, 1), fontSize: constraints.maxWidth * 20 / 430, fontWeight: FontWeight.normal),
                                                         fillColor: const Color.fromRGBO(243, 243, 243, 1),
@@ -195,7 +203,8 @@ class _OrderView extends State<OrderView> {
                                                       return DropdownMenuItem(
                                                           value:
                                                               items.toString(),
-                                                          child: Text(items));
+                                                          child: Text(items
+                                                              .toString()));
                                                     }).toList(),
                                                     onChanged: (String? newValue) {
                                                       setState(() {

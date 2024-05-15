@@ -207,6 +207,7 @@ var userTest = User(
 
 DateTime firstDate() {
   var todayDate = DateTime.now();
+  print(todayDate.month.toString());
   var firstDay = DateTime.utc(todayDate.year, todayDate.month, 1);
 
   return firstDay;
@@ -222,4 +223,3 @@ DateTime lastDate() {
 String dateToDay(DateTime date) {
   return DateFormat('EEEE').format(date);
 }
-

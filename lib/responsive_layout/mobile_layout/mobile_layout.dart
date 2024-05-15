@@ -6,10 +6,10 @@ import 'package:ideal_meal/constant.dart';
 // import 'package:ideal_meal/ResponseAPi.dart';
 // import 'package:ideal_meal/constant.dart';
 // import 'package:ideal_meal/DataTester.dart';
-import 'HomeView.dart';
-import 'OrderView.dart';
-import 'MealView.dart';
-import 'ProfileView.dart';
+import 'screens/HomeView.dart';
+import 'screens/OrderView.dart';
+import 'screens/MealView.dart';
+import 'screens/ProfileView.dart';
 
 Map<String, String> meal_data = {};
 
@@ -25,9 +25,9 @@ class _MobileScaffold extends State<MobileScaffold> {
   late String appBarTitle;
 
   final _view = [
-    HomeView(storage: MealStorage()),
-    MealView(storage: MealStorage()),
-    OrderView(storage: MealStorage()),
+    HomeView(storage: MealStorage(), datetime: Date()),
+    MealView(storage: MealStorage(), datetime: Date()),
+    OrderView(storage: MealStorage(), datetime: Date()),
     const ProfileView(),
   ];
 
@@ -54,7 +54,8 @@ class _MobileScaffold extends State<MobileScaffold> {
       appBar: (selection == 3)
           ? null
           : AppBar(
-              backgroundColor: appBarBackground,
+              backgroundColor:
+                  (selection == 0) ? Colors.white : appBarBackground,
               scrolledUnderElevation: 0,
               automaticallyImplyLeading: false,
               centerTitle: false,

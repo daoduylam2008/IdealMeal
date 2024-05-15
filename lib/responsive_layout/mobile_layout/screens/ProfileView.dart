@@ -86,7 +86,7 @@ class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
                         ),
                         child: Row(
                           children: [
-                            Text("Phòng  ",
+                            Text("Room  ",
                                 style: font(
                                     15,
                                     myGrey,
@@ -103,7 +103,7 @@ class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
                         ),
                         child: Row(
                           children: [
-                            Text("Lớp  ",
+                            Text("Class  ",
                                 style: font(
                                     15,
                                     myGrey,
