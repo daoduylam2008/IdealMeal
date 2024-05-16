@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('students', function (Blueprint $table) {
+        Schema::create('room_ids', function (Blueprint $table) {
             $table->integer("student_id");
-            $table->string("name");
-            $table->date("birth");
-            $table->string("ethnic");
-            $table->string("address");
-            $table->string("phone");
-            // $table->timestamps();
-           
+            $table->string('room_id');
+            $table->foreign("room_id")->references("room_id")->on("teachers");
         });
     }
 
@@ -28,6 +23,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('students');
+        // Schema::enableForeignKeyConstraints();
+        Schema::dropIfExists('room_ids');
     }
 };
