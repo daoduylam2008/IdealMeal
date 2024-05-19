@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ideal_meal/DataManager.dart';
 import 'package:ideal_meal/FileManager.dart';
 import 'package:ideal_meal/constant.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:provider/provider.dart';
 
 
 class OrderView extends StatefulWidget {
@@ -43,7 +45,7 @@ class _OrderView extends State<OrderView> {
         setState(() {
           onSubmit = true;
         });
-        widget.storage.writeMealData(submitData);
+        
       },
     );
     // set up the AlertDialog
@@ -86,6 +88,8 @@ class _OrderView extends State<OrderView> {
 
   @override
   Widget build(BuildContext context) {
+    final mealData = Provider.of<MealDataProvider>(context);
+    
     return LayoutBuilder(builder: (context, constraints) {
       if (onSubmit) {
         return Center(
@@ -172,9 +176,7 @@ class _OrderView extends State<OrderView> {
                                                         decoration:
                                                             BoxDecoration(),
                                                         height: 25,
-                                                        overlayColor:
-                                                            MaterialStatePropertyAll(
-                                                                myGrey)),
+                                                        ),
                                                     iconStyleData:
                                                         const IconStyleData(
                                                       icon: Icon(
@@ -186,10 +188,7 @@ class _OrderView extends State<OrderView> {
                                                             borderRadius: BorderRadius.all(
                                                                 Radius.circular(
                                                                     15)))),
-                                                    menuItemStyleData: const MenuItemStyleData(
-                                                        overlayColor: MaterialStatePropertyAll(
-                                                            Color.fromRGBO(
-                                                                243, 243, 243, 1))),
+                                                    menuItemStyleData: const MenuItemStyleData(),
                                                     decoration: InputDecoration(
                                                         labelStyle: TextStyle(
                                                             color: Colors.black,
@@ -263,6 +262,9 @@ class _OrderView extends State<OrderView> {
                                   setState(() {
                                     buttonColor = linearColor;
                                     showAlertDialog(context);
+                                    if (onSubmit) {
+                                      mealData.updateMeal(submitData);
+                                    }
                                   });
                                 },
                                 child: Container(

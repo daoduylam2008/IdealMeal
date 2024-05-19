@@ -90,6 +90,10 @@ Map<String, List<String>> dayMeal(List<List<dynamic>> data) {
 }
 
 class Date {
+  Date() {
+    init();
+  }
+
   DateTime firstDay = firstDate();
   DateTime lastDay = lastDate();
   List<String> days = [
@@ -102,7 +106,7 @@ class Date {
     "Sunday"
   ];
 
-  late final List<List<DateTime>> dateMatrix;
+  List<List<DateTime>>? dateMatrix;
 
   void init() {
     dateMatrix = matrix();
@@ -159,6 +163,6 @@ class Date {
   DateTime dateDay(String day) {
     int y = days.indexOf(day.split("#")[0]);
     int x = int.parse(day.split("#")[1]);
-    return dateMatrix[x][y ];
+    return dateMatrix![x][y];
   }
 }

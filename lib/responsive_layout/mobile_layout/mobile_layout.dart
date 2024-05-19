@@ -11,8 +11,6 @@ import 'screens/OrderView.dart';
 import 'screens/MealView.dart';
 import 'screens/ProfileView.dart';
 
-Map<String, String> meal_data = {};
-
 class MobileScaffold extends StatefulWidget {
   const MobileScaffold({super.key});
 

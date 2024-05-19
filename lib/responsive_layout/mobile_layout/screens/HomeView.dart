@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:ideal_meal/FileManager.dart';
 import 'package:ideal_meal/constant.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class HomeView extends StatefulWidget {
@@ -46,8 +47,7 @@ class _HomeView extends State<HomeView> {
                       child: Column(children: [
                 const SizedBox(
                     width: 50,
-                    child: Divider(thickness: 5, color: Colors.grey)
-                    ),
+                    child: Divider(thickness: 5, color: Colors.grey)),
                 Container(
                     padding: EdgeInsets.only(
                       top: 14,
@@ -72,7 +72,8 @@ class _HomeView extends State<HomeView> {
                           ratingWidget: RatingWidget(
                             full: const Icon(Icons.star_rounded, size: 20),
                             half: const Icon(Icons.star_half_rounded, size: 20),
-                            empty: const Icon(Icons.star_border_rounded, size: 20),
+                            empty:
+                                const Icon(Icons.star_border_rounded, size: 20),
                           ),
                           onRatingUpdate: (r) {
                             setState(() {
@@ -80,25 +81,24 @@ class _HomeView extends State<HomeView> {
                             });
                           },
                         ),
-                        Row(
-                          children: [
-                            InkWell(
-                              onTap: () {
-
-                              },
-                              child: Container(
-                                width: 100, 
+                        Row(children: [
+                          InkWell(
+                            onTap: () {},
+                            child: Container(
+                                width: 100,
                                 height: 40,
                                 decoration: const BoxDecoration(
                                   gradient: linearColor,
-                                  borderRadius: BorderRadius.all(Radius.circular(11)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(11)),
                                 ),
-                                child: Center(child: Text("Submit", style: font(15, Colors.white, FontWeight.normal)))
-                              ),
-                            ),
-                            const Text("Thanks for your feedback!")
-                          ]
-                        )
+                                child: Center(
+                                    child: Text("Submit",
+                                        style: font(15, Colors.white,
+                                            FontWeight.normal)))),
+                          ),
+                          const Text("Thanks for your feedback!")
+                        ])
                       ],
                     )),
               ]))),
@@ -114,34 +114,41 @@ class _HomeView extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final mealData = Provider.of(context);
+    setState(() {});
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
         body: FutureBuilder<Map<String, dynamic>>(
             future: widget.storage.readMealData(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Center(child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 25,
-                      bottom: 25,
+                return Center(
+                    child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 25,
+                    bottom: 25,
+                  ),
+                  child: Column(children: [
+                    Text("Dish", style: font(20, myGrey, FontWeight.normal)),
+                    Text(
+                        snapshot.data![widget.datetime.dayDate(today)]
+                            .toString(),
+                        style: font(30, Colors.black, FontWeight.bold)),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Image.asset('assets/frame/qr_frame1.png'),
+                        QrImageView(
+                          backgroundColor: Colors.white,
+                          gapless: false,
+                          data: snapshot.data![widget.datetime.dayDate(today)]
+                              .toString(),
+                          version: QrVersions.auto,
+                          size: 180.0,
+                        ),
+                        Text(mealData?.mealData ?? "N/A"),
+                      ],
                     ),
-                    child: Column(children: [
-                      Text("Dish", style: font(20, myGrey, FontWeight.normal)),
-                      Text(snapshot.data![widget.datetime.dayDate(today)].toString() ,style: font(30, Colors.black, FontWeight.bold)),
-                      Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Image.asset('assets/frame/qr_frame1.png'),
-                          QrImageView(
-                            backgroundColor: Colors.white,
-                            gapless: false,
-                            data: snapshot.data![widget.datetime.dayDate(today)]
-                                .toString(),
-                            version: QrVersions.auto,
-                            size: 180.0,
-                          ),
-                        ],
-                      )
                   ]),
                 ));
               } else if (snapshot.hasError) {
