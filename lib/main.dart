@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ideal_meal/constant.dart';
 import 'responsive_layout/responsive_management.dart';
 import 'responsive_layout/mobile_layout/mobile_layout.dart';
@@ -8,11 +7,10 @@ import 'responsive_layout/desktop_layout/desktop_layout.dart';
 
 void main() {
   runApp(
-    const ProviderScope(child: MyApp())
+    MyApp()
     );
 }
 
-final mealDate = StateProvider<Map<String, String?>>((ref) => {}) ;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

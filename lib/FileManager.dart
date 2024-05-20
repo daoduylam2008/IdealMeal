@@ -127,12 +127,12 @@ class Date {
 
     for (var i = 1; i <= 6 - days.indexOf(dateToDay(firstDay)); i++) {
       m[0][days.indexOf(dateToDay(firstDay)) + i] =
-          firstDay.copyWith(day: firstDay.day + i);
+          firstDay.copyWith(day: i + 1);
     }
 
     for (var i = 1; i <= 5; i++) {
       for (var j = 0; j <= 6; j++) {
-        m[i][j] = ;
+        // m[i][j] = ;
       }
     }
     

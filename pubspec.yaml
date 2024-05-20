@@ -45,7 +45,6 @@ dependencies:
   dropdown_button2: ^2.3.9
   flutter_rating_bar: ^4.0.1
   qr_flutter: ^4.1.0
-  flutter_riverpod: ^2.3.6
 
 
   intl: any

@@ -17,6 +17,10 @@ class HomeView extends StatefulWidget {
 class _HomeView extends State<HomeView> {
   double rating = 0;
   DateTime today = DateTime.now();
+  String framePath = 'assets/frame/qr_frame1.png';
+  String dish = "";
+  int frameWidth = 0;
+  int qrWidth = 0;
 
   void _showModalBottomSheet(BuildContext context, double maxWidth) {
     showModalBottomSheet(
@@ -119,35 +123,78 @@ class _HomeView extends State<HomeView> {
             future: storage.readMealData(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Center(
-                    child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 25,
-                    bottom: 25,
-                  ),
-                  child: Column(children: [
-                    Text("Dish", style: font(20, myGrey, FontWeight.normal)),
-                    Text(
-                        snapshot.data![widget.datetime.dayDate(today)]
-                            .toString(),
-                        style: font(30, Colors.black, FontWeight.bold)),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Image.asset('assets/frame/qr_frame1.png'),
-                        QrImageView(
-                          backgroundColor: Colors.white,
-                          gapless: false,
-                          data: snapshot.data![widget.datetime.dayDate(today)]
-                              .toString(),
-                          version: QrVersions.auto,
-                          size: 180.0,
-                        ),
-                      ],
+                try {
+                  dish =
+                      snapshot.data![widget.datetime.dayDate(today)].toString();
+                } catch (error) {
+                  dish = "";
+                }
+                if (framePath == 'assets/frame/qr_frame2.png') {
+                  frameWidth = 327;
+                  qrWidth = 270;
+                } else {
+                  frameWidth = 218;
+                  qrWidth = 180;
+                }
+                // frame for qrcode
+                var frame = Image.asset(framePath,
+                    width: constraints.maxWidth * frameWidth / 430,
+                    height: constraints.maxWidth * frameWidth / 430);
+                // qrcode image
+                var qrcode = QrImageView(
+                  // backgroundColor: Colors.white,
+                  gapless: false,
+                  data: dish,
+                  version: QrVersions.auto,
+                  size: constraints.maxWidth * qrWidth / 430,
+                );
+
+                return SingleChildScrollView(
+                  child: Center(
+                      child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 25,
+                      bottom: 25,
                     ),
-                    Text(snapshot.data!.toString()),
-                  ]),
-                ));
+                    child: Column(children: [
+                      Text("Dish", style: font(20, myGrey, FontWeight.normal)),
+                      Text(dish,
+                          style: font(30, Colors.black, FontWeight.bold)),
+                      const SizedBox(height: 60),
+                      InkWell(
+                        onLongPress: () {
+                          setState(()  {
+                            framePath = 'assets/frame/qr_frame2.png';
+                          });
+                        },
+                        onDoubleTap: () {
+                          setState(()  {
+                            if (framePath == 'assets/frame/qr_frame2.png') {
+                              framePath = 'assets/frame/qr_frame1.png';
+                            }
+                            else {
+                              framePath = 'assets/frame/qr_frame2.png';
+                            }
+                          });
+                        },
+                        onTapDown: (details) {
+                          setState(() {
+                            framePath = 'assets/frame/qr_frame1.png';
+                          });
+                        },
+                        child: Container(
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              frame,
+                              qrcode,
+                            ],
+                          ),
+                        ),
+                      ),
+                    ]),
+                  )),
+                );
               } else if (snapshot.hasError) {
                 return Text(snapshot.error.toString());
               }
