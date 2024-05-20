@@ -3,13 +3,11 @@ import 'package:flutter/rendering.dart';
 import 'package:ideal_meal/FileManager.dart';
 import 'package:ideal_meal/constant.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key, required this.storage, required this.datetime});
+  const HomeView({super.key, required this.datetime});
 
-  final MealStorage storage;
   final Date datetime;
 
   @override
@@ -114,12 +112,11 @@ class _HomeView extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    final mealData = Provider.of(context);
-    setState(() {});
+    MealStorage storage = MealStorage();
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
         body: FutureBuilder<Map<String, dynamic>>(
-            future: widget.storage.readMealData(),
+            future: storage.readMealData(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Center(
@@ -146,9 +143,9 @@ class _HomeView extends State<HomeView> {
                           version: QrVersions.auto,
                           size: 180.0,
                         ),
-                        Text(mealData?.mealData ?? "N/A"),
                       ],
                     ),
+                    Text(snapshot.data!.toString()),
                   ]),
                 ));
               } else if (snapshot.hasError) {

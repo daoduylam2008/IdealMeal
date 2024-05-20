@@ -123,22 +123,20 @@ class Date {
       m.add(d);
     }
 
-    for (var day in days) {
-      if (day == dateToString(firstDay)) {
-        int index = days.indexOf(day) + 1;
-        m[0][index] = firstDay;
-        for (var j = 1; j <= (days.length - index); j++) {
-          m[0][index + j] = firstDay.copyWith(day: firstDay.day + j);
-        }
-        for (var j = 1; j <= 5; j++) {
-          for (var i = 1; i <= lastDay.day - (day.length - index); i++) {
-            m[j][i] = firstDay.copyWith(day: firstDay.day + i);
-          }
-        }
-        break;
+    m[0][days.indexOf(dateToDay(firstDay))] = firstDay;
+
+    for (var i = 1; i <= 6 - days.indexOf(dateToDay(firstDay)); i++) {
+      m[0][days.indexOf(dateToDay(firstDay)) + i] =
+          firstDay.copyWith(day: firstDay.day + i);
+    }
+
+    for (var i = 1; i <= 5; i++) {
+      for (var j = 0; j <= 6; j++) {
+        m[i][j] = ;
       }
     }
-    return m;
+    
+     return m;
   }
 
   String dayDate(DateTime date) {
@@ -146,7 +144,7 @@ class Date {
       double counter = 0;
       Map<String, DateTime> firstDays = {};
       firstDays[dateToDay(firstDay)] = firstDay;
-      for (int i = 1; i <= 5; i++) {
+      for (int i = 1; i <= 6; i++) {
         DateTime day = firstDay.copyWith(day: firstDay.day + i);
         firstDays[dateToDay(day)] = day;
       }
@@ -162,7 +160,7 @@ class Date {
 
   DateTime dateDay(String day) {
     int y = days.indexOf(day.split("#")[0]);
-    int x = int.parse(day.split("#")[1]);
+    int x = int.parse(day.split("#")[1]) - 1;
     return dateMatrix![x][y];
   }
 }

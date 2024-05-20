@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:ideal_meal/DataManager.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ideal_meal/constant.dart';
 import 'responsive_layout/responsive_management.dart';
 import 'responsive_layout/mobile_layout/mobile_layout.dart';
 import 'responsive_layout/tablet_layout/tablet_layout.dart';
 import 'responsive_layout/desktop_layout/desktop_layout.dart';
-import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(child: MyApp())
+    );
 }
+
+final mealDate = StateProvider<Map<String, String?>>((ref) => {}) ;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -17,20 +20,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => MealDataProvider(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: accentColor),
-            useMaterial3: true,
-            primarySwatch: Colors.blue),
-        home: ResponsiveLayout(
-          mobileBody: const MobileScaffold(),
-          tabletBody: const TabletScaffold(),
-          desktopBody: const DesktopScaffold(),
-        ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: accentColor),
+          useMaterial3: true,
+          primarySwatch: Colors.blue),
+      home: ResponsiveLayout(
+        mobileBody: const MobileScaffold(),
+        tabletBody: const TabletScaffold(),
+        desktopBody: const DesktopScaffold(),
       ),
     );
   }

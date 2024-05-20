@@ -110,12 +110,17 @@ class _MealView extends State<MealView> {
                                   style:
                                       font(20, Colors.black, FontWeight.bold)),
                               const SizedBox(height: 34),
-                              InkWell(
-                                  onTap: () {
-                                    print("Hello");
-                                    print(widget.datetime!.dayDate(_focusedDay));
-                                  },
-                                  child: Image.asset(iconPath("note")))
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  InkWell(
+                                      onTap: () {
+                                        print("Hello");
+                                        print(widget.datetime!.dayDate(_focusedDay));
+                                      },
+                                      child: Image.asset(iconPath("note"))),
+                                ],
+                              )
                             ]),
                       )),
                 );

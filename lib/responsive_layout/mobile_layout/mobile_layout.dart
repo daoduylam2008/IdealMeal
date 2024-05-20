@@ -23,7 +23,7 @@ class _MobileScaffold extends State<MobileScaffold> {
   late String appBarTitle;
 
   final _view = [
-    HomeView(storage: MealStorage(), datetime: Date()),
+    HomeView(datetime: Date()),
     MealView(storage: MealStorage(), datetime: Date()),
     OrderView(storage: MealStorage(), datetime: Date()),
     const ProfileView(),
@@ -60,7 +60,9 @@ class _MobileScaffold extends State<MobileScaffold> {
               title: Text(appBarTitle,
                   style: font(30, Colors.black, FontWeight.bold)),
             ),
-      body: IndexedStack(index: selection, children: _view),
+      body: (selection == 0) ? HomeView(datetime: Date()) :
+      (selection == 1) ? MealView(datetime: Date(), storage: MealStorage()) : 
+      (selection == 3) ? const ProfileView() : IndexedStack(index: selection, children: _view),
       bottomNavigationBar: SizedBox(
         child: LayoutBuilder(
           builder: ((context, constraints) {
