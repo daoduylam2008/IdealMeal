@@ -222,3 +222,4 @@ DateTime lastDate() {
 String dateToDay(DateTime date) {
   return DateFormat('EEEE').format(date);
 }
+

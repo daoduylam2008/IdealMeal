@@ -8,6 +8,7 @@ Future<Meal> createMeal(Meal meals) async {
     Uri.parse(urlToMealsData),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'token': ''
     },
     body: jsonEncode(meals.toMap()),
   );
