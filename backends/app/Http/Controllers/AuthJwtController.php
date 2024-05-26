@@ -9,6 +9,7 @@ use App\Http\Controllers\JwtToken;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 class AuthJwtController extends Controller
 {
@@ -17,17 +18,15 @@ class AuthJwtController extends Controller
         $request->validate([
             "name"=> "required|max:255",
             "email"=> "required|email|unique:users,email",
-            "password"=> "required|min:8|"
+            "password"=> "required|min:8|",
+            "student_id"=> "required|max:6|min:6|unique:users"
         ]);
 
-        $user = User::create([
-            "name"=> $request->name,
-            "email"=> $request->email,
-            "password"=>  Hash::make($request->password),
-        ]);
+        DB::table("users")->insert(
+            ["name"=>$request->name,"email"=>$request->email, "password"=>Hash::make($request->password),"student_id"=>$request->student_id]
+        );
         return json_encode([
             "msg" => "Created successfully",
-            "user" => $user,
         ]);
     }
     public function login(Request $request){
@@ -41,6 +40,7 @@ class AuthJwtController extends Controller
             $user = [];
             $user["email"] = $associative_array["email"];
             $user["name"] = $associative_array["name"];
+            $user["student_id"] = $associative_array["student_id"];
            
             $token = JwtToken::createToken($user,"2025-10-10");
             return $token;

@@ -25,8 +25,8 @@ class JwtToken{
         $secret_key = "helllllloooooooooo";
         try {
             $decoded =  JWT::decode($jwt, new Key($secret_key,'HS256'));
-            $user = DB::table("users")->find($decoded["id"]);
-            return true;
+            
+            return $decoded;
         }
         catch (Exception $e) {
             echo 'Caught exception: ',  $e->getMessage(), "\n";

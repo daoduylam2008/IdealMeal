@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('meal_days', function (Blueprint $table) {
-            $table->id();
+            $table->string("student_id");
             $table->string("Monday#1");
             $table->string("Tuesday#1");
             $table->string("Wednesday#1");
@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string("Wednesday#4");
             $table->string("Thursday#4");
             $table->string("Friday#4");
+            $table->foreign("student_id")->references("student_id")->on("users");
             
         });
     }

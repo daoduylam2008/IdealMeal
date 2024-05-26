@@ -16,15 +16,10 @@ class JwtTokenMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        
-        try{
-            JwtToken::attempt($request->bearerToken());
-        }
-        catch(Exception $e){
-            echo $e->getMessage();
-        }
-        
-        
+       
+        if($payload = JwtToken::attempt($request->bearerToken())){
+            print_r($payload);
+        } 
 
         return $next($request);
     }
