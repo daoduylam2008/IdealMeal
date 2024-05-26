@@ -29,7 +29,10 @@ class MealDaysController extends Controller
      */
     public function store(StoreMealDaysRequest $request)
     {
-        //
+        MealDays::create($request->all());
+        return json_encode([
+            "msg" => "Created successfully",
+        ]);
     }
 
     /**

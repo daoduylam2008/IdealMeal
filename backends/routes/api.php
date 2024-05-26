@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthJwtController;
+use App\Http\Controllers\MealDaysController;
 use App\Http\Controllers\V1\StudentsController;
 
 // Route::get('/user', function (Request $request) {
@@ -16,3 +17,5 @@ use App\Http\Controllers\V1\StudentsController;
 Route::post("register",[AuthJwtController::class, "register"]);
 Route::post("login",[AuthJwtController::class, "login"]);
 Route::get("profile",[AuthJwtController::class, "profile"])->middleware("jwtToken");
+
+Route::post("food",[MealDaysController::class, "store"]);

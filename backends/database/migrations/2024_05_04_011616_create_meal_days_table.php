@@ -13,26 +13,27 @@ return new class extends Migration
     {
         Schema::create('meal_days', function (Blueprint $table) {
             $table->string("student_id");
-            $table->string("Monday#1");
-            $table->string("Tuesday#1");
-            $table->string("Wednesday#1");
-            $table->string("Thursday#1");
-            $table->string("Friday#1");
-            $table->string("Monday#2");
-            $table->string("Tuesday#2");
-            $table->string("Wednesday#2");
-            $table->string("Thursday#2");
-            $table->string("Friday#2");
-            $table->string("Monday#3");
-            $table->string("Tuesday#3");
-            $table->string("Wednesday#3");
-            $table->string("Thursday#3");
-            $table->string("Friday#3");
-            $table->string("Monday#4");
-            $table->string("Tuesday#4");
-            $table->string("Wednesday#4");
-            $table->string("Thursday#4");
-            $table->string("Friday#4");
+            $table->string("Monday#1")->nullable();
+            $table->string("Tuesday#1")->nullable();
+            $table->string("Wednesday#1")->nullable();
+            $table->string("Thursday#1")->nullable();
+            $table->string("Friday#1")->nullable();
+            $table->string("Monday#2")->nullable();
+            $table->string("Tuesday#2")->nullable();
+            $table->string("Wednesday#2")->nullable();
+            $table->string("Thursday#2")->nullable();
+            $table->string("Friday#2")->nullable();
+            $table->string("Monday#3")->nullable();
+            $table->string("Tuesday#3")->nullable();
+            $table->string("Wednesday#3")->nullable();
+            $table->string("Thursday#3")->nullable();
+            $table->string("Friday#3")->nullable();
+            $table->string("Monday#4")->nullable();
+            $table->string("Tuesday#4")->nullable();
+            $table->string("Wednesday#4")->nullable();
+            $table->string("Thursday#4")->nullable();
+            $table->string("Friday#4")->nullable();
+            $table->timestamps();
             $table->foreign("student_id")->references("student_id")->on("users");
             
         });
