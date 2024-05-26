@@ -17,7 +17,7 @@ class AuthJwtController extends Controller
     public function register(Request $request){
         $request->validate([
             "name"=> "required|max:255",
-            "email"=> "required|email|unique:users,email",
+            "email"=> "required|email|unique:users",
             "password"=> "required|min:8|",
             "student_id"=> "required|max:6|min:6|unique:users"
         ]);

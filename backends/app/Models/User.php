@@ -5,11 +5,13 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Students;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    
     use HasFactory, Notifiable;
 
     /**
@@ -21,8 +23,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        "student_id",
     ];
     
+    protected $primaryKey = "student_id";
 
     /**
      * The attributes that should be hidden for serialization.
@@ -31,7 +35,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -42,11 +45,17 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
-    public function students(): HasOne{
-        return $this->hasOne(Students::class,"foreign_key","student_id");
+    
+    public function students(): HasOne
+    {
+        return $this->hasOne(Students::class,"student_id","student_id");
     }
+    public function roomIds(): HasOne
+    {
+        return $this->hasOne(RoomIds::class,"student_id","student_id");
+    }
+
 }
