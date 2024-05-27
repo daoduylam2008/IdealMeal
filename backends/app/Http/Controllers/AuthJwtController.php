@@ -48,6 +48,17 @@ class AuthJwtController extends Controller
         }
     }
     public function profile(Request $request){
-        //
+        $payload = JwtToken::attempt($request->bearerToken());
+        $student_id = $payload->student_id;
+        
+        
+        $info = DB::table("students")->where("student_id","=",$student_id)->first();
+        
+        return json_encode([
+            "student_id" => $student_id,
+            "name" => $info->name,
+            "birth"=> $info->birth,
+            "phone" => $info->phone,
+        ]);
     }
 }

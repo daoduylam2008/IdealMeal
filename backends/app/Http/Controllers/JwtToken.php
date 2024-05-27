@@ -21,6 +21,15 @@ class JwtToken{
             ]
         );
     }
+    public static function check($jwt){
+        $secret_key = "helllllloooooooooo";
+        if ($decoded =  JWT::decode($jwt, new Key($secret_key,'HS256'))){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     public static function attempt($jwt) {
         $secret_key = "helllllloooooooooo";
         try {
@@ -29,11 +38,8 @@ class JwtToken{
             return $decoded;
         }
         catch (Exception $e) {
-            echo 'Caught exception: ',  $e->getMessage(), "\n";
+            
         }
 
-    }
-    public static function profile(){
-        //
     }
 }

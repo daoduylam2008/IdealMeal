@@ -18,4 +18,4 @@ Route::post("register",[AuthJwtController::class, "register"]);
 Route::post("login",[AuthJwtController::class, "login"]);
 Route::get("profile",[AuthJwtController::class, "profile"])->middleware("jwtToken");
 
-Route::post("food",[MealDaysController::class, "store"]);
+Route::post("food",[MealDaysController::class, "store"])->middleware("meal_days");

@@ -15,7 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'jwtToken' => App\Http\Middleware\JwtTokenMiddleware::class
+            'jwtToken' => App\Http\Middleware\JwtTokenMiddleware::class,
+            "meal_days" =>App\Http\Middleware\MealDaysMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

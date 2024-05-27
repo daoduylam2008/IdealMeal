@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->string("student_id");
-            $table->string("name");
-            $table->date("birth");
-            $table->string("ethnic");
-            $table->string("address");
-            $table->string("phone");
+            $table->string("name")->nullable();
+            $table->date("birth")->nullable();
+            $table->string("ethnic")->nullable();
+            $table->string("address")->nullable();
+            $table->string("phone")->nullable();
             // $table->timestamps();
             // $table->primary("student_id");
             $table->foreign("student_id")->references('student_id')->on("users");
