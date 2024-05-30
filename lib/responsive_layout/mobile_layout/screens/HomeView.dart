@@ -150,6 +150,7 @@ class _HomeView extends State<HomeView> {
                 );
 
                 return SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
                   child: Center(
                       child: Padding(
                     padding: const EdgeInsets.only(

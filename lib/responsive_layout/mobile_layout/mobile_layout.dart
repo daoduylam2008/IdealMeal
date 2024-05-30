@@ -65,8 +65,7 @@ class _MobileScaffold extends State<MobileScaffold> {
           axis: Axis.horizontal,
           index: selection,
           slideOffset: 0.3,
-          children: _view
-          ),
+          children: _view),
       resizeToAvoidBottomInset: true,
       bottomNavigationBar: LayoutBuilder(
         builder: ((context, constraints) {

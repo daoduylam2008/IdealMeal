@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ideal_meal/FileManager.dart';
+import 'package:ideal_meal/responsive_layout/mobile_layout/screens/HomeView.dart';
+import 'package:ideal_meal/responsive_layout/mobile_layout/screens/MealView.dart';
+import 'package:ideal_meal/responsive_layout/mobile_layout/screens/ProfileView.dart';
 
 class MyIndexedStack extends StatefulWidget {
   const MyIndexedStack({
@@ -87,8 +91,35 @@ class _MyIndexedStackState extends State<MyIndexedStack>
           ),
         );
       },
-      child: IndexedStack(index: widget.index, children: widget.children,), 
+      child: body(widget.index)
     );
+  }
+
+  body(selectedIndex) {
+    // Check for index of HomeView
+    if (selectedIndex == 0) {
+      widget.children.removeAt(0);
+      // Pass a UniqueKey as key to force the widget lifecycle to start over.
+      widget.children.insert(
+          0,
+          HomeView(
+            key: UniqueKey(),
+            datetime: Date(),
+          ));
+    } else if (selectedIndex == 1) {
+      widget.children.removeAt(1);
+
+      widget.children
+          .insert(1, MealView(storage: MealStorage(), datetime: Date()));
+    } else if (selectedIndex == 3) {
+      widget.children.removeAt(3);
+
+      widget.children.insert(3, const ProfileView());
+    }
+    return IndexedStack(
+        index: widget.index,
+        children: widget.children,
+      );
   }
 
   Animation<Offset> _getAnimationIn() {
