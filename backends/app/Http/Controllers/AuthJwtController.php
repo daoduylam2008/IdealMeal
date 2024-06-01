@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\JwtToken;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use DB;
 
 class AuthJwtController extends Controller
@@ -52,7 +53,7 @@ class AuthJwtController extends Controller
         
         
         $info = DB::table("students")->where("student_id","=",$student_id)->first();
-
+        
         return json_encode([
             "student_id" => $student_id,
             "name" => $info->name,

@@ -59,8 +59,9 @@ class StudentsController extends Controller
      */
     public function update(UpdateStudentsRequest $request, Students $students)
     {
-        //
+        // Got some error because the table is not linked correctly to Model Students so it make complicated to fix that
     }
+
 
     /**
      * Remove the specified resource from storage.
