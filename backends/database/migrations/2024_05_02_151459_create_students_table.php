@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string("address")->nullable();
             $table->string("phone")->nullable();
             // $table->timestamps();
-            // $table->primary("student_id");
-            $table->foreign("student_id")->references('student_id')->on("users");
+            $table->primary("student_id");
+            // $table->foreign("student_id")->references('student_id')->on("users");
 
            
         });

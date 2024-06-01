@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string("Thursday#4")->nullable();
             $table->string("Friday#4")->nullable();
             $table->timestamps();
-            $table->foreign("student_id")->references("student_id")->on("users");
+            $table->foreign("student_id")->references("student_id")->on("students");
             
         });
     }

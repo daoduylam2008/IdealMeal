@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string("student_id");
-            // $table->foreign("student_id")->references("student_id")->on("students");
-            $table->primary("student_id");
+            $table->foreign("student_id")->references("student_id")->on("students");
+            // $table->primary("student_id");
 
         });
 

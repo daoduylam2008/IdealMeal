@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string("student_id");
             $table->string('room_id');
             $table->foreign("room_id")->references("room_id")->on("teachers");
-            $table->foreign("student_id")->references("student_id")->on("users");
+            $table->foreign("student_id")->references("student_id")->on("students");
         });
     }
 
