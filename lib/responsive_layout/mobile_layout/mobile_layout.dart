@@ -19,7 +19,6 @@ class MobileScaffold extends StatefulWidget {
 class _MobileScaffold extends State<MobileScaffold> {
   int selection = 0;
   late String appBarTitle;
-  late TabController _controller;
 
   final _view = [
     HomeView(datetime: Date()),

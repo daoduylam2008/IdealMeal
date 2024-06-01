@@ -7,7 +7,7 @@ import 'responsive_layout/desktop_layout/desktop_layout.dart';
 
 void main() {
   runApp(
-    MyApp()
+    const MyApp()
     );
 }
 

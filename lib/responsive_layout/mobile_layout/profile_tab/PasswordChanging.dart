@@ -34,12 +34,11 @@ class _PasswordChanging extends State<PasswordChanging> {
     Widget yesButton = TextButton(
       child: Text("Yes", style: font(17, Colors.black, FontWeight.normal)),
       onPressed: () {
-        Navigator.pop(context);
-        Navigator.pop(context);
         setState(() {
-          
+          Navigator.pop(context);
+          Navigator.pop(context);
+          userTest.password = confirmPassController.text;
         });
-        userTest.password = confirmPassController.text;
       },
     );
     // set up the AlertDialog

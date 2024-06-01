@@ -146,11 +146,7 @@ class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
               // Navigation tab
               SizedBox(
                 height: constraints.maxHeight*(530/932),
-                child: IndexedStack(
-                alignment: Alignment.topLeft,
-                index: _selection,
-                children: tab_view,
-              ))
+                child: tab_view[_selection])
             ]),
           ),
         );

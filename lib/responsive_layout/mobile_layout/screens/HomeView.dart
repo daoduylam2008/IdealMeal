@@ -117,6 +117,12 @@ class _HomeView extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     MealStorage storage = MealStorage();
+
+    Map<String, dynamic> qrData = {
+      "id": "",
+      "meal": ""
+    };
+    
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
         body: FutureBuilder<Map<String, dynamic>>(
@@ -149,31 +155,28 @@ class _HomeView extends State<HomeView> {
                   size: constraints.maxWidth * qrWidth / 430,
                 );
 
-                return SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  child: Center(
-                      child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 25,
-                      bottom: 25,
-                    ),
-                    child: Column(children: [
-                      Text("Dish", style: font(20, myGrey, FontWeight.normal)),
-                      Text(dish,
-                          style: font(30, Colors.black, FontWeight.bold)),
-                      const SizedBox(height: 60),
-                      InkWell(
+                return Center(
+                    child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 25,
+                    bottom: 25,
+                  ),
+                  child: Column(children: [
+                    Text("Dish", style: font(20, myGrey, FontWeight.normal)),
+                    Text(dish, style: font(30, Colors.black, FontWeight.bold)),
+                    const SizedBox(height: 60),
+                    Container(
+                      child: InkWell(
                         onLongPress: () {
-                          setState(()  {
+                          setState(() {
                             framePath = 'assets/frame/qr_frame2.png';
                           });
                         },
                         onDoubleTap: () {
-                          setState(()  {
+                          setState(() {
                             if (framePath == 'assets/frame/qr_frame2.png') {
                               framePath = 'assets/frame/qr_frame1.png';
-                            }
-                            else {
+                            } else {
                               framePath = 'assets/frame/qr_frame2.png';
                             }
                           });
@@ -183,19 +186,17 @@ class _HomeView extends State<HomeView> {
                             framePath = 'assets/frame/qr_frame1.png';
                           });
                         },
-                        child: Container(
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              frame,
-                              qrcode,
-                            ],
-                          ),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            frame,
+                            qrcode,
+                          ],
                         ),
                       ),
-                    ]),
-                  )),
-                );
+                    ),
+                  ]),
+                ));
               } else if (snapshot.hasError) {
                 return Text(snapshot.error.toString());
               }
