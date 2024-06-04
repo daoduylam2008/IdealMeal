@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FileDownloader;
 use App\Http\Controllers\AuthJwtController;
 use App\Http\Controllers\MealDaysController;
 use App\Http\Controllers\V1\StudentsController;
@@ -20,3 +21,4 @@ Route::get("profile",[AuthJwtController::class, "profile"])->middleware("jwtToke
 
 Route::post("food",[MealDaysController::class, "store"])->middleware("meal_days");
 
+// Route::get("file",[FileDownloader::class, "download"]);

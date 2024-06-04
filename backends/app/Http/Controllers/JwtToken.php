@@ -31,15 +31,12 @@ class JwtToken{
         }
     }
     public static function attempt($jwt) {
+        // $decoded =  JWT::decode($jwt, new Key($secret_key,'HS256'));
+        
+        
         $secret_key = "helllllloooooooooo";
-        try {
-            $decoded =  JWT::decode($jwt, new Key($secret_key,'HS256'));
-            
-            return $decoded;
-        }
-        catch (Exception $e) {
-            
-        }
+        $decoded =  JWT::decode($jwt, new Key($secret_key,'HS256'));
+        return $decoded;
 
     }
 }
