@@ -53,12 +53,13 @@ class AuthJwtController extends Controller
         
         
         $info = DB::table("students")->where("student_id","=",$student_id)->first();
-        
+        $room_id = DB::table("room_ids")->where("student_id","=",$student_id)->first();
         return json_encode([
             "student_id" => $student_id,
             "name" => $info->name,
             "birth"=> $info->birth,
             "phone" => $info->phone,
+            "room_id" => $room_id->room_id,
         ]);
     }
 }
