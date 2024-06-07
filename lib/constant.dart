@@ -52,6 +52,17 @@ String dateToString(DateTime date) {
   return "$day/$month/${date.year}";
 }
 
+// Date transform
+Map<String, String> dateDate = {
+  "Monday": "MON",
+  "Tuesday": "TUE",
+  "Wednesday": "WED",
+  "Thursday": " THU",
+  "Friday": "FRI",
+  "Saturday": "SAT",
+  "Sunday": "SUN"
+};
+
 // icon path with {name}
 String iconPath(String name) {
   return "assets/icons/$name icon.png";

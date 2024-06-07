@@ -69,14 +69,16 @@ class Item extends StatelessWidget {
                   children: [
                     Text(day,
                         style: font(20, Colors.black, FontWeight.normal)),
-                    Text("day", style: font(20, Colors.black, FontWeight.bold)),
+                    Text(dateDate[dateToDay(date)] ?? "N/A", style: font(20, Colors.black, FontWeight.bold)),
                   ],
                 )),
             SizedBox(width: constraints.maxWidth * 14 / 430),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(meal, style: font(20, Colors.black, FontWeight.bold)),
+                SizedBox(
+                  width: constraints.maxWidth* 255/430,
+                  child: Text(meal, style: font(20, Colors.black, FontWeight.bold))),
                 Text(dateString)
                 ],
             )
