@@ -113,6 +113,8 @@ class Date {
   List<List<DateTime>> matrix() {
     List<List<DateTime>> m = [];
 
+    int first = days.indexOf(dateToDay(firstDay));
+
     for (var i = 1; i <= 6; i++) {
       List<DateTime> d = [];
       for (var j = 1; j <= 7; j++) {
@@ -121,11 +123,10 @@ class Date {
       m.add(d);
     }
 
-    m[0][days.indexOf(dateToDay(firstDay))] = firstDay;
+    m[0][first] = firstDay;
 
-    for (var i = 1; i <= 6 - days.indexOf(dateToDay(firstDay)); i++) {
-      m[0][days.indexOf(dateToDay(firstDay)) + i] =
-          firstDay.copyWith(day: i + 1 );
+    for (var i = 1; i <= 6 - first; i++) {
+      m[0][first + i] = firstDay.copyWith(day: i + 1);
     }
 
     for (var i = 1; i <= 5; i++) {
@@ -133,8 +134,7 @@ class Date {
         // m[i][j] = ;
       }
     }
-    
-     return m;
+    return m;
   }
 
   String dayDate(DateTime date) {
@@ -157,6 +157,9 @@ class Date {
   }
 
   DateTime dateDay(String day) {
+    if (day == "date") {
+      return DateTime.now();
+    }
     int y = days.indexOf(day.split("#")[0]);
     int x = int.parse(day.split("#")[1]) - 1;
     return dateMatrix![x][y];
