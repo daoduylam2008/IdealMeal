@@ -19,6 +19,10 @@ Route::post("register",[AuthJwtController::class, "register"]);
 Route::post("login",[AuthJwtController::class, "login"]);
 Route::get("profile",[AuthJwtController::class, "profile"])->middleware("jwtToken");
 
-Route::post("food",[MealDaysController::class, "store"])->middleware("meal_days");
+Route::post("food",[MealDaysController::class, "store"]);
+// ->middleware("meal_days");
 
 // Route::get("file",[FileDownloader::class, "download"]);
+
+// Route::get("days",[MealDaysController::class, "index"]);
+Route::get("day/{day}",[MealDaysController::class, "show"]);

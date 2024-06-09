@@ -12,29 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('meal_days', function (Blueprint $table) {
-            $table->string("student_id");
-            $table->string("Monday#1")->nullable();
-            $table->string("Tuesday#1")->nullable();
-            $table->string("Wednesday#1")->nullable();
-            $table->string("Thursday#1")->nullable();
-            $table->string("Friday#1")->nullable();
-            $table->string("Monday#2")->nullable();
-            $table->string("Tuesday#2")->nullable();
-            $table->string("Wednesday#2")->nullable();
-            $table->string("Thursday#2")->nullable();
-            $table->string("Friday#2")->nullable();
-            $table->string("Monday#3")->nullable();
-            $table->string("Tuesday#3")->nullable();
-            $table->string("Wednesday#3")->nullable();
-            $table->string("Thursday#3")->nullable();
-            $table->string("Friday#3")->nullable();
-            $table->string("Monday#4")->nullable();
-            $table->string("Tuesday#4")->nullable();
-            $table->string("Wednesday#4")->nullable();
-            $table->string("Thursday#4")->nullable();
-            $table->string("Friday#4")->nullable();
-            $table->timestamps();
-            $table->foreign("student_id")->references("student_id")->on("students");
+            $table->string("student_id",6)->unique();
+            $table->string("dex");
+            $table->foreign("student_id")->references("student_id")->on("room_ids")->onDelete("CASCADE")->onUpdate("CASCADE");
             
         });
     }

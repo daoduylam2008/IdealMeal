@@ -15,7 +15,7 @@ class StudentsController extends Controller
      */
     public function index()
     {
-        return Students::all();
+        print_r(Students::all());
     }
 
     /**
@@ -41,9 +41,8 @@ class StudentsController extends Controller
     {   
         $result = DB::table("students")
                     ->where("student_id","=",$id)
-                    ->get();
-    
-        return new StudentsResource($result[0]);
+                    ->first();
+        return new StudentsResource($result);
     }
 
     /**

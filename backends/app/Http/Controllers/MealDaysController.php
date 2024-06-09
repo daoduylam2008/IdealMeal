@@ -2,34 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use App\Models\MealDays;
+use App\Http\Resources\MealDayResources;
 use App\Http\Requests\StoreMealDaysRequest;
 use App\Http\Requests\UpdateMealDaysRequest;
-use App\Models\MealDays;
 
 class MealDaysController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreMealDaysRequest $request)
     {
-        MealDays::create($request->all());
+        // print_r(($request->all())['dex']);
+        $dexs = "";
+        foreach ($request->all()['dex'] as $dex => $value){
+            $dexs .=$dex . ":" .$value." ";
+        }
+        $meal_day["student_id"] = $request->safe()->only(['student_id'])["student_id"];
+        $meal_day["dex"] = trim($dexs);
+
+        // return json_encode($meal_day);
+        
+        DB::table("meal_days")->insert($meal_day);
         return json_encode([
             "msg" => "Created successfully",
         ]);
@@ -38,18 +36,13 @@ class MealDaysController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(MealDays $mealDays)
+    public function show($id)
     {
-        //
+        $result[0] = DB::table("meal_days")->where("student_id",'=',$id)->first();
+    
+        return new MealDayResources($result[0]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(MealDays $mealDays)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

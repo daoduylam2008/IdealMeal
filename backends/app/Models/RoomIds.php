@@ -17,8 +17,5 @@ class RoomIds extends Model
         "student_id",
     ];
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class,"student_id","student_id");
-    }
+    
 }

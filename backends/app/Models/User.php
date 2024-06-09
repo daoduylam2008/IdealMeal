@@ -49,13 +49,4 @@ class User extends Authenticatable
         ];
     }
     
-    public function students(): HasOne
-    {
-        return $this->hasOne(Students::class,"student_id","student_id");
-    }
-    public function roomIds(): HasOne
-    {
-        return $this->hasOne(RoomIds::class,"student_id","student_id");
-    }
-
 }
