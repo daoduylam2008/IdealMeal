@@ -61,7 +61,7 @@ class _Settings extends State<Settings> {
                                   font(20, Colors.black, FontWeight.normal))))),
               const SizedBox(height: 51),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Text("Log in with biometrics",
+                Text("Auto-login",
                     style: font(20, Colors.black, FontWeight.bold)),
                 Switch(
                     trackOutlineWidth: const MaterialStatePropertyAll(0),

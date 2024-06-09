@@ -105,6 +105,7 @@ class _OrderView extends State<OrderView> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               var data = dayMeal(snapshot.data!);
+
               return Container(
                 color: appBarBackground,
                 width: constraints.maxWidth,
@@ -119,6 +120,11 @@ class _OrderView extends State<OrderView> {
                           itemBuilder: (context, index) {
                             var meal = data.values.toList()[index];
                             var date = data.keys.toList()[index];
+
+                            DateTime day = widget.datetime.dateDay(date);
+                            String today =
+                                "${day.day}/${day.month}/${day.year}";
+
                             return index == 0
                                 ? Container()
                                 : Container(
@@ -153,7 +159,8 @@ class _OrderView extends State<OrderView> {
                                               children: [
                                                 Row(
                                                   children: [
-                                                    Text(date,
+                                                    Text(
+                                                        "${date.split("#")[0]}, $today",
                                                         style: font(
                                                             constraints
                                                                     .maxWidth *
@@ -161,11 +168,6 @@ class _OrderView extends State<OrderView> {
                                                                 430,
                                                             Colors.black,
                                                             FontWeight.normal)),
-                                                    Text((date == null)
-                                                        ? ""
-                                                        : widget.datetime
-                                                            .dateDay(date)
-                                                            .toString()),
                                                   ],
                                                 ),
                                                 DropdownButtonFormField2(
