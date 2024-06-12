@@ -22,21 +22,14 @@ class JwtToken{
         );
     }
     public static function check($jwt){
-        $secret_key = "helllllloooooooooo";
-        if ($decoded =  JWT::decode($jwt, new Key($secret_key,'HS256'))){
-            return true;
+        if ($jwt == NULL){
+            abort(401);
+        }
+        else if ($decoded =  JWT::decode($jwt, new Key("helllllloooooooooo",'HS256'))){
+            return $decoded->student_id;
         }
         else{
-            return false;
+            abort(401);
         }
-    }
-    public static function attempt($jwt) {
-        // $decoded =  JWT::decode($jwt, new Key($secret_key,'HS256'));
-        
-        
-        $secret_key = "helllllloooooooooo";
-        $decoded =  JWT::decode($jwt, new Key($secret_key,'HS256'));
-        return $decoded;
-
     }
 }

@@ -15,7 +15,7 @@ class StudentsController extends Controller
      */
     public function index()
     {
-        print_r(Students::all());
+        //
     }
 
     /**
@@ -31,7 +31,7 @@ class StudentsController extends Controller
      */
     public function store(StoreStudentsRequest $request)
     {
-        return new StudentsResource(Students::create($request->all()));
+        // return new StudentsResource(Students::create($request->all()));
     }
 
     /**

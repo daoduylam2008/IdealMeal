@@ -17,7 +17,9 @@ Route::group(['prefix'=>"v1","namespace"=>"App\Http\Controllers\V1"],function(){
 
 Route::post("register",[AuthJwtController::class, "register"]);
 Route::post("login",[AuthJwtController::class, "login"]);
-Route::get("profile",[AuthJwtController::class, "profile"])->middleware("jwtToken");
+Route::get("profile",[AuthJwtController::class, "profile"]);
+Route::get("account",[AuthJwtController::class, "account"]);
+Route::post("pass",[AuthJwtController::class, "updatePassword"]);
 
 Route::post("food",[MealDaysController::class, "store"]);
 // ->middleware("meal_days");
