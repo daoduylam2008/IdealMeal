@@ -22,7 +22,7 @@ class JwtToken{
         );
     }
     public static function check($jwt){
-        if ($jwt == NULL){
+        if (empty($jwt)){
             abort(401);
         }
         else if ($decoded =  JWT::decode($jwt, new Key("helllllloooooooooo",'HS256'))){
