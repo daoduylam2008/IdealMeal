@@ -159,118 +159,120 @@ class _HomeState extends State<Home> {
             ),
             // feedback
             Expanded(
-              child: Container(
-                height: _width / 3,
-                padding: const EdgeInsets.all(10),
-                decoration: const BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Color.fromRGBO(220, 220, 220, 1),
-                            width: 2))),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'How was your meal?',
-                      style: font(20, Colors.black, FontWeight.bold),
-                    ),
-                    Row(
-                      children: List.generate(
-                          5,
-                          (index) => const Icon(
-                                Icons.star_border_rounded,
-                                color: Color.fromRGBO(187, 187, 187, 1),
-                              )),
-                    ),
-                    Text(
-                      'Anything that can be improve?',
-                      style: font(20, Colors.black, FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: LayoutBuilder(
-                        builder: (context, constraints) {
-                          return SizedBox(
-                            height: constraints.maxHeight,
-                            child: TextField(
-                              textAlignVertical: TextAlignVertical.top,
-                              maxLines: null,
-                              expands: true,
-                              decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.all(12),
-                                hintText: 'Your feedback (Optional)',
-                                hintStyle: TextStyle(
-                                  color: Color.fromRGBO(187, 187, 187, 1),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromRGBO(220, 220, 220, 1),
-                                      width: 2.0),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromRGBO(220, 220, 220, 1),
-                                      width: 2.0),
-                                ),
-                              ),
-                              onChanged: (value) {},
-                            ),
-                          );
-                        },
+              child: SingleChildScrollView(
+                child: Container(
+                  height: _width / 3,
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color.fromRGBO(220, 220, 220, 1),
+                              width: 2))),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'How was your meal?',
+                        style: font(20, Colors.black, FontWeight.bold),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      side: const BorderSide(
-                                          color:
-                                              Color.fromRGBO(220, 220, 220, 1),
-                                          width: 2)),
-                                ),
-                                backgroundColor: MaterialStateProperty.all(
-                                  const Color.fromRGBO(242, 242, 242, 1),
+                      Row(
+                        children: List.generate(
+                            5,
+                            (index) => const Icon(
+                                  Icons.star_border_rounded,
+                                  color: Color.fromRGBO(187, 187, 187, 1),
                                 )),
-                            child: Text(
-                              'Send',
-                              style: font(15, Colors.black, FontWeight.bold),
-                            ),
-                          ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Icon(
-                                Icons.check_circle_outline_rounded,
-                                color: Color.fromRGBO(187, 187, 187, 1),
-                                size: 20,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Thanks for your feedback!',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(187, 187, 187, 1),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
                       ),
-                    )
-                  ],
+                      Text(
+                        'Anything that can be improve?',
+                        style: font(20, Colors.black, FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: LayoutBuilder(
+                          builder: (context, constraints) {
+                            return SizedBox(
+                              height: constraints.maxHeight,
+                              child: TextField(
+                                textAlignVertical: TextAlignVertical.top,
+                                maxLines: null,
+                                expands: true,
+                                decoration: const InputDecoration(
+                                  contentPadding: EdgeInsets.all(12),
+                                  hintText: 'Your feedback (Optional)',
+                                  hintStyle: TextStyle(
+                                    color: Color.fromRGBO(187, 187, 187, 1),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Color.fromRGBO(220, 220, 220, 1),
+                                        width: 2.0),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Color.fromRGBO(220, 220, 220, 1),
+                                        width: 2.0),
+                                  ),
+                                ),
+                                onChanged: (value) {},
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextButton(
+                              onPressed: () {},
+                              style: ButtonStyle(
+                                  shape: WidgetStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        side: const BorderSide(
+                                            color:
+                                                Color.fromRGBO(220, 220, 220, 1),
+                                            width: 2)),
+                                  ),
+                                  backgroundColor: MaterialStateProperty.all(
+                                    const Color.fromRGBO(242, 242, 242, 1),
+                                  )),
+                              child: Text(
+                                'Send',
+                                style: font(15, Colors.black, FontWeight.bold),
+                              ),
+                            ),
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Icon(
+                                  Icons.check_circle_outline_rounded,
+                                  color: Color.fromRGBO(187, 187, 187, 1),
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  'Thanks for your feedback!',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(187, 187, 187, 1),
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             )
