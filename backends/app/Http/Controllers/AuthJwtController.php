@@ -47,8 +47,9 @@ class AuthJwtController extends Controller
             $user["email"] = $associative_array["email"];
             $user["name"] = $associative_array["name"];
             $user["student_id"] = $associative_array["student_id"];
+            $user['exp'] = strtotime("first day of +1 month");
            
-            $token = JwtToken::createToken($user,"2025-10-10");
+            $token = JwtToken::createToken($user,strtotime('first day of +1 month'));
             return $token;
         }
         else{

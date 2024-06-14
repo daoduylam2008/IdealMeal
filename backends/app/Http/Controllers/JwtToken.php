@@ -11,25 +11,33 @@ use DB;
 
 class JwtToken{
 
+    private static $secret_key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImZzZnNmc2ZAZ21haWwuY29tIiwibmFtZSI6ImZzZnMiLCJzdHVkZW50X2lkIjoxMDAxMDcsImV4cCI6MTcxOTgyNzYxMX0.Dw5Zlo9n1OlfamGoVkJyCRapRlH6urY1VUOKFz20O7I";
+
+
     public static function createToken($user,$time){
-        $secret_key = "helllllloooooooooo";
         return json_encode(
             [
-            "jwt" => JWT::encode($user,$secret_key,"HS256"),
+            "jwt" => JWT::encode($user,static::$secret_key,"HS256"),
+            "refresh_token" => JWT::encode(["unique"=>uniqid("",true)],static::$secret_key,"HS256"),
             "token_type"=> "bearer",
-            "expired_in"=> strtotime($time)
+            "expired_in"=> $time,
             ]
         );
     }
+
+
     public static function check($jwt){
         if (empty($jwt)){
             abort(401);
         }
-        else if ($decoded =  JWT::decode($jwt, new Key("helllllloooooooooo",'HS256'))){
+        else if ($decoded =  JWT::decode($jwt, new Key(static::$secret_key,'HS256'))){
             return $decoded->student_id;
         }
         else{
             abort(401);
         }
+       
     }
+   
+
 }
