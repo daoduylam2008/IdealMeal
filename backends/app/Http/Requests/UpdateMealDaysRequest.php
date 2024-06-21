@@ -11,7 +11,7 @@ class UpdateMealDaysRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,14 @@ class UpdateMealDaysRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        $method = $this->method();
+        
+        if ($method == "PATCH"){
+            return [
+                "dex" => ["required"],
+            ];
+        }else{
+            abort(405);
+        }
     }
 }

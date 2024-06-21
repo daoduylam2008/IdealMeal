@@ -7,40 +7,25 @@ use App\Models\MealDays;
 use App\Http\Resources\MealDayResources;
 use App\Http\Requests\StoreMealDaysRequest;
 use App\Http\Requests\UpdateMealDaysRequest;
+use PHPOpenSourceSaver\JWTAuth\JWT ;
+use Illuminate\Support\Facades\Auth;
+
 
 class MealDaysController extends Controller
 {
     
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreMealDaysRequest $request)
-    {
-        // print_r(($request->all())['dex']);
-        $dexs = "";
-        foreach ($request->all()['dex'] as $dex => $value){
-            $dexs .=$dex . ":" .$value." ";
-        }
-        $meal_day["student_id"] = $request->safe()->only(['student_id'])["student_id"];
-        $meal_day["dex"] = trim($dexs);
-
-        // return json_encode($meal_day);
-        
-        DB::table("meal_days")->insert($meal_day);
-        return json_encode([
-            "msg" => "Created successfully",
-        ]);
-    }
 
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show()
     {
-        $result[0] = DB::table("meal_days")->where("student_id",'=',$id)->first();
-    
-        return new MealDayResources($result[0]);
+        $student_id = (auth()->user())["student_id"];
+        $result = DB::table("meal_days")->where("student_id",'=',$student_id)->first();
+        return response()->json([
+            "dex" => $result->dex,
+        ]);
     }
 
 
@@ -49,7 +34,13 @@ class MealDaysController extends Controller
      */
     public function update(UpdateMealDaysRequest $request, MealDays $mealDays)
     {
-        //
+        
+        $student_id = (auth()->user())["student_id"];
+        DB::table("meal_days")->where("student_id",'=',$student_id)->update(['dex'=>$request->safe()->only(['dex'])['dex']]);
+
+        return response()->json([
+            "msg" => "Updated successfully",
+        ]);
     }
 
     /**

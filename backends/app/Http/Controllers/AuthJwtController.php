@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\JwtToken;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\UpdateAccountsRequest;
 
 class AuthJwtController extends Controller

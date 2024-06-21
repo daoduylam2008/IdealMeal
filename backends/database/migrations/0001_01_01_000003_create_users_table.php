@@ -18,8 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->string("student_id");
             $table->foreign("student_id")->references("student_id")->on("room_ids")->onDelete("CASCADE")->onUpdate("CASCADE");
-            // $table->primary("student_id");
-
+            $table->index("student_id");
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

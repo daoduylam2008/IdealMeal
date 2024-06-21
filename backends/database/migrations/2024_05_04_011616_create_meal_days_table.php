@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('meal_days', function (Blueprint $table) {
             $table->string("student_id",6)->unique();
-            $table->string("dex");
+            $table->string("dex")->default("");
             $table->foreign("student_id")->references("student_id")->on("room_ids")->onDelete("CASCADE")->onUpdate("CASCADE");
-            
+            $table->index("student_id"); 
         });
     }
 

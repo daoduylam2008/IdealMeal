@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('room_id',4);
             $table->foreign("room_id")->references("room_id")->on("teachers")->onDelete("CASCADE")->onUpdate("CASCADE");
             $table->primary("student_id");
+            $table->index("room_id");
         });
     }
 

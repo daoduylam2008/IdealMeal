@@ -21,7 +21,7 @@ return new class extends Migration
             // $table->timestamps();
             // $table->primary("student_id");
             $table->foreign("student_id")->references('student_id')->on("room_ids")->onDelete("CASCADE")->onUpdate("CASCADE");
-
+            $table->index("student_id");
            
         });
     }

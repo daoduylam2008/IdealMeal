@@ -8,27 +8,14 @@ use App\Http\Controllers\AuthJwtController;
 use App\Http\Controllers\MealDaysController;
 use App\Http\Controllers\V1\StudentsController;
 
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
 
 Route::group(['prefix'=>"v1","namespace"=>"App\Http\Controllers\V1"],function(){
     Route::apiResource('students',StudentsController::class);
 });
 
-// Route::post("register",[AuthJwtController::class, "register"]);
-// Route::post("login",[AuthJwtController::class, "login"]);
-// Route::get("profile",[AuthJwtController::class, "profile"]);
-// Route::get("account",[AuthJwtController::class, "account"]);
-// Route::post("pass",[AuthJwtController::class, "updatePassword"]);
 
-// Route::post("food",[MealDaysController::class, "store"]);
-// ->middleware("meal_days");
-
-// Route::get("file",[FileDownloader::class, "download"]);
-
-// Route::get("days",[MealDaysController::class, "index"]);
-Route::get("day/{day}",[MealDaysController::class, "show"]);
+Route::patch("meal", [MealDaysController::class, "update"]);
+Route::get("day",[MealDaysController::class, "show"]);
 
 Route::group([
 
@@ -37,6 +24,7 @@ Route::group([
 
 ], function ($router) {
 
+    Route::post("register", [AuthController::class, "register"]);
     Route::post('login', [AuthController::class,'login']);
     Route::post('logout', [AuthController::class,'logout']);
     Route::post('refresh', [AuthController::class,'refresh']);
