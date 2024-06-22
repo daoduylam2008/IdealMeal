@@ -17,11 +17,12 @@ return new class extends Migration
             $table->date("birth",8)->nullable();
             $table->string("ethnic",6)->nullable();
             $table->string("address")->nullable();
-            $table->string("phone",10)->nullable();
+            $table->string("phone",20)->nullable();
             // $table->timestamps();
             // $table->primary("student_id");
             $table->foreign("student_id")->references('student_id')->on("room_ids")->onDelete("CASCADE")->onUpdate("CASCADE");
             $table->index("student_id");
+            $table->timestamps();
            
         });
     }

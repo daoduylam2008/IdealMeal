@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('name',40)->unique();
             $table->string("room_id",4);
             $table->primary("room_id");
+            $table->timestamps();
         });
     }
 

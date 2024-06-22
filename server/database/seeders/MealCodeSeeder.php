@@ -14,11 +14,11 @@ class MealCodeSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::disableQueryLog();
-        SimpleExcelReader::create("data/meal_code.xlsx")
-        ->getRows()
-        ->each(function(array $rowProperties){
-            DB::table("meal_codes")->insert($rowProperties);
-        });
+        // DB::disableQueryLog();
+        // SimpleExcelReader::create("data/meal_code.xlsx")
+        // ->getRows()
+        // ->each(function(array $rowProperties){
+        //     DB::table("meal_codes")->insert($rowProperties);
+        // });
     }
 }

@@ -3,11 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\RoomIds;
 use App\Models\Students;
 use Illuminate\Notifications\Notifiable;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
 
 class User extends Authenticatable implements JWTSubject
@@ -50,6 +52,10 @@ class User extends Authenticatable implements JWTSubject
         ];
     }
     // Rest omitted for brevity
+    public function roomids(): BelongsTo
+    {
+        return $this->belongsTo(RoomIds::class);
+    }
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

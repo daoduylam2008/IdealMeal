@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             TeacherSeeder::class,
             RoomIdSeeder::class,
             StudentsSeeder::class,
-            MealCodeSeeder::class,
+            UserSeeder::class,
+            // MealCodeSeeder::class,
         ]);
     }
 }
