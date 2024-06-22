@@ -22,6 +22,6 @@ class RoomIdSeeder extends Seeder
         //     DB::table("room_ids")->insert($rowProperties);
         // });
 
-        RoomIds::factory()->count(5000)->create();
+        RoomIds::factory()->count(8000)->create();
     }
 }

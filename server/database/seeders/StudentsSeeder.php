@@ -21,6 +21,6 @@ class StudentsSeeder extends Seeder
         // ->each(function(array $rowProperties){
         //     DB::table("students")->insert($rowProperties);
         // });
-        Students::factory()->count(3000)->create();
+        Students::factory()->count(5000)->create();
     }
 }

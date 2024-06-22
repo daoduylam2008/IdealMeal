@@ -63,38 +63,52 @@ class AuthController extends Controller
     }
 
     public function profile(Request $request){
-        $student_id = (auth()->user())["student_id"];
-        $info = DB::table("students")?->whereNotNull("student_id")?->where("student_id","=",$student_id)?->first();
+
+        if (!empty($student_id = (auth()->user())['student_id'])) {
+            // $student_id = $user["student_id"];
+            
+        
+
+
+            $info = DB::table("students")?->whereNotNull("student_id")?->where("student_id","=",$student_id)?->first();
 
         
-        $room_id = DB::table("room_ids")?->whereNotNull("student_id")?->where("student_id","=",$student_id)?->first();
+            $room_id = DB::table("room_ids")?->whereNotNull("student_id")?->where("student_id","=",$student_id)?->first();
+        
 
+            if(empty($info)){
+                return response()->json(
+                    [
+                        "student_id" => $student_id,
+                        "name" => "",
+                        "birth"=> "",
+                        "phone" => "",
+                        "room_id" => "",
+                    ]
+                );
+            }
 
-        if(empty($info)){
-            return response()->json(
-                [
-                    "student_id" => $student_id,
-                    "name" => "",
-                    "birth"=> "",
-                    "phone" => "",
-                    "room_id" => "",
-                ]
-            );
+            else{
+                return response()->json(
+                    [
+                        "student_id" => $student_id,
+                        "name" => $info->name,
+                        "birth"=> $info->birth,
+                        "phone" => $info->phone,
+                        "room_id" => $room_id->room_id,
+                    ]
+                );
+        
+            }
         }
-
         else{
             return response()->json(
-                [
-                    "student_id" => $student_id,
-                    "name" => $info->name,
-                    "birth"=> $info->birth,
-                    "phone" => $info->phone,
-                    "room_id" => $room_id->room_id,
-                ]
+                'Unknown user'
             );
-    
         }
-    }
+        }
+        
+    
 
     /**
      * Log the user out (Invalidate the token).
