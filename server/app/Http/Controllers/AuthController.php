@@ -64,12 +64,10 @@ class AuthController extends Controller
 
     public function profile(Request $request){
 
-        if (!empty($student_id = (auth()->user())['student_id'])) {
-            // $student_id = $user["student_id"];
+        if (!empty($user = (auth()->user()))) {
+            $student_id = $user["student_id"];
             
         
-
-
             $info = DB::table("students")?->whereNotNull("student_id")?->where("student_id","=",$student_id)?->first();
 
         
@@ -102,9 +100,9 @@ class AuthController extends Controller
             }
         }
         else{
-            return response()->json(
-                'Unknown user'
-            );
+            return response()->json([
+                "msg"=>'Unknown user'
+            ]);
         }
         }
         
@@ -159,7 +157,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => strtotime("first day of +1 month"),
+            'expires_in' => strtotime("+1 minutes"),
         ]);
     }
     
