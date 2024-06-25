@@ -87,6 +87,8 @@ flutter:
     - assets/user/user.json
     - assets/frame/qr_frame1.png
     - assets/frame/qr_frame2.png
+    - assets/frame/profile_frame.png
+    - assets/frame/profile.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

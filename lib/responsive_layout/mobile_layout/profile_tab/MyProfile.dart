@@ -22,7 +22,7 @@ class _MyProfile extends State<MyProfile> {
           child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CardWidget(width: constraints.maxWidth),
+            CardWidget(),
             SizedBox(height: constraints.maxHeight*20/440),
             SizedBox(
               width: constraints.maxHeight*380/440,
