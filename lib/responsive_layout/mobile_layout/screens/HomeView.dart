@@ -99,6 +99,7 @@ class _HomeView extends State<HomeView> {
                                         style: font(15, Colors.white,
                                             FontWeight.normal)))),
                           ),
+                          Image.asset("assets/icon/tick.png", fit: BoxFit.contain,),
                           const Text("Thanks for your feedback!")
                         ])
                       ],

@@ -64,11 +64,11 @@ class _Settings extends State<Settings> {
                 Text("Auto-login",
                     style: font(20, Colors.black, FontWeight.bold)),
                 Switch(
-                    trackOutlineWidth: const MaterialStatePropertyAll(0),
+                    trackOutlineWidth: const WidgetStatePropertyAll(0),
                     inactiveThumbColor: Colors.white,
                     inactiveTrackColor: const Color.fromRGBO(200, 200, 200, .8),
                     activeColor: const Color.fromARGB(184, 56, 223, 70),
-                    thumbColor: const MaterialStatePropertyAll(Colors.white),
+                    thumbColor: const WidgetStatePropertyAll(Colors.white),
                     value: biometricsLogin,
                     onChanged: loginSwitch)
               ]),

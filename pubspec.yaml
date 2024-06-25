@@ -82,6 +82,7 @@ flutter:
     - assets/icons/order icon.png
     - assets/icons/profile icon.png
     - assets/icons/note icon.png
+    - assets/icons/tick.png
     - assets/images/card.png
     - assets/images/logo.png
     - assets/user/user.json

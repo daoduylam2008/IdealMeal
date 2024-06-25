@@ -86,6 +86,7 @@ class Student {
   final String cls;
   final String address;
   final String room;
+  final String email;
 
   Student(
       {required this.id,
@@ -95,7 +96,9 @@ class Student {
       required this.phone,
       required this.cls,
       required this.address,
-      required this.room});
+      required this.room,
+      required this.email
+      });
 
   factory Student.fromJson(Map<String, dynamic> json) {
     return switch (json) {
@@ -108,6 +111,7 @@ class Student {
         'class': String cls,
         'address': String address,
         'room': String room,
+        'email': String email
       } =>
         Student(
             id: id,
@@ -117,7 +121,8 @@ class Student {
             phone: phone,
             cls: cls,
             address: address,
-            room: room),
+            room: room,
+            email: email),
       _ => throw const FormatException('Failed to load student.')
     };
   }
@@ -203,12 +208,14 @@ class Meal {
 var studentTest = Student(
     id: "100112",
     name: "Đào Duy Lâm",
-    birth: "2008/08/31",
+    birth: "31/08/2008",
     gender: "boy",
     phone: "0909687714",
     cls: "10A01",
-    address: "address",
-    room: "D4116");
+    address: "64 Nguyễn Bá Tòng, Phường Tân Thành, Quận Tân Phú",
+    room: "D4116",
+    email: "daoduylam2020@gmail.com",
+);
 
 var userTest = User(
     id: "100112",
@@ -233,4 +240,3 @@ DateTime lastDate() {
 String dateToDay(DateTime date) {
   return DateFormat('EEEE').format(date);
 }
-
