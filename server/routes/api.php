@@ -31,5 +31,7 @@ Route::group([
     Route::get('me', [AuthController::class,'me']);
     Route::get('profile', [AuthController::class,'profile']);
     Route::post('pass', [AuthController::class,'updatePassword']);
+    Route::post('email', [AuthController::class,'updateEmail']);
+    Route::post('phone', [AuthController::class,'updatePhone']);
 });
 

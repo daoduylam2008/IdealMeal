@@ -137,13 +137,74 @@ class AuthController extends Controller
      **/
 
     public function updatePassword(){
-        $student_id = (auth()->user())["student_id"];
-        $pass = request(['password']);
-        DB::table("users")->where("student_id","=",$student_id)->update(["password"=>Hash::make($pass["password"])]);
-        return response()->json([
-            "msg" => "Updated successfully",
-        ]);
+        return $this->checkValidToken("password","users",true);
     }
+
+    /**
+     * 
+     * Update email
+     *
+     *  
+     * */
+
+    public function updateEmail(){
+        return $this->checkValidToken("email","users");
+
+    }
+    /**
+     * 
+     * Update phone number
+     *
+     *  
+     * */
+
+    public function updatePhone(){
+        return $this->checkValidToken("phone","students");
+    }
+
+
+    private function checkValidToken($nameTable,$nameDB,$hashed = false){
+
+        if(!empty($user = auth()->user())){
+            $student_id = $user['student_id'];
+            
+
+            $objectRequest = request(["$nameTable"]);
+            
+            if($this->checkIfDuplicateValue($nameTable,$nameDB,$objectRequest["$nameTable"])){
+                return response()->json([
+                    "msg" => "Duplicate value",
+                ]);
+            }else{
+
+                DB::table("$nameDB")?->where("student_id","=",$student_id)?->update(["$nameTable"=> $hashed ? Hash::make($objectRequest['password']) : $objectRequest["$nameTable"]]);
+            
+            
+                return response()->json([
+                    "msg" => "Updated successfully",
+                ]);
+            }
+           
+            
+        }else{
+            return response()->json([
+                "msg"=>'Unknown user'
+            ]);
+        }
+    }
+
+    private function checkIfDuplicateValue($nameTable, $nameDB,$value){
+        $data = DB::table("$nameDB")->where("$nameTable","=",$value)->first();
+        if(!empty($data)){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
+    }
+
+    
 
     /**
      * Get the token array structure.
