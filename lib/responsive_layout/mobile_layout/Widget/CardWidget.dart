@@ -88,7 +88,7 @@ class CardWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                     Text("Địa chỉ:  ", style: font(16, Colors.black, FontWeight.bold)),
-                    SizedBox(width: 200, child: Column(
+                    SizedBox(width: fitWidth(200), child: Column(
                       children: [
                         Text(address, softWrap: true, maxLines: 5, overflow: TextOverflow.clip, style: font(16, Colors.black, FontWeight.normal),),
                       ],

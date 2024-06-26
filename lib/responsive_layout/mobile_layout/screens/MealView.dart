@@ -115,8 +115,7 @@ class _MealView extends State<MealView> {
                                 children: [
                                   InkWell(
                                       onTap: () {
-                                        print("Hello");
-                                        print(widget.datetime!.dayDate(_focusedDay));
+                                        
                                       },
                                       child: Image.asset(iconPath("note"))),
                                 ],

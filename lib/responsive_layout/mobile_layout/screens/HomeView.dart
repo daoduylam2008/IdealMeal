@@ -83,7 +83,9 @@ class _HomeView extends State<HomeView> {
                             });
                           },
                         ),
-                        Row(children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
                           InkWell(
                             onTap: () {},
                             child: Container(
@@ -99,8 +101,12 @@ class _HomeView extends State<HomeView> {
                                         style: font(15, Colors.white,
                                             FontWeight.normal)))),
                           ),
-                          Image.asset("assets/icon/tick.png", fit: BoxFit.contain,),
-                          const Text("Thanks for your feedback!")
+                          SizedBox(child: Row(
+                            children: [
+                              Image.asset("assets/icons/tick.png", fit: BoxFit.contain),
+                              const Text("Thanks for your feedback!")
+                            ],
+                          )),
                         ])
                       ],
                     )),

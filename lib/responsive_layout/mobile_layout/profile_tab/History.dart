@@ -44,6 +44,10 @@ class Item extends StatelessWidget {
     }
     String dateString = "${date.day}/${date.month}/${date.year}";
     return LayoutBuilder(builder: (context, constraints) {
+      double fitWidth(double size) {
+        return constraints.maxWidth * size / 430;
+      }
+
       return Padding(
         padding: EdgeInsets.only(
             left: constraints.maxWidth * 31 / 430,
@@ -53,8 +57,8 @@ class Item extends StatelessWidget {
         child: Row(
           children: [
             Container(
-                width: 98,
-                height: 77,
+                width: fitWidth(98),
+                height: fitWidth(77),
                 decoration: const BoxDecoration(
                   color: Color.fromRGBO(243, 243, 243, 1),
                   borderRadius: BorderRadius.only(
@@ -67,9 +71,9 @@ class Item extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(day,
-                        style: font(20, Colors.black, FontWeight.normal)),
-                    Text(dateDate[dateToDay(date)] ?? "N/A", style: font(20, Colors.black, FontWeight.bold)),
+                    Text(day, style: font(fitWidth(20), Colors.black, FontWeight.normal)),
+                    Text(dateDate[dateToDay(date)] ?? "N/A",
+                        style: font(fitWidth(20), Colors.black, FontWeight.bold)),
                   ],
                 )),
             SizedBox(width: constraints.maxWidth * 14 / 430),
@@ -77,10 +81,11 @@ class Item extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  width: constraints.maxWidth* 255/430,
-                  child: Text(meal, style: font(20, Colors.black, FontWeight.bold))),
+                    width: fitWidth(240),
+                    child: Text(meal,
+                        style: font(fitWidth(20), Colors.black, FontWeight.bold))),
                 Text(dateString)
-                ],
+              ],
             )
           ],
         ),
