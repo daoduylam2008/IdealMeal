@@ -22,16 +22,48 @@ class AuthController extends Controller
             "name"=> "required|max:40",
             "email"=> "required|email|unique:users",
             "password"=> "required|min:8|max:20|",
-            "student_id"=> "required|max:6|min:6|unique:users"
+            "student_id"=> "required|max:6|min:6|unique:users",
+            "isAdmin"=> "required",
         ]);
 
-    
+        $request->isAdmin ? 
+        DB::table("admins")->insert(
+            ["name"=>$request->name,"email"=>$request->email, "password"=>Hash::make($request->password)]
+        )
+        :
         DB::table("users")->insert(
             ["name"=>$request->name,"email"=>$request->email, "password"=>Hash::make($request->password),"student_id"=>$request->student_id]
         );
+
+
         return json_encode([
             "msg" => "Created successfully",
         ]);
+    }
+
+    public function admin(Request $request){
+        $request->validate([
+            "email"=> "required|email",
+            "password"=> "required|min:8|max:20",
+        ]);
+
+        
+
+        if(Auth::guard("admin")->attempt(['email'=>$request->email, 'password'=>$request->password])){
+            // return response()->json([
+            //     "access_token" => auth()->guard("admin")->tokenById(Auth::guard("admin")->id()),
+            //     "token_type" => "bearer",
+            //     "expires_at" => auth()->guard("admin")->factory()->getTTL() * 60
+            // ]);
+
+            return response()->json([
+                "msg"=> "Success",
+            ]);
+        }else{
+            return response()->json("");
+        }
+
+
     }
 
 
@@ -42,9 +74,8 @@ class AuthController extends Controller
      */
     public function login()
     {
-
+        
         $credentials = request(['email', 'password']);
-        // $token = auth()->attempt($credentials);
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
@@ -218,7 +249,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => strtotime("+1 minutes"),
+            'expires_in' => strtotime('first day of +1 month'),
         ]);
     }
     

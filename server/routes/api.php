@@ -22,7 +22,7 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
 
-], function ($router) {
+], function () {
 
     Route::post("register", [AuthController::class, "register"]);
     Route::post('login', [AuthController::class,'login']);
@@ -35,3 +35,8 @@ Route::group([
     Route::post('phone', [AuthController::class,'updatePhone']);
 });
 
+Route::group([
+    "prefix" => "auth",
+], function (){
+    Route::post("admin",[AuthController::class,'admin']);
+});
