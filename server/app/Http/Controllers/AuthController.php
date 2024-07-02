@@ -41,31 +41,6 @@ class AuthController extends Controller
         ]);
     }
 
-    public function admin(Request $request){
-        $request->validate([
-            "email"=> "required|email",
-            "password"=> "required|min:8|max:20",
-        ]);
-
-        
-
-        if(Auth::guard("admin")->attempt(['email'=>$request->email, 'password'=>$request->password])){
-            // return response()->json([
-            //     "access_token" => auth()->guard("admin")->tokenById(Auth::guard("admin")->id()),
-            //     "token_type" => "bearer",
-            //     "expires_at" => auth()->guard("admin")->factory()->getTTL() * 60
-            // ]);
-
-            return response()->json([
-                "msg"=> "Success",
-            ]);
-        }else{
-            return response()->json("");
-        }
-
-
-    }
-
 
     /**
      * Get a JWT via given credentials.
@@ -251,6 +226,34 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => strtotime('first day of +1 month'),
         ]);
+    }
+
+    /**
+     * 
+     * @param $request
+     * @return json
+     * 
+     */
+
+
+    public function admin(Request $request){
+
+        $validated = request(['email',"password"]);
+        
+
+        try{
+            if(empty($validated['email']) || empty($validated['password'])){
+                return response()->json("");
+            }
+            else if(Auth::guard("admin")?->attempt(['email'=>$validated['email'], 'password'=>$validated['password']])){
+                return response()->json("successfull");
+            }else{
+                return response()->json("");
+            }
+        }catch (Exception $e){
+            return response()->json("");
+        }
+        
     }
     
 }
