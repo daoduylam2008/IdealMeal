@@ -7,6 +7,7 @@ use App\Http\Controllers\FileDownloader;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthJwtController;
 use App\Http\Controllers\MealDaysController;
+use App\Http\Controllers\TeachersController;
 use App\Http\Controllers\V1\StudentsController;
 
 
@@ -47,4 +48,7 @@ Route::group([
     "prefix" => "auth",
 ], function () {
     Route::get("test",[AdminController::class,'show']);
+
+    Route::get("exit/{id}",[AdminController::class,'exit']);
 });
+Route::get("teachers",[TeachersController::class,'show']);
