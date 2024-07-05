@@ -41,6 +41,7 @@ Route::group([
     "prefix" => "auth",
 ], function (){
     Route::post("admin",[AuthController::class,'admin']);
+    Route::post("account",[AdminController::class,'register']);
 });
 
 Route::group([

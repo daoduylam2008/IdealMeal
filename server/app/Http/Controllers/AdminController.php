@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-
 
 class AdminController extends Controller
 {
@@ -43,6 +44,14 @@ class AdminController extends Controller
         $request->session()->forget($id);
         return response()->json([
             "msg" => "Logged out successfully",
+        ]);
+    }
+
+    public function register(){
+        $validated = request(['email','password','name']);
+        DB::table("admins")->insert(['name' => $validated['name'],"email" =>$validated['email'],"password" =>Hash::make($validated['password'])]);
+        return response()->json([
+            "msg" => "Registered successfully",
         ]);
     }
     
