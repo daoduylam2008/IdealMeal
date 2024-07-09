@@ -10,8 +10,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use PHPOpenSourceSaver\JWTAuth\JWT ;
 
+
+
 class AuthController extends Controller
 {
+
+    
+
+
     /**
      * Create a new AuthController instance.
      *
@@ -51,6 +57,8 @@ class AuthController extends Controller
         }
 
         return $this->respondWithToken($token);
+        
+       
     }
 
     /**

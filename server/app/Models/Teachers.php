@@ -10,7 +10,6 @@ class Teachers extends Model
     use HasFactory;
 
     protected $fillable = [
-        "name",
         "room_id",
     ];
 

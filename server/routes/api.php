@@ -42,6 +42,10 @@ Route::group([
 ], function (){
     Route::post("admin",[AuthController::class,'admin']);
     Route::post("account",[AdminController::class,'register']);
+    Route::get("teachers",[TeachersController::class,'show']);
+    Route::post("exchange",[TeachersController::class,'exchange']);
+    Route::post("trash",[TeachersController::class,'trash']);
+    Route::post("edit",[TeachersController::class,'edit']);
 });
 
 Route::group([
@@ -52,4 +56,3 @@ Route::group([
 
     Route::get("exit/{id}",[AdminController::class,'exit']);
 });
-Route::get("teachers",[TeachersController::class,'show']);
