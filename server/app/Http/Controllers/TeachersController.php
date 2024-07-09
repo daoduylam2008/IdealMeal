@@ -31,14 +31,17 @@ class TeachersController extends Controller
         
         
         return response()->json([
-            "msg" => "success",
+            "msg" => "Swap data successfully",
         ]);
 
     }   
     public function trash(){
+       
         $teacher_id = request(["roomId"]);
         $arr = explode(",",$teacher_id['roomId']);
         DB::table("teachers")->whereIn("room_id",$arr)->delete();
+        
+
         return response()->json([
             "msg" => "Deleted successfully",
         ]);
@@ -48,7 +51,7 @@ class TeachersController extends Controller
         $editedValues = request(['roomId',"name"]);
         DB::table("teachers")->where("room_id","=",$editedValues["roomId"])->update(["name"=>$editedValues["name"]]);
         return response()->json([
-            "msg" => "Updated successfully",
+            "msg" => $editedValues,
         ]);
     }
 

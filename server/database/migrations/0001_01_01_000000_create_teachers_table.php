@@ -17,6 +17,10 @@ return new class extends Migration
             $table->primary("room_id");
             $table->timestamps();
         });
+        Schema::create("teachers_cache",function(Blueprint $table){
+            $table->string("room_id");
+            $table->string("name");
+        });
     }
 
     /**
@@ -25,5 +29,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('teachers');
+        Schema::dropIfExists('teachers_cache');
     }
 };
