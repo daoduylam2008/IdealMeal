@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:ideal_meal/constant.dart';
 import "PasswordChanging.dart";
@@ -13,6 +15,20 @@ class Settings extends StatefulWidget {
 
 class _Settings extends State<Settings> {
   var user = userTest;
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<bool> isLogin;
+
+  Future<void> signOut() async {
+    final SharedPreferences prefs = await _prefs;
+    const bool _isLogin = false;
+
+    setState(() {
+      isLogin = prefs.setBool('isLogin', _isLogin).then((bool success) {
+        return isLogin;
+      });
+    });
+    Phoenix.rebirth(context);
+  }
 
   void loginSwitch(bool value) {
     setState(() {
@@ -21,10 +37,13 @@ class _Settings extends State<Settings> {
   }
 
   @override
-  Widget build(context) {
-    setState(() {
-      user = userTest;
+  void initState() {
+    isLogin = _prefs.then((pref) {
+      return pref.getBool('isLogin') ?? true;
     });
+  }
+
+  Widget _view() {
     return LayoutBuilder(builder: ((context, constraints) {
       return SingleChildScrollView(
         child: Container(
@@ -75,9 +94,7 @@ class _Settings extends State<Settings> {
               const SizedBox(height: 120),
               InkWell(
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  onTap: () {
-                    print("Sign out");
-                  },
+                  onTap: signOut,
                   child: BlurryContainer(
                       borderRadius: const BorderRadius.all(Radius.circular(20)),
                       width: constraints.maxWidth * 368 / 430,
@@ -92,5 +109,32 @@ class _Settings extends State<Settings> {
         ),
       );
     }));
+  }
+
+  @override
+  Widget build(context) {
+    setState(() {
+      user = userTest;
+    });
+    return FutureBuilder(
+        future: isLogin,
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+              return const CircularProgressIndicator();
+            case ConnectionState.active:
+            case ConnectionState.done:
+              if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                if (snapshot.data == true) {
+                  return _view();
+                } else {
+                  return CircularProgressIndicator();
+                }
+              }
+          }
+        });
   }
 }
