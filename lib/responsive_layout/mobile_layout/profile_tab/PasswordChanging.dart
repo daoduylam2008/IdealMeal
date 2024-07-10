@@ -2,6 +2,7 @@ import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ideal_meal/constant.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 class PasswordChanging extends StatefulWidget {
   PasswordChanging({super.key});
@@ -38,6 +39,7 @@ class _PasswordChanging extends State<PasswordChanging> {
           Navigator.pop(context);
           Navigator.pop(context);
           userTest.password = confirmPassController.text;
+          Phoenix.rebirth(context);
         });
       },
     );
