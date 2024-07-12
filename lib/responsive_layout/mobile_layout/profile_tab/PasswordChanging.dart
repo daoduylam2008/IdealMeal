@@ -16,9 +16,9 @@ class PasswordChanging extends StatefulWidget {
 class _PasswordChanging extends State<PasswordChanging> {
   String error = "";
 
-  bool _showOldPassword = true;
-  bool _showNewPassword = true;
-  bool _showConfirmPassword = true;
+  bool _showOldPassword = false;
+  bool _showNewPassword = false;
+  bool _showConfirmPassword = false;
 
   final oldPassController = TextEditingController();
   final newPassController = TextEditingController();
@@ -113,7 +113,7 @@ class _PasswordChanging extends State<PasswordChanging> {
                                   _showOldPassword = !_showOldPassword;
                                 });
                               },
-                              icon: (_showOldPassword == true)
+                              icon: (_showOldPassword == false)
                                   ? const Icon(Icons.visibility_off)
                                   : const Icon(Icons.visibility)),
                           suffixIconColor: myGrey,
@@ -154,7 +154,7 @@ class _PasswordChanging extends State<PasswordChanging> {
                                   _showNewPassword = !_showNewPassword;
                                 });
                               },
-                              icon: (_showNewPassword == true)
+                              icon: (_showNewPassword == false)
                                   ? const Icon(Icons.visibility_off)
                                   : const Icon(Icons.visibility)),
                           suffixIconColor: myGrey,
@@ -195,7 +195,7 @@ class _PasswordChanging extends State<PasswordChanging> {
                                   _showConfirmPassword = !_showConfirmPassword;
                                 });
                               },
-                              icon: (_showConfirmPassword == true)
+                              icon: (_showConfirmPassword == false)
                                   ? const Icon(Icons.visibility_off)
                                   : const Icon(Icons.visibility)),
                           suffixIconColor: myGrey,

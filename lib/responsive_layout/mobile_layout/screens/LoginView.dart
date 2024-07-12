@@ -5,15 +5,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:ideal_meal/constant.dart';
 
-
 class LoginView extends StatefulWidget {
-    const LoginView({super.key});
+  const LoginView({super.key});
 
   @override
   State<LoginView> createState() => _LoginView();
 }
 
 class _LoginView extends State<LoginView> {
+  bool _showPassword = false;
+
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late Future<bool> isLogin;
 
@@ -28,7 +29,6 @@ class _LoginView extends State<LoginView> {
     super.dispose();
   }
 
-
   Future<void> signIn() async {
     final SharedPreferences prefs = await _prefs;
     const bool _isLogin = true;
@@ -39,11 +39,11 @@ class _LoginView extends State<LoginView> {
       });
     });
     Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const MobileScaffold()),
-  );
+      context,
+      MaterialPageRoute(builder: (context) => const MobileScaffold()),
+    );
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,8 +93,18 @@ class _LoginView extends State<LoginView> {
                       child: TextField(
                         cursorColor: Colors.black,
                         obscuringCharacter: "●",
+                        obscureText: _showPassword,
                         controller: passwordController,
                         decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _showPassword = !_showPassword;
+                                });
+                              },
+                              icon: (_showPassword == false)
+                                  ? const Icon(Icons.visibility_off)
+                                  : const Icon(Icons.visibility)),
                           filled: true,
                           fillColor: const Color.fromRGBO(231, 231, 231, .5),
                           hintText: "Password",
@@ -136,5 +146,4 @@ class _LoginView extends State<LoginView> {
           }),
         ));
   }
-
 }
