@@ -13,7 +13,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginView extends State<LoginView> {
-  bool _showPassword = false;
+  bool _showPassword = true;
 
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late Future<bool> isLogin;

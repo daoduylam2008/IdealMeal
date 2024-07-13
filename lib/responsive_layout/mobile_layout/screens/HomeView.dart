@@ -22,6 +22,15 @@ class _HomeView extends State<HomeView> {
   int frameWidth = 0;
   int qrWidth = 0;
 
+  final commentController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    commentController.dispose();
+    super.dispose();
+  }
+
   void _showModalBottomSheet(BuildContext context, double maxWidth) {
     showModalBottomSheet(
       backgroundColor: Colors.white,
@@ -54,28 +63,54 @@ class _HomeView extends State<HomeView> {
                     padding: EdgeInsets.only(
                       top: 14,
                       left: maxWidth * 30 / 430,
+                      right: maxWidth * 30 / 430,
                       bottom: 14,
                     ),
-                    alignment: Alignment.topLeft,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("How was your meal?",
                             style: font(20, Colors.black, FontWeight.bold)),
+                        SizedBox(
+                          height: 150,
+                          child: TextField(
+                            cursorColor: Colors.black,
+                            keyboardType: TextInputType.multiline,
+                            minLines: 7,
+                            maxLines: 7,
+                            controller: commentController,
+                            decoration: InputDecoration(
+                              fillColor: const Color.fromRGBO(231, 231, 231, .5),
+                              enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                              focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                              hintText: 'Your feedback (Optional)',
+                              hintStyle: font(20, myGrey, FontWeight.normal),
+                              filled: true,
+                            )
+                          ),
+                        ),
+                        SizedBox(height: maxWidth * 10 / 430),
                         RatingBar(
+                          itemPadding: const EdgeInsets.all(5),
+                          itemSize: 30,
                           glowColor: Colors.white,
                           unratedColor: Colors.white,
                           minRating: 0,
                           maxRating: 5,
                           initialRating: 0,
                           direction: Axis.horizontal,
-                          allowHalfRating: true,
+                          allowHalfRating: false,
                           itemCount: 5,
                           ratingWidget: RatingWidget(
-                            full: const Icon(Icons.star_rounded, size: 20),
-                            half: const Icon(Icons.star_half_rounded, size: 20),
-                            empty:
-                                const Icon(Icons.star_border_rounded, size: 20),
+                            full: Image.asset("assets/icons/star_fill.png"),
+                            half: Image.asset("assets/icons/star_empty.png"),
+                            empty: Image.asset("assets/icons/star_empty.png"),
                           ),
                           onRatingUpdate: (r) {
                             setState(() {
@@ -83,9 +118,8 @@ class _HomeView extends State<HomeView> {
                             });
                           },
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
+                        SizedBox(height: maxWidth * 20 / 430),
+                        Row(children: [
                           InkWell(
                             onTap: () {},
                             child: Container(
@@ -101,9 +135,13 @@ class _HomeView extends State<HomeView> {
                                         style: font(15, Colors.white,
                                             FontWeight.normal)))),
                           ),
-                          SizedBox(child: Row(
+                          const Spacer(),
+                          SizedBox(
+                            child: Row(
                             children: [
-                              Image.asset("assets/icons/tick.png", fit: BoxFit.contain),
+                              Image.asset("assets/icons/tick.png",
+                                  fit: BoxFit.contain),
+                              const SizedBox(width: 5),
                               const Text("Thanks for your feedback!")
                             ],
                           )),
@@ -125,13 +163,11 @@ class _HomeView extends State<HomeView> {
   Widget build(BuildContext context) {
     MealStorage storage = MealStorage();
 
-    Map<String, dynamic> qrData = {
-      "id": "",
-      "meal": ""
-    };
-    
+    Map<String, dynamic> qrData = {"id": "", "meal": ""};
+
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
+        backgroundColor: const Color.fromRGBO(242, 242, 242, 1),
         body: FutureBuilder<Map<String, dynamic>>(
             future: storage.readMealData(),
             builder: (context, snapshot) {
@@ -172,7 +208,7 @@ class _HomeView extends State<HomeView> {
                     Text("Dish", style: font(20, myGrey, FontWeight.normal)),
                     Text(dish, style: font(30, Colors.black, FontWeight.bold)),
                     const SizedBox(height: 60),
-                    Container(
+                    SizedBox(
                       child: InkWell(
                         onLongPress: () {
                           setState(() {
