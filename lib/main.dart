@@ -9,7 +9,7 @@ import 'responsive_layout/desktop_layout/desktop_layout.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await MealsDatabase.connect();
+
   runApp(Phoenix(child: const MyApp()));
 }
 
