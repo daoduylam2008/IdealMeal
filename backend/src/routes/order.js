@@ -5,6 +5,6 @@ const orderController = require("../controllers/OrderController");
 
 router.get("/", orderController.show);
 
-router.post("/", orderController.preorder);
+router.post('/', orderController.preorder)
 
 module.exports = router;
