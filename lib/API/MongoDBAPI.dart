@@ -15,11 +15,15 @@ class MealsDatabase {
     var collection = db.collection(MEALS_COLLECTION);
     print(await collection.find().toList());
   }
+
+  Future<Map<String, dynamic>> getMeals() async {
+    connect();
+    
+  }
 }
 
-
 class UsersDatabase {
-    static connect() async {
+  static connect() async {
     var db = await Db.create(MONGO_URL);
     await db.open();
 
@@ -28,8 +32,7 @@ class UsersDatabase {
     var status = db.serverStatus();
     print(status);
 
-    var collection = db.collection(USERS_COLLECTION
-    );
+    var collection = db.collection(USERS_COLLECTION);
     print(await collection.find().toList());
   }
 }
