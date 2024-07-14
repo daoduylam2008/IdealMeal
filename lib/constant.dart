@@ -27,10 +27,11 @@ const overlayLinearColor = LinearGradient(
       Color.fromRGBO(255, 51, 112, .7),
     ]);
 
-// constants path/url to data
-const String pathToData = 'http://127.0.0.1:8000/api/v1/students';
-const String urlToStudentData = 'http://127.0.0.1:8000/api/v1/students/100101';
-const String urlToMealsData = 'http://127.0.0.1:8000/api/v1/mealday';
+// constants path/url to mongodb
+const MONGO_URL =
+    "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.12";
+const MEALS_COLLECTION = "meals";
+const USERS_COLLECTION = "users";
 
 // convert Datetime to "DD/MM/YYYY"
 String dateToString(DateTime date) {
@@ -97,8 +98,7 @@ class Student {
       required this.cls,
       required this.address,
       required this.room,
-      required this.email
-      });
+      required this.email});
 
   factory Student.fromJson(Map<String, dynamic> json) {
     return switch (json) {
@@ -206,15 +206,15 @@ class Meal {
 
 // Test
 var studentTest = Student(
-    id: "100112",
-    name: "Đào Duy Lâm",
-    birth: "31/08/2008",
-    gender: "boy",
-    phone: "0909687714",
-    cls: "10A01",
-    address: "64 Nguyễn Bá Tòng, Phường Tân Thành, Quận Tân Phú",
-    room: "D4116",
-    email: "daoduylam2020@gmail.com",
+  id: "100112",
+  name: "Đào Duy Lâm",
+  birth: "31/08/2008",
+  gender: "boy",
+  phone: "0909687714",
+  cls: "10A01",
+  address: "64 Nguyễn Bá Tòng, Phường Tân Thành, Quận Tân Phú",
+  room: "D4116",
+  email: "daoduylam2020@gmail.com",
 );
 
 var userTest = User(
