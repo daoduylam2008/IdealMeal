@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:ideal_meal/constant.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 
+// ignore: must_be_immutable
 class PasswordChanging extends StatefulWidget {
   PasswordChanging({super.key});
 
