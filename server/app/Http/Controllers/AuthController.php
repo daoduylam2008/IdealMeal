@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use DB;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\DeviceId;
+use App\Http\Controllers\AdminToken;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -231,6 +233,10 @@ class AuthController extends Controller
         ]);
     }
 
+     
+
+
+
     /**
      * 
      * @param $request
@@ -242,21 +248,39 @@ class AuthController extends Controller
     public function admin(Request $request){
 
         $validated = request(['email',"password"]);
-        
 
-        try{
-            if(empty($validated['email']) || empty($validated['password'])){
-                return response()->json("");
-            }
-            else if(Auth::guard("admin")?->attempt(['email'=>$validated['email'], 'password'=>$validated['password']])){
-                return response()->json("successfull");
-            }else{
-                return response()->json("");
-            }
-        }catch (Exception $e){
-            return response()->json("");
+        if(empty($validated['email']) || empty($validated['password'])){
+            return response()->json("Email and Password is required");
         }
+
+        if(Auth::guard("admin")?->attempt(['email'=>$validated['email'], 'password'=>$validated['password']])){
+            if (DB::table("device_id")->where("email","=",$validated['email'])->exists()){
+                return response()->json(["msg"=>"Already logged in"]);
+            }
+
+            $device_id = DeviceId::createDeviceId($validated['email'],$request);
+            $admin_token = AdminToken::createAdminToken($validated['email']);
+
+
+            return response()->json([
+                "token"=> $device_id . "." . $admin_token,
+            ]);
+
+
+        }else{
+            return response()->json(["msg" => "Unauthenticated"],403);
+        }
+
+        
         
     }
-    
+    public function refreshTokenAdmin(Request $request){
+        $device_id = DeviceId::refreshDeviceId($request);
+        $admin_token = AdminToken::refreshAdminToken($request);
+
+        return response()->json([
+            "token"=> $device_id . "." . $admin_token,
+        ]);
+
+    }
 }

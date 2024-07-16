@@ -42,10 +42,11 @@ Route::group([
 ], function (){
     Route::post("admin",[AuthController::class,'admin']);
     Route::post("account",[AdminController::class,'register']);
-    Route::get("teachers",[TeachersController::class,'show']);
-    Route::post("exchange",[TeachersController::class,'exchange']);
-    Route::post("trash",[TeachersController::class,'trash']);
-    Route::post("edit",[TeachersController::class,'edit']);
+    Route::post("refreshTokenAdmin",[AuthController::class,'refreshTokenAdmin'])->middleware("token");
+    Route::get("teachers",[TeachersController::class,'show'])->middleware("token");
+    Route::post("exchange",[TeachersController::class,'exchange'])->middleware("token");
+    Route::post("trash",[TeachersController::class,'trash'])->middleware("token");
+    Route::post("edit",[TeachersController::class,'edit'])->middleware("token");
 });
 
 Route::group([

@@ -11,21 +11,6 @@ class AdminController extends Controller
 {
 
 
-    /***
-     * 
-     *  void randomCharacter
-     * 
-     */
-
-     private function randomCharacter(){
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $randomString = '';
-        for ($i = 0; $i < 30; $i++) {
-            $randomString.= $characters[rand(0, strlen($characters) - 1)];
-        }
-        return $randomString;
-    }
-
      /**
      * Show the profile for the given user.
      */
@@ -54,5 +39,4 @@ class AdminController extends Controller
             "msg" => "Registered successfully",
         ]);
     }
-    
 }
