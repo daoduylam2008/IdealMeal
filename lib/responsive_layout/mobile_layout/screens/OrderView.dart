@@ -299,7 +299,7 @@ class _OrderView extends State<OrderView> {
                     ]),
               );
             } else {
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             }
           });
     });

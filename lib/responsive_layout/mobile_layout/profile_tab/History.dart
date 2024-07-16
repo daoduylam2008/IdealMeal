@@ -10,14 +10,13 @@ class History extends StatelessWidget {
     var data = fetchCalendar("100101");
 
     return FutureBuilder(
-      future: Future.wait([storage.readMealData(), data]),
-      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
-        if (snapshot.hasData) {
-          Text(snapshot.data.toString());
-        }
-        return const Center(child: const CircularProgressIndicator());
-      },
-    );
+        future: data,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            Text(snapshot.data.toString());
+          }
+          return const Center(child: CircularProgressIndicator());
+        });
   }
 }
 
