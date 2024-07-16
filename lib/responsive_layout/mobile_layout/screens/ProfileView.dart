@@ -1,8 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:ideal_meal/constant.dart';
 import 'package:ideal_meal/responsive_layout/mobile_layout/profile_tab/History.dart';
 import 'package:ideal_meal/responsive_layout/mobile_layout/profile_tab/MyProfile.dart';
@@ -29,12 +27,12 @@ class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
   ];
 
   var tab_view = [
-    MyProfile(),
+    const MyProfile(),
     History(),
     const Settings(),
   ]; 
 
-  void onTpa(int selection) {
+  void onTap (int selection) {
     setState(() {
       _selection = selection;
     });
@@ -127,6 +125,8 @@ class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: TabBar(
+                  dividerColor: Colors.white,
+                  overlayColor: WidgetStateColor.transparent,
                   indicatorPadding: const EdgeInsets.all(5),
                   indicatorSize: TabBarIndicatorSize.tab,
                   controller: tabController,
@@ -139,7 +139,7 @@ class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
                   labelColor: Colors.black,
                   unselectedLabelColor: Colors.grey,
                   tabs: tabs,
-                  onTap: onTpa,
+                  onTap: onTap,
                 ),
               ),
               const SizedBox(height: 27),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ideal_meal/API/ResponseAPi.dart';
 import 'package:ideal_meal/FileManager.dart';
 import 'package:ideal_meal/constant.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OrderView extends StatefulWidget {
   const OrderView({super.key, required this.datetime});
@@ -13,11 +15,10 @@ class OrderView extends StatefulWidget {
 }
 
 class _OrderView extends State<OrderView> {
-  // Read meal data from specific file
-  var data = processCsv("assets/test/test.csv");
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<bool> onSubmit;
 
   // Check if user submitted or not
-  bool onSubmit = false;
   bool onRead = false;
 
   var buttonColor = linearColor;
@@ -39,7 +40,7 @@ class _OrderView extends State<OrderView> {
       onPressed: () {
         Navigator.pop(context);
         setState(() {
-          onSubmit = true;
+
         });
       },
     );
@@ -84,26 +85,24 @@ class _OrderView extends State<OrderView> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      if (onSubmit) {
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Submitted already!\nGo to Meals to change your dishes",
-                style: TextStyle(fontSize: constraints.maxWidth * 20 / 430),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        );
-      }
+      // if (onSubmit) {
+      //   return Center(
+      //     child: Column(
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: [
+      //         Text(
+      //           "Submitted already!\nGo to Meals to change your dishes",
+      //           style: TextStyle(fontSize: constraints.maxWidth * 20 / 430),
+      //           textAlign: TextAlign.center,
+      //         ),
+      //       ],
+      //     ),
+      //   );
+      // }
       return FutureBuilder(
-          future: data,
+          future: fetchOrder() ,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              var data = dayMeal(snapshot.data!);
-
               return Container(
                 color: appBarBackground,
                 width: constraints.maxWidth,
@@ -114,10 +113,10 @@ class _OrderView extends State<OrderView> {
                       SizedBox(
                         height: constraints.maxHeight * 560 / 649,
                         child: ListView.builder(
-                          itemCount: data.length - 1,
+                          itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {
-                            var meal = data.values.toList()[index];
-                            var date = data.keys.toList()[index];
+                            var meal = snapshot.data![index]["dish_ids"];
+                            var date = snapshot.data![index]["date"];
 
                             DateTime day = widget.datetime.dateDay(date);
                             String today =

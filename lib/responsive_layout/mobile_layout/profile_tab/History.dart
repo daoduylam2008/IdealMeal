@@ -5,7 +5,7 @@ import 'package:ideal_meal/constant.dart';
 class History extends StatelessWidget {
   @override
   Widget build(context) {
-    var data = fetchCalendar("100101");
+    var data = fetchCalendar("100102");
 
     return FutureBuilder(
         future: data,
