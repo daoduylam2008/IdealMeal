@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email',30)->unique();
             $table->string('password');
             $table->timestamps();
+            $table->primary("email");
         });
 
         Schema::create('sessions', function (Blueprint $table) {
@@ -27,20 +28,15 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
-
-        Schema::create("device_id",function (Blueprint $table){
-            $table->string("email",30);
-            $table->string("user_agent");
-            $table->string('code');
-            $table->string("ip_address")->unique();
-            $table->primary("email");
-        });
+        
 
         Schema::create("admin_token",function (Blueprint $table){
             $table->string("email",30);
+            $table->string("user_agent");
             $table->string("token");
+            $table->string("ip_address")->unique();
             $table->string("expired_at",10);
-            $table->foreign("email")->references("email")->on("device_id")->onDelete("CASCADE")->onUpdate("CASCADE");
+            $table->foreign("email")->references("email")->on("admins")->onDelete("CASCADE")->onUpdate("CASCADE");
             $table->index("email");
         }); 
 
@@ -54,6 +50,5 @@ return new class extends Migration
         Schema::dropIfExists('admins');
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('admin_token');
-        Schema::dropIfExists('device_id');
     }
 };

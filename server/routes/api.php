@@ -8,11 +8,12 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthJwtController;
 use App\Http\Controllers\MealDaysController;
 use App\Http\Controllers\TeachersController;
-use App\Http\Controllers\V1\StudentsController;
+use App\Http\Controllers\StudentsController;
 
 
-Route::group(['prefix'=>"v1","namespace"=>"App\Http\Controllers\V1"],function(){
-    Route::apiResource('students',StudentsController::class);
+Route::group(['prefix'=>"auth","namespace"=>"App\Http\Controllers"],function(){
+    Route::apiResource('students',StudentsController::class)->middleware("token");
+    Route::get("info",[StudentsController::class,"info"])->middleware("token");
 });
 
 
@@ -43,10 +44,12 @@ Route::group([
     Route::post("admin",[AuthController::class,'admin']);
     Route::post("account",[AdminController::class,'register']);
     Route::post("refreshTokenAdmin",[AuthController::class,'refreshTokenAdmin'])->middleware("token");
+    Route::post("deleteTokenAdmin",[AuthController::class,'deleteTokenAdmin'])->middleware("token");
     Route::get("teachers",[TeachersController::class,'show'])->middleware("token");
     Route::post("exchange",[TeachersController::class,'exchange'])->middleware("token");
     Route::post("trash",[TeachersController::class,'trash'])->middleware("token");
     Route::post("edit",[TeachersController::class,'edit'])->middleware("token");
+    
 });
 
 Route::group([

@@ -254,16 +254,14 @@ class AuthController extends Controller
         }
 
         if(Auth::guard("admin")?->attempt(['email'=>$validated['email'], 'password'=>$validated['password']])){
-            if (DB::table("device_id")->where("email","=",$validated['email'])->exists()){
+            if (DB::table("admin_token")->where("email","=",$validated['email'])->exists()){
                 return response()->json(["msg"=>"Already logged in"]);
             }
 
-            $device_id = DeviceId::createDeviceId($validated['email'],$request);
-            $admin_token = AdminToken::createAdminToken($validated['email']);
-
+            $admin_token = AdminToken::createAdminToken($validated['email'],$request);
 
             return response()->json([
-                "token"=> $device_id . "." . $admin_token,
+                "token"=> $admin_token,
             ]);
 
 
@@ -275,12 +273,14 @@ class AuthController extends Controller
         
     }
     public function refreshTokenAdmin(Request $request){
-        $device_id = DeviceId::refreshDeviceId($request);
         $admin_token = AdminToken::refreshAdminToken($request);
 
         return response()->json([
-            "token"=> $device_id . "." . $admin_token,
+            "token"=>  $admin_token,
         ]);
-
+    }
+    public function deleteTokenAdmin(Request $request){
+        DB::table("admin_token")->where("ip_address","=",$request->ip())->delete();
+        return response()->json(["msg"=>"Token deleted"]);
     }
 }

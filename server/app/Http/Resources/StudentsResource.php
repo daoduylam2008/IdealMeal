@@ -16,11 +16,11 @@ class StudentsResource extends JsonResource
     {
         return [
             "student_id" => $this->student_id,
-            "birth"=>$this->birth,
+            // "birth"=>$this->birth,
             "name"=>$this->name,
             "ethnic"=>$this->ethnic,
-            "address"=>$this->address,
-            "phone"=>$this->phone
+            // "address"=>$this->address,
+            // "phone"=>$this->phone
         ];
     }
 }

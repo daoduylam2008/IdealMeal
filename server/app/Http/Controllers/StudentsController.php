@@ -1,21 +1,45 @@
 <?php
 
-namespace App\Http\Controllers\V1;
+namespace App\Http\Controllers;
 
+use DB;
 use App\Models\Students;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\StudentsResource;
 use App\Http\Requests\StoreStudentsRequest;
 use App\Http\Requests\UpdateStudentsRequest;
-use DB;
+
 class StudentsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $id = $request->query("student_id","nothing given");
+        $name = $request->query("name","nothing given");
+        
+        if ($name == "nothing given" && $id == "nothing given") {
+            return StudentsResource::collection(DB::table("students")->paginate(15));
+
+        }else{
+            $data = DB::table("students")->select("name","student_id","ethnic")
+            ->where("student_id","LIKE","$id%")
+            ->orWhere("name","LIKE","%$name%")
+            ->get();
+            
+            return response()->json([
+                "data"=>$data,
+            ]);
+        }
+    }
+    public function info(Request $request){
+        $id = $request->query("student_id","nothing given");
+        $data = DB::table("students")->join("users","students.student_id","=","users.student_id")->select("students.student_id","students.birth","phone","users.email")->get();
+        return response()->json([
+            "data"=>$data,
+        ]);
     }
 
     /**
