@@ -10,7 +10,8 @@ Future<Map<String, dynamic>> fetchCalendar(String student_id) async {
 
   var response = await http.get(newUri);
   var meal = jsonDecode(response.body);
-  print(meal);
+  print(response.statusCode.toString());
+  print(meal.runtimeType);
 
   if (response.statusCode == 200) {
     return meal;

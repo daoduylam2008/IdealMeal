@@ -51,6 +51,13 @@ String dateToString(DateTime date) {
   return "$day/$month/${date.year}";
 }
 
+// convert "YYYY/MM/DD" to Datetime
+DateTime YYYYMMDDtoDate(String date) {
+  List d = date.split("/");
+
+  return DateTime(int.parse(d[0]), int.parse(d[1]), int.parse(d[2]));
+}
+
 // Date transform
 Map<String, String> dateDate = {
   "Monday": "MON",
