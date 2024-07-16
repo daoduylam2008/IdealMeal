@@ -1,30 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_meal/API/ResponseAPi.dart';
-import 'package:ideal_meal/FileManager.dart';
 import 'package:ideal_meal/constant.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:ideal_meal/responsive_layout/mobile_layout/Widget/CircularProgressIndicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OrderView extends StatefulWidget {
-  const OrderView({super.key, required this.datetime});
-
-  final Date datetime;
+  const OrderView({super.key});
 
   @override
   State<OrderView> createState() => _OrderView();
 }
 
-class _OrderView extends State<OrderView> {
+class _OrderView extends State<OrderView> with TickerProviderStateMixin{
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late Future<bool> onSubmit;
+
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    _animationController.addListener(() => setState(() {}));
+    _animationController.repeat();
+  }
 
   // Check if user submitted or not
   bool onRead = false;
 
   var buttonColor = linearColor;
-
-  // Submit Data
-  Map<String, String?> submitData = {};
 
   // Alert for pop-up window for user to confirm their selections
   showAlertDialog(BuildContext context) {
@@ -44,6 +50,7 @@ class _OrderView extends State<OrderView> {
         });
       },
     );
+    
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       surfaceTintColor: Colors.white,
@@ -65,25 +72,9 @@ class _OrderView extends State<OrderView> {
   }
 
   @override
-  initState() {
-    List<String> days = [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday"
-    ];
-    super.initState();
-
-    for (var i = 1; i <= 6; i++) {
-      for (var day in days) {
-        submitData["$day#$i"] = null;
-      }
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
+    var orderMeal = fetchOrder();
+
     return LayoutBuilder(builder: (context, constraints) {
       // if (onSubmit) {
       //   return Center(
@@ -100,8 +91,8 @@ class _OrderView extends State<OrderView> {
       //   );
       // }
       return FutureBuilder(
-          future: fetchOrder() ,
-          builder: (context, snapshot) {
+          future: orderMeal,
+          builder: (context, AsyncSnapshot<List<Map<String, dynamic>>>snapshot) {
             if (snapshot.hasData) {
               return Container(
                 color: appBarBackground,
@@ -117,10 +108,6 @@ class _OrderView extends State<OrderView> {
                           itemBuilder: (context, index) {
                             var meal = snapshot.data![index]["dish_ids"];
                             var date = snapshot.data![index]["date"];
-
-                            DateTime day = widget.datetime.dateDay(date);
-                            String today =
-                                "${day.day}/${day.month}/${day.year}";
 
                             return index == 0
                                 ? Container()
@@ -157,7 +144,7 @@ class _OrderView extends State<OrderView> {
                                                 Row(
                                                   children: [
                                                     Text(
-                                                        "${date.split("#")[0]}, $today",
+                                                        "${dateToDay(date)}, ${dateToString(date)}",
                                                         style: font(
                                                             constraints
                                                                     .maxWidth *
@@ -168,7 +155,7 @@ class _OrderView extends State<OrderView> {
                                                   ],
                                                 ),
                                                 DropdownButtonFormField2(
-                                                    value: submitData[date],
+                                                    value: snapshot.data![index][meal],
                                                     buttonStyleData:
                                                         const ButtonStyleData(
                                                       padding:
@@ -219,10 +206,9 @@ class _OrderView extends State<OrderView> {
                                                           child: Text(items
                                                               .toString()));
                                                     }).toList(),
-                                                    onChanged: (String? newValue) {
+                                                    onChanged: (dynamic newValue) {
                                                       setState(() {
-                                                        submitData[date] =
-                                                            newValue!;
+                                                        // TODO: 
                                                       });
                                                     }),
                                               ],
@@ -295,9 +281,19 @@ class _OrderView extends State<OrderView> {
                       )
                     ]),
               );
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
+            } 
+            return Center(child: RotationTransition(
+              turns: Tween(begin: 0.0, end: 1.0).animate(_animationController),
+              child: const GradientCircularProgressIndicator (
+                radius: 30,
+                gradientColors: [
+                  Colors.white,
+                  Color.fromRGBO(45, 154, 255, .9),
+                  Color.fromRGBO(255, 51, 112, .9),
+                ] ,
+                strokeWidth: 7.0,
+              ),
+            ),);
           });
     });
   }

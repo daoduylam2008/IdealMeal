@@ -25,7 +25,6 @@ Future<List<Map<String, dynamic>>> fetchOrder() async {
 
   var response = await http.get(uri);
   var meal = jsonDecode(response.body);
-
   if (response.statusCode == 200) {
     return meal;
   } else {
