@@ -4,7 +4,7 @@ const Meal = require("../models/Meal");
 class OrderController {
   async show(req, res) {
     const now = new Date();
-    const id = Number.parseInt(req.body.id);
+    const id = Number.parseInt(req.query.id);
     const userHasPreorderedThisMonth = await User.aggregate([
       { $match: { student_id: id } },
       { $project: { "meals.date": 1, "meals.dish_id": 1 } },
@@ -126,7 +126,7 @@ class OrderController {
     }
   }
   async preorder(req, res) {
-    const id = Number.parseInt(req.body.id);
+    const id = Number.parseInt(req.query.id);
     const user = await User.findOne({ student_id: id });
 
     user.meals.push(...order);
