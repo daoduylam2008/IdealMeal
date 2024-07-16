@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:ideal_meal/FileManager.dart';
+import 'package:ideal_meal/API/ResponseAPi.dart';
 import 'package:ideal_meal/constant.dart';
 
 class History extends StatelessWidget {
   @override
   Widget build(context) {
-    MealStorage storage = MealStorage();
-    var data = processCsv("assets/test/test.csv");
+    var data = fetchCalendar("100101");
 
     return FutureBuilder(
-      future: Future.wait([storage.readMealData(), data]),
-      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
-        if (snapshot.hasData) {
-          var meal = snapshot.data![0];
-          Map<String, List<String>> d = dayMeal(snapshot.data![1]);
-          List<String> date = d.keys.toList();
-          return ListView.builder(
-              itemCount: d.length,
-              itemBuilder: (context, index) {
-                return Item(
-                    meal: meal[date[index]].toString(), date: DateTime.now());
-              });
-        }
-        return const CircularProgressIndicator();
-      },
-    );
+        future: data,
+        builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+          if (snapshot.hasData) {
+            List meals = snapshot.data!.values.toList();
+            List dates = snapshot.data!.keys.toList();
+
+            return ListView.builder(itemBuilder: (context, index) {
+              return Item(
+                date: YYYYMMDDtoDate(dates[index]),
+                meal: meals[index],
+              );
+            });
+          }
+          return const Center(child: CircularProgressIndicator());
+        });
   }
 }
 
@@ -34,6 +32,7 @@ class Item extends StatelessWidget {
   final DateTime date;
 
   String day = "";
+  String month = "";
 
   @override
   Widget build(context) {
@@ -41,6 +40,11 @@ class Item extends StatelessWidget {
       day = "0${date.day}";
     } else {
       day = "${date.day}";
+    }
+    if (date.month.toString().length == 1) {
+      month = "0${date.month}";
+    } else {
+      month = "${date.month}";
     }
     String dateString = "${date.day}/${date.month}/${date.year}";
     return LayoutBuilder(builder: (context, constraints) {
@@ -71,9 +75,12 @@ class Item extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(day, style: font(fitWidth(20), Colors.black, FontWeight.normal)),
+                    Text("$day/$month",
+                        style: font(
+                            fitWidth(20), Colors.black, FontWeight.normal)),
                     Text(dateDate[dateToDay(date)] ?? "N/A",
-                        style: font(fitWidth(20), Colors.black, FontWeight.bold)),
+                        style:
+                            font(fitWidth(20), Colors.black, FontWeight.bold)),
                   ],
                 )),
             SizedBox(width: constraints.maxWidth * 14 / 430),
@@ -83,7 +90,8 @@ class Item extends StatelessWidget {
                 SizedBox(
                     width: fitWidth(240),
                     child: Text(meal,
-                        style: font(fitWidth(20), Colors.black, FontWeight.bold))),
+                        style:
+                            font(fitWidth(20), Colors.black, FontWeight.bold))),
                 Text(dateString)
               ],
             )

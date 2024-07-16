@@ -4,9 +4,8 @@ import 'package:ideal_meal/constant.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
 class OrderView extends StatefulWidget {
-  const OrderView({super.key, required this.storage, required this.datetime});
+  const OrderView({super.key, required this.datetime});
 
-  final MealStorage storage;
   final Date datetime;
 
   @override
@@ -41,7 +40,6 @@ class _OrderView extends State<OrderView> {
         Navigator.pop(context);
         setState(() {
           onSubmit = true;
-          widget.storage.writeMealData(submitData);
         });
       },
     );
@@ -299,7 +297,7 @@ class _OrderView extends State<OrderView> {
                     ]),
               );
             } else {
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             }
           });
     });

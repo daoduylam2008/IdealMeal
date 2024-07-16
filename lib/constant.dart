@@ -27,11 +27,9 @@ const overlayLinearColor = LinearGradient(
       Color.fromRGBO(255, 51, 112, .7),
     ]);
 
-// constants path/url to mongodb
-const MONGO_URL =
-    "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.12";
-const MEALS_COLLECTION = "meals";
-const USERS_COLLECTION = "users";
+// constants path/url to server
+const URL = "http://localhost:1111";
+const MEAL = "/calendar";
 
 // convert Datetime to "DD/MM/YYYY"
 String dateToString(DateTime date) {
@@ -51,6 +49,13 @@ String dateToString(DateTime date) {
   }
 
   return "$day/$month/${date.year}";
+}
+
+// convert "YYYY/MM/DD" to Datetime
+DateTime YYYYMMDDtoDate(String date) {
+  List d = date.split("/");
+
+  return DateTime(int.parse(d[0]), int.parse(d[1]), int.parse(d[2]));
 }
 
 // Date transform

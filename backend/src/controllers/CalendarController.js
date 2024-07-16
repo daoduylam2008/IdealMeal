@@ -3,7 +3,7 @@ const Meal = require("../models/Meal");
 
 class CalendarController {
   async show(req, res) {
-    const id = Number.parseInt(req.body.id);
+    const id = Number.parseInt(req.query.id);
     const meals = await User.aggregate([
       { $match: { student_id: id } },
       { $project: { "meals.date": 1, "meals.dish_id": 1 } },
@@ -48,10 +48,10 @@ class CalendarController {
   }
 
   async update(req, res) {
-    const id = Number.parseInt(req.body.id);
+    const id = Number.parseInt(req.query.id);
     const user = await User.findOne({ student_id: id });
 
-    req.body.orderList.forEach((e) => {
+    req.query.orderList.forEach((e) => {
       user.meals[
         this.recursiveBinarySearch(user.meals, e, 0, user.meals.length - 1)
       ].dish_id = e.dish_id;
