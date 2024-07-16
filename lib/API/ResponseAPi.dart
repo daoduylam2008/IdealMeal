@@ -1,35 +1,21 @@
-// import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http;
 
-// import 'dart:async';
-// import 'dart:convert';
+import 'dart:async';
+import 'dart:convert';
 
-// import 'package:ideal_meal/DataTester.dart';
-// import 'package:ideal_meal/constant.dart';
+Future<void> fetchCalendar(String student_id) async {
+  var params = {"id": student_id};
 
-// Future<UserTest> fetchStudentData() async {
-//   // List<UserTest> userList = [];
+  Uri uri = Uri.parse("http://localhost:1111/calendar/");
+  final newUri = uri.replace(queryParameters: params);
 
-//   final response = await http.get(Uri.parse(urlToStudentData));
-//   var data = jsonDecode(response.body)["data"];
+  var response = await http.get(newUri);
+  var meal = jsonDecode(response.body);
+  print(meal);
 
-//   if (response.statusCode == 200) {
-//     // If the server did return a 200 OK response,
-//     // then parse the JSON.
-//     return UserTest.fromJson(data as Map<String, dynamic>);
-//   } else {
-//     // If the server did not return a 200 OK response,
-//     // then throw an exception.
-//     throw Exception('Failed to load json file');
-//   }
-// }
-
-// Future<List<dynamic>> fetchStudentsData() async {
-//   final response = await http.get(Uri.parse(pathToData));
-//   var data = jsonDecode(response.body);
-
-//   if (response.statusCode == 200) {
-//     return data;
-//   } else {
-//     throw Exception("Failed to load json file");
-//   }
-// }
+  if (response.statusCode == 200) {
+    return meal;
+  } else {
+    throw Exception("Failed to load json file");
+  }
+}

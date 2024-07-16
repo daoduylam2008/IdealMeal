@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ideal_meal/API/ResponseAPi.dart';
 import 'package:ideal_meal/FileManager.dart';
 import 'package:ideal_meal/constant.dart';
 
@@ -6,23 +7,15 @@ class History extends StatelessWidget {
   @override
   Widget build(context) {
     MealStorage storage = MealStorage();
-    var data = processCsv("assets/test/test.csv");
+    var data = fetchCalendar("100101");
 
     return FutureBuilder(
       future: Future.wait([storage.readMealData(), data]),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
-          var meal = snapshot.data![0];
-          Map<String, List<String>> d = dayMeal(snapshot.data![1]);
-          List<String> date = d.keys.toList();
-          return ListView.builder(
-              itemCount: d.length,
-              itemBuilder: (context, index) {
-                return Item(
-                    meal: meal[date[index]].toString(), date: DateTime.now());
-              });
+          Text(snapshot.data.toString());
         }
-        return const CircularProgressIndicator();
+        return const Center(child: const CircularProgressIndicator());
       },
     );
   }
@@ -71,9 +64,12 @@ class Item extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(day, style: font(fitWidth(20), Colors.black, FontWeight.normal)),
+                    Text(day,
+                        style: font(
+                            fitWidth(20), Colors.black, FontWeight.normal)),
                     Text(dateDate[dateToDay(date)] ?? "N/A",
-                        style: font(fitWidth(20), Colors.black, FontWeight.bold)),
+                        style:
+                            font(fitWidth(20), Colors.black, FontWeight.bold)),
                   ],
                 )),
             SizedBox(width: constraints.maxWidth * 14 / 430),
@@ -83,7 +79,8 @@ class Item extends StatelessWidget {
                 SizedBox(
                     width: fitWidth(240),
                     child: Text(meal,
-                        style: font(fitWidth(20), Colors.black, FontWeight.bold))),
+                        style:
+                            font(fitWidth(20), Colors.black, FontWeight.bold))),
                 Text(dateString)
               ],
             )
