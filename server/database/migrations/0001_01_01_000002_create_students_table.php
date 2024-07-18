@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string("student_id",6)->unique();
             $table->string("name",40)->nullable();
             $table->date("birth",8)->nullable();
+            $table->string("class",4)->nullable();
             $table->string("ethnic",6)->nullable();
             $table->string("address")->nullable();
             $table->string("phone",20)->nullable();

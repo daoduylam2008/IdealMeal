@@ -19,14 +19,16 @@ class StudentsController extends Controller
     {
         $id = $request->query("student_id","nothing given");
         $name = $request->query("name","nothing given");
+        $class = $request->query("class","nothing given");
         
-        if ($name == "nothing given" && $id == "nothing given") {
+        if ($name == "nothing given" && $id == "nothing given" && $class == "nothing given") {
             return StudentsResource::collection(DB::table("students")->paginate(15));
 
         }else{
-            $data = DB::table("students")->select("name","student_id","ethnic")
+            $data = DB::table("students")->select("name","student_id","ethnic","class")
             ->where("student_id","LIKE","$id%")
             ->orWhere("name","LIKE","%$name%")
+            ->orWhere("class","LIKE","%$class%")
             ->get();
             
             return response()->json([
@@ -36,10 +38,22 @@ class StudentsController extends Controller
     }
     public function info(Request $request){
         $id = $request->query("student_id","nothing given");
-        $data = DB::table("students")->join("users","students.student_id","=","users.student_id")->select("students.student_id","students.birth","phone","users.email")->get();
+
+        $studentsData = DB::table('students')->select("student_id","birth","phone")?->where("student_id","=",$id);
+        $roomId = DB::table('room_ids')->select("room_id")?->where("student_id","=",$id);
+        $usersData = DB::table("users")->select("email","name")?->where("student_id","=",$id);
+
         return response()->json([
-            "data"=>$data,
+            "data"=>[
+                "student_id"=>$studentsData->exists() ? $studentsData->first()->student_id : "",
+                "birth"=> $studentsData->exists() ? $studentsData->first()->birth : "",
+                "phone"=> $studentsData->exists() ? $studentsData->first()->phone : "",
+                "room_id"=>$roomId->exists() ?  $roomId->first()->room_id : "",
+                "email"=>$usersData->exists() ? $usersData->first()->email : "",
+                "user_name"=>$usersData->exists() ? $usersData->first()->name : "",
+            ]
         ]);
+        
     }
 
     /**
@@ -74,7 +88,35 @@ class StudentsController extends Controller
      */
     public function edit(Students $students)
     {
-        //
+        $info = request(["student_id",'name','ethnic','birth','class','phone','email','room_id']);
+
+
+        if (DB::table("room_ids")?->where("student_id","=",$info['student_id'])->exists() == false){
+            return response()->json([
+                'msg' => "Invalid student id"
+            ]);
+        }
+
+        foreach($info as $i => $j){
+           if ($j != null && $i != "email" && $i != "room_id"){
+            $arr[$i] = $j;
+           }
+        }
+
+
+        DB::table('students')->where('student_id','=',$info['student_id'])->update($arr);
+
+        if ($info['email'] != null){
+            DB::table("users")?->where("student_id","=",$info['student_id'])->update(['email' => $info['email']]);
+        }
+        if ($info['room_id'] != null){
+            DB::table("room_ids")?->where("student_id","=",$info['student_id'])->update(['room_id' => $info['room_id']]);
+        }
+
+        return response()->json([
+            "msg" => "Updated successfully",
+        ]);
+
     }
 
     /**
@@ -89,8 +131,13 @@ class StudentsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Students $students)
+    public function destroy(Students $students, Request $request)
     {
-        //
+        $student_id = request(["student_id"]);
+        $arr = explode(",",$student_id['student_id']);
+        DB::table("students")->whereIn("student_id",$arr)->delete();
+        return response()->json([
+            "msg" => "Deleted successfully",
+        ]);
     }
 }

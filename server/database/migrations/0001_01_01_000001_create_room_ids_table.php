@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('room_ids', function (Blueprint $table) {
             $table->string("student_id",6);
             $table->string('room_id',4);
-            $table->foreign("room_id")->references("room_id")->on("teachers")->onDelete("CASCADE")->onUpdate("CASCADE");
+            $table->foreign("room_id")->references("room_id")->on("teachers")->onDelete("CASCADE");
             $table->primary("student_id");
             $table->index("room_id");
             $table->timestamps();

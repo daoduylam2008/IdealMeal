@@ -26,6 +26,7 @@ class StudentsFactory extends Factory
             "name"=> fake()->name(),
             "birth"=> fake()->dateTimeThisDecade(),
             "ethnic"=> "Kinh",
+            "class"=> "10A0",
             "address"=> fake()->address(),
             "phone"=> fake()->phoneNumber(),
         ];

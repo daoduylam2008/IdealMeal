@@ -12,8 +12,10 @@ use App\Http\Controllers\StudentsController;
 
 
 Route::group(['prefix'=>"auth","namespace"=>"App\Http\Controllers"],function(){
-    Route::apiResource('students',StudentsController::class)->middleware("token");
+    Route::get("students",[StudentsController::class,"index"])->middleware("token");
     Route::get("info",[StudentsController::class,"info"])->middleware("token");
+    Route::post("delete",[StudentsController::class,"destroy"])->middleware("token");
+    Route::post("modify",[StudentsController::class,"edit"])->middleware("token");
 });
 
 

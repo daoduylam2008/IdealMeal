@@ -19,6 +19,7 @@ class StudentsResource extends JsonResource
             // "birth"=>$this->birth,
             "name"=>$this->name,
             "ethnic"=>$this->ethnic,
+            "class"=>$this->class,
             // "address"=>$this->address,
             // "phone"=>$this->phone
         ];
