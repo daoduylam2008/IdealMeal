@@ -1,0 +1,68 @@
+.button {
+  @apply h-12 w-auto rounded border-2 border-border bg-light transition-all duration-300 hover:bg-border disabled:opacity-50;
+}
+
+.button1 {
+  @apply my-10 rounded bg-back bg-gradient-to-tr from-cyan-500 to-pink-500 transition-all duration-300 hover:rounded-xl disabled:opacity-50;
+}
+
+.button1:hover .button2 {
+  @apply rounded-[0.6rem];
+}
+.button1:hover .button2 svg {
+  @apply opacity-100;
+}
+.button1:hover .button2 .buttonlogin3 {
+  @apply ml-0 mr-3;
+}
+.button2 {
+  @apply m-0.5 flex h-12 w-auto items-center justify-center rounded-sm bg-back transition-all duration-300;
+}
+.buttonlogin3 {
+  background-clip: text;
+  -moz-background-clip: text;
+  -webkit-background-clip: text;
+  @apply ml-4 bg-gradient-to-r from-cyan-500 to-pink-500 text-lg font-bold text-transparent max-sm:text-base;
+}
+.button3 {
+  background-clip: text;
+  -moz-background-clip: text;
+  -webkit-background-clip: text;
+  @apply bg-gradient-to-r from-cyan-500 to-pink-500 text-lg font-bold text-transparent max-sm:text-base;
+}
+.button1:disabled .button3 {
+  @apply opacity-50;
+}
+
+.box:before {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(-337deg, #45caff 0%, #ff1b6b 100%);
+  transform: translate3d(0px, 0px, 0) scale(1);
+  filter: blur(20px);
+  opacity: var(0.5);
+  transition: opacity 0.3s;
+  border-radius: inherit;
+}
+
+/* 
+* Prevents issues when the parent creates a 
+* stacking context. (For example, using the transform
+* property )
+*/
+.box::after {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: inherit;
+  border-radius: inherit;
+}

@@ -1,0 +1,260 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  @apply tracking-wider;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+}
+
+/* Themes */
+.light {
+  --border: #e2e2e2;
+  --light: #f2f2f2;
+  --dark: #d2d2d2;
+  --main: #000000;
+  --back: #ffffff;
+  --shadow: rgba(0, 0, 0, 0.05);
+}
+.dark {
+  --border: #424769;
+  --light: #1b1d2a;
+  --dark: #828388;
+  --main: #ffffff;
+  --back: #0c0f1d;
+  --shadow: rgba(0, 0, 0, 1);
+  --img: invert(100%) sepia(3%) saturate(3%) hue-rotate(300deg) brightness(105%)
+    contrast(100%);
+}
+/* Themes */
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+@layer components {
+  /* Box */
+  .box {
+    @apply mb-14 flex h-auto w-[400px] flex-col items-center rounded-xl border-2 border-border bg-back px-12 pb-14 pt-12;
+  }
+  .box h2 {
+    @apply mb-6 text-2xl font-bold;
+  }
+  .box form div p {
+    @apply text-xs text-dark;
+  }
+  /* Box */
+
+  /* Button */
+  .button-1 {
+    @apply rounded bg-back bg-gradient-to-tr from-cyan-500 to-pink-500 transition-all duration-300 hover:rounded-xl;
+  }
+  .button-1:hover .button-2 {
+    @apply rounded-[0.6rem];
+  }
+  .button-1:hover .button-2 svg {
+    @apply opacity-100;
+  }
+  .button-1:hover .button-2 .button-login-3 {
+    @apply ml-0 mr-3;
+  }
+  .button-2 {
+    @apply m-0.5 flex h-12 w-80 items-center justify-center rounded-sm bg-back transition-all duration-300;
+  }
+  .button-login-3 {
+    @apply ml-4 bg-gradient-to-r from-cyan-500 to-pink-500 bg-clip-text text-lg font-bold text-transparent;
+  }
+  .button-3 {
+    @apply bg-gradient-to-r from-cyan-500 to-pink-500 bg-clip-text text-lg font-bold text-transparent;
+  }
+  /* Button login */
+
+  /* Navigation icon */
+  .hover-icon:hover svg path {
+    @apply stroke-main;
+  }
+  /* Navigation icon */
+
+  .hover-wrapper span {
+    @apply transition-all duration-300;
+  }
+  .hover-wrapper:hover span {
+    @apply -translate-y-0.5 !text-main;
+  }
+  .hover-wrapper:active span {
+    @apply translate-y-0.5;
+  }
+
+  .h2 {
+    @apply text-xl font-bold text-main sm:text-2xl;
+  }
+  .h3 {
+    @apply text-base font-bold text-main sm:text-lg;
+  }
+  .h4 {
+    @apply text-lg text-main sm:text-xl;
+  }
+  .p {
+    @apply text-sm font-bold text-main sm:text-base;
+  }
+
+  .show {
+    @apply !opacity-100;
+  }
+
+  .selected-star ~ .star svg {
+    @apply fill-light;
+  }
+  .selected-star svg {
+    @apply fill-light;
+  }
+}
+
+@layer base {
+  /* Color */
+  h1 {
+    @apply text-xl font-bold text-main sm:text-2xl;
+  }
+  h2 {
+    @apply text-lg font-bold text-main sm:text-xl;
+  }
+  h3 {
+    @apply text-lg font-bold text-main;
+  }
+  h4 {
+    @apply text-xl text-main;
+  }
+  p,
+  label {
+    @apply text-xs text-dark sm:text-sm;
+  }
+  /* Color */
+
+  /* Header */
+  header {
+    @apply flex h-14 items-center border-b-2 border-solid border-border max-sm:h-12;
+  }
+  header h1 {
+    @apply ml-3 font-bold;
+  }
+  header h2 {
+    @apply ml-3 font-bold;
+  }
+  /* Header */
+
+  /* Input */
+  input {
+    @apply mb-3 h-12 w-auto min-w-72 rounded border-2 border-border bg-back px-3 text-main;
+  }
+  label:has(+ input) {
+    @apply text-sm text-dark;
+  }
+  /* Input */
+
+  textarea {
+    @apply mb-3 w-auto min-w-72 overflow-x-hidden rounded border-2 border-border bg-back px-3 py-2 text-main;
+  }
+  /* Feedback placeholder */
+  textarea::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    @apply text-sm text-dark;
+  }
+  textarea:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    @apply text-sm text-dark opacity-100;
+  }
+  textarea::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    @apply text-sm text-dark opacity-100;
+  }
+  textarea:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    @apply text-sm text-dark;
+  }
+  textarea::-ms-input-placeholder {
+    /* Microsoft Edge */
+    @apply text-sm text-dark;
+  }
+  textarea::placeholder {
+    /* Most modern browsers support this now. */
+    @apply text-sm text-dark;
+  }
+  /* Feedback placeholder */
+
+  /* Placeholder */
+  input::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    @apply text-sm text-dark;
+  }
+  input:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    @apply text-sm text-dark opacity-100;
+  }
+  input::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    @apply text-sm text-dark opacity-100;
+  }
+  input:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    @apply text-sm text-dark;
+  }
+  input::-ms-input-placeholder {
+    /* Microsoft Edge */
+    @apply text-sm text-dark;
+  }
+  input::placeholder {
+    /* Most modern browsers support this now. */
+    @apply text-sm text-dark;
+  }
+  /* Placeholder */
+
+  /* Main */
+  main {
+    @apply flex h-[calc(100vh-3.5rem)] items-center justify-center;
+  }
+  /* Main */
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: var(--main);
+  }
+
+  *:focus {
+    outline: 0 !important;
+  }
+
+  html {
+    scrollbar-color: var(--border) var(--back);
+  }
+  html::-webkit-scrollbar-track {
+    background: var(--back) !important;
+  }
+
+  /* Handle */
+  html::-webkit-scrollbar-thumb {
+    background: var(--border) !important;
+  }
+
+  /* Handle on hover */
+  html::-webkit-scrollbar-thumb:hover {
+    background: var(--main) !important;
+  }
+
+}

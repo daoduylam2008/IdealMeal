@@ -1,0 +1,76 @@
+.giant {
+  /* font-size: 120px; */
+  letter-spacing: calc(1em * (var(--scroll) * 0.975 / 100 + 0.025));
+  /* letter-spacing: calc(var(--scroll) * 1em); */
+  @apply whitespace-nowrap text-5xl font-bold text-main sm:text-6xl md:text-8xl;
+  -webkit-text-fill-color: var(--back);
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: transparent;
+  stroke-opacity: calc(1 - var(--scroll) * 1 / 100);
+}
+
+/* .gradient {
+  margin-top: 50px;
+} */
+
+/* .gradient {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0, 1, 0, 1);
+  transition-duration: 100ms;
+  animation: spin 5s infinite linear;
+} */
+
+.gif {
+  filter: var(--img);
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#backdrop {
+  opacity: calc(min(var(--scroll) * 1.5 / 100, 1));
+  -webkit-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  -o-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  -ms-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.bgClip{
+  background-clip: text;
+  -moz-background-clip: text;
+  -webkit-background-clip: text;
+}
+/* .gradient:before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  z-index: -1;
+  transform: rotate(130deg);
+  animation: spin 1.5s linear infinite alternate;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
+/* .indicator {
+  width: calc(var(--indicator) * 1%);
+} */
+
+@keyframes load {
+  to {
+    scale: 1 1;
+  }
+}

@@ -1,0 +1,38 @@
+.nowBox {
+  @apply -z-10;
+}
+.nowBox:hover::before {
+  animation-play-state: paused;
+}
+.nowBox::after {
+  content: '';
+  filter: blur(0.25em);
+  @apply absolute inset-0 -z-10 border-2 border-transparent bg-back bg-clip-padding transition-all duration-300;
+}
+.nowBox::before {
+  content: '';
+  --border-angle: 0turn;
+  --gradient-border: conic-gradient(
+    from var(--border-angle),
+    #ec4899,
+    #06b6d4,
+    #ec4899
+  );
+  background: var(--gradient-border) border-box;
+  animation: bg-spin 3s linear infinite;
+
+  @apply absolute inset-0 -z-10;
+}
+@keyframes bg-spin {
+  0% {
+    --border-angle: 0deg;
+  }
+  100% {
+    --border-angle: 360deg;
+  }
+}
+@property --border-angle {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0turn;
+}

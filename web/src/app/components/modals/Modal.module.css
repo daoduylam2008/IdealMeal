@@ -1,0 +1,79 @@
+.button1 {
+  @apply rounded bg-back bg-gradient-to-tr from-cyan-500 to-pink-500 transition-all duration-300 hover:rounded-xl;
+}
+.button1:hover .button2 {
+  @apply rounded-[0.6rem];
+}
+.button1:hover .button2 svg {
+  @apply opacity-100;
+}
+.button1:hover .button2 .buttonlogin3 {
+  @apply ml-0 mr-3;
+}
+.button2 {
+  @apply m-0.5 flex h-12 w-auto items-center justify-center rounded-sm bg-back transition-all duration-300;
+}
+.buttonlogin3 {
+  @apply ml-4 bg-gradient-to-r from-cyan-500 to-pink-500 text-lg font-bold text-transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.button3 {
+  @apply bg-gradient-to-r from-cyan-500 to-pink-500 text-lg font-bold text-transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.modal {
+  @apply relative w-[400px] rounded-xl border-2 border-border bg-back bg-center max-sm:mx-0 max-sm:mb-0 max-sm:h-[calc(100vh-7rem)] max-sm:w-full max-sm:rounded-b-none;
+}
+.modal h1 {
+  @apply mb-5 text-center max-sm:text-left;
+}
+.modal h2 {
+  @apply mb-6 text-2xl font-bold;
+}
+.modal form div p {
+  @apply text-xs text-dark;
+}
+.modal input {
+  @apply min-w-0;
+}
+.modal::backdrop {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.modal::-ms-backdrop {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.modal:-internal-dialog-in-top-layer {
+  @apply max-sm:max-h-full max-sm:max-w-full;
+}
+.modal:modal {
+  max-width: 100vw;
+}
+.stars:hover div svg {
+  @apply fill-none;
+}
+.star:hover ~ .star svg {
+  @apply !fill-light;
+}
+.star:hover svg {
+  @apply !fill-light;
+}
+
+@keyframes blowUpModal {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+.cancelButton1:hover .cancelButton2 {
+  @apply scale-110;
+}
