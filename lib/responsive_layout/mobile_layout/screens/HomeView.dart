@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:ideal_meal/API/ResponseAPi.dart';
 import 'package:ideal_meal/FileManager.dart';
 import 'package:ideal_meal/constant.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:ideal_meal/responsive_layout/mobile_layout/Widget/CircularProgressIndicator.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class HomeView extends StatefulWidget {
@@ -14,13 +16,25 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeView();
 }
 
-class _HomeView extends State<HomeView> {
+class _HomeView extends State<HomeView> with TickerProviderStateMixin {
   double rating = 0;
   DateTime today = DateTime.now();
   String framePath = 'assets/frame/qr_frame1.png';
   String dish = "";
   int frameWidth = 0;
   int qrWidth = 0;
+
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    _animationController.addListener(() => setState(() {}));
+    _animationController.repeat();
+
+  }
 
   final commentController = TextEditingController();
 
@@ -153,23 +167,15 @@ class _HomeView extends State<HomeView> {
           }),
     );
   }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    MealStorage storage = MealStorage();
-
     Map<String, dynamic> qrData = {"id": "", "meal": ""};
 
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
         backgroundColor: const Color.fromRGBO(242, 242, 242, 1),
         body: FutureBuilder<Map<String, dynamic>>(
-            future: storage.readMealData(),
+            future: fetchCalendar("100101"),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 try {
@@ -243,7 +249,26 @@ class _HomeView extends State<HomeView> {
               } else if (snapshot.hasError) {
                 return Text(snapshot.error.toString());
               }
-              return const CircularProgressIndicator();
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      RotationTransition(
+                        turns: Tween(begin: 0.0, end: 1.0).animate(_animationController),
+                        child: const GradientCircularProgressIndicator(
+                          radius: 30,
+                          gradientColors: [
+                            Colors.white,
+                            Color.fromRGBO(45, 154, 255, .9),
+                            Color.fromRGBO(255, 51, 112, .9),
+                          ] ,
+                          strokeWidth: 4.0,
+                        ),
+                      ),
+                      const Text("Please connect to internet"),
+                    ],
+                  ),
+                );
             }),
         floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.white.withOpacity(.9),
