@@ -1,0 +1,82 @@
+services:
+  backend:
+    build: ./backend/
+    container_name: backend
+    ports:
+      - 1111:1111
+    develop:
+      watch:
+        - path: ./backend/package.json
+          action: rebuild
+        - path: ./backend/next.config.mjs
+          action: rebuild
+        - path: ./backend/package-lock.json
+          action: rebuild
+        - path: ./backend/src
+          target: /app/src
+          action: sync
+    depends_on:
+      - server
+      - mongodb
+
+  server:
+    build: ./server/
+    container_name: server
+    ports:
+      - 8000:8000
+    develop:
+      watch:
+        - path: ./server
+          target: /var/www/html
+          action: sync
+        - path: ./server/composer.json
+          action: rebuild
+        - path: ./server/composer.lock
+          action: rebuild
+        - path: ./server/package.json
+          action: rebuild
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql
+    container_name: mysql
+    restart: always
+    volumes:
+      - mysql-datavolume:/var/lib/mysql
+    ports:
+      - "3306"
+    environment:
+      MYSQL_DATABASE: backends
+      MYSQL_ROOT_PASSWORD: pass
+
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: "111111"
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./backend/mongodb/initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - mongodb-datavolume:/data/db/
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports:
+      - "80:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    depends_on:
+      - mysql
+
+volumes:
+  mysql-datavolume:
+    driver: local
+    name: mysql-data
+  mongodb-datavolume:
+    driver: local
+    name: mongodb-data
