@@ -110,7 +110,7 @@ class _MyIndexedStackState extends State<MyIndexedStack>
       widget.children.removeAt(1);
 
       widget.children
-          .insert(1, MealView(storage: MealStorage(), datetime: Date()));
+          .insert(1, const MealView());
     } else if (selectedIndex == 3) {
       widget.children.removeAt(3);
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'dart:math';
 
 class GradientCircularProgressIndicator extends StatelessWidget {
@@ -8,6 +7,7 @@ class GradientCircularProgressIndicator extends StatelessWidget {
   final double strokeWidth;
 
   const GradientCircularProgressIndicator({
+    super.key,
     required this.radius,
     required this.gradientColors,
     this.strokeWidth = 4.0,
@@ -44,6 +44,7 @@ class GradientCircularProgressPainter extends CustomPainter {
         Size(size.width - strokeWidth, size.height - strokeWidth);
     var paint = Paint()
       ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
       ..strokeWidth = strokeWidth;
     paint.shader =
         SweepGradient(colors: gradientColors, startAngle: 0.0, endAngle: 2 * pi)

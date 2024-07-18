@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_meal/API/ResponseAPi.dart';
 import 'package:ideal_meal/constant.dart';
-import 'package:ideal_meal/responsive_layout/mobile_layout/Widget/CircularProgressIndicator.dart';
 
 class History extends StatefulWidget {
   const History({super.key});
@@ -11,10 +10,17 @@ class History extends StatefulWidget {
 }
 
 class _History extends State<History> {
+  late Future<Map<String, dynamic>> data;
+
+  @override
+  void initState() {
+    super.initState();
+
+    data = fetchCalendar("100101");
+  }
+
   @override
   Widget build(context) {
-    var data = fetchCalendar("100102");
-
     return FutureBuilder(
         future: data,
         builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {

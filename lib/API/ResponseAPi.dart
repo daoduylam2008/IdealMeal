@@ -21,12 +21,12 @@ Future<Map<String, dynamic>> fetchCalendar(String student_id) async {
 }
 
 Future<List<Map<String, dynamic>>> fetchOrder() async {
-  final uri = Uri.http(URL, ORDER);
+  final response = await http.get(Uri.parse('http://localhost:1111/order'));
+  var order = jsonDecode(response.body);
 
-  var response = await http.get(uri);
-  var meal = jsonDecode(response.body);
   if (response.statusCode == 200) {
-    return meal;
+    print(order);
+    return order;
   } else {
     throw Exception("Failed to load json file");
   }

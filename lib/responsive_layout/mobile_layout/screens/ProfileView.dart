@@ -28,7 +28,7 @@ class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
 
   var tab_view = [
     const MyProfile(),
-    History(),
+    const History(),
     const Settings(),
   ]; 
 
