@@ -1,30 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:ideal_meal/FileManager.dart';
+import 'package:ideal_meal/API/ResponseAPi.dart';
 import 'package:ideal_meal/constant.dart';
+import 'package:ideal_meal/responsive_layout/mobile_layout/Widget/CircularProgressIndicator.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class MealView extends StatefulWidget {
-  const MealView({super.key, required this.storage, required this.datetime});
-
-  final MealStorage storage;
-  final Date? datetime;
+  const MealView({super.key});
 
   @override
   State<MealView> createState() => _MealView();
 }
 
-class _MealView extends State<MealView> {
+class _MealView extends State<MealView> with TickerProviderStateMixin {
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();
 
   User user = userTest;
+
+  late Future orderMeal;
+  late AnimationController _animationController;
+
+
+  @override
+  void initState() {
+    super.initState();
+    orderMeal = fetchOrder();
+
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    _animationController.addListener(() => setState(() {}));
+    _animationController.repeat();
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return FutureBuilder<Map<String, dynamic>>(
-            future: widget.storage.readMealData(),
+        return FutureBuilder(
+            future: orderMeal,
             builder: (context, snapshot) {
+              String searchMeal() {
+                DateTime now = DateTime.now();
+                DateTime today = DateTime(now.year, now.month, now.day);
+
+                return "";
+              }
+
               if (snapshot.hasData) {
                 return Container(
                   color: appBarBackground,
@@ -106,7 +127,7 @@ class _MealView extends State<MealView> {
                                       font(20, Colors.black, FontWeight.bold)),
                               Text("Dish",
                                   style: font(15, myGrey, FontWeight.normal)),
-                              Text("${snapshot.data![widget.datetime!.dayDate(_focusedDay)]}",
+                              Text("${searchMeal()}",
                                   style:
                                       font(20, Colors.black, FontWeight.bold)),
                               const SizedBox(height: 34),
@@ -114,9 +135,7 @@ class _MealView extends State<MealView> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   InkWell(
-                                      onTap: () {
-                                        
-                                      },
+                                      onTap: () {},
                                       child: Image.asset(iconPath("note"))),
                                 ],
                               )
@@ -124,7 +143,26 @@ class _MealView extends State<MealView> {
                       )),
                 );
               }
-              return const CircularProgressIndicator();
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  RotationTransition(
+                    turns: Tween(begin: 0.0, end: 1.0).animate(_animationController),
+                    child: const GradientCircularProgressIndicator (
+                      radius: 30,
+                      gradientColors: [
+                        Colors.white,
+                        Color.fromRGBO(45, 154, 255, .9),
+                        Color.fromRGBO(255, 51, 112, .9),
+                      ] ,
+                      strokeWidth: 4.0,
+                    ),
+                  ),
+                  const Text("Please connect to internet"),
+                ],
+              ),
+            );
             });
       },
     );
