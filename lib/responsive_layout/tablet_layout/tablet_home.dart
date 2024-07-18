@@ -184,7 +184,7 @@ class _HomeState extends State<Home> {
                                 )),
                       ),
                       Text(
-                        'Anything that can be improve?',
+                        'Anything can be improved?',
                         style: font(20, Colors.black, FontWeight.bold),
                       ),
                       const SizedBox(
@@ -241,7 +241,7 @@ class _HomeState extends State<Home> {
                                                 Color.fromRGBO(220, 220, 220, 1),
                                             width: 2)),
                                   ),
-                                  backgroundColor: MaterialStateProperty.all(
+                                  backgroundColor: WidgetStateProperty.all(
                                     const Color.fromRGBO(242, 242, 242, 1),
                                   )),
                               child: Text(
@@ -387,6 +387,7 @@ class _HomeState extends State<Home> {
                             width: 2,
                           ),
                         )),
+                        child: Text("$index"),
                       ),
                       Container(
                         width: (_width - ((_width / 15) + 2)) /

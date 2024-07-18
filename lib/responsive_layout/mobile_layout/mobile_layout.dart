@@ -28,8 +28,8 @@ class _MobileScaffold extends State<MobileScaffold> {
 
   final _view = [
     HomeView(datetime: Date()),
-    MealView(storage: MealStorage(), datetime: Date()),
-    OrderView(datetime: Date()),
+    const MealView(),
+    const OrderView(),
     const ProfileView(),
   ];
 
