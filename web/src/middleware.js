@@ -32,6 +32,8 @@ function applySetCookie(req, res) {
   });
 }
 
+const protectedRoutes = ['/home', '/profile', '/order', '/verify'];
+
 async function middleware(req) {
   const path = req.nextUrl.pathname;
   const token = cookies().get('token');
@@ -87,12 +89,7 @@ async function middleware(req) {
         }
       }
 
-      if (
-        path === '/home' ||
-        path === '/profile' ||
-        path === '/order' ||
-        path === '/verify'
-      ) {
+      if (protectedRoutes.includes(path)) {
         const res = NextResponse.next();
         res.cookies.set(refreshToken);
         applySetCookie(req, res);
@@ -159,12 +156,7 @@ async function middleware(req) {
         }
       }
 
-      if (
-        path === '/home' ||
-        path === '/profile' ||
-        path === '/order' ||
-        path === '/verify'
-      ) {
+      if (protectedRoutes.includes(path)) {
         const res = NextResponse.next();
         res.cookies.set(refreshToken);
         applySetCookie(req, res);
@@ -191,12 +183,7 @@ async function middleware(req) {
         return NextResponse.redirect(new URL('/home', req.url).toString());
       }
     }
-    if (
-      path === '/home' ||
-      path === '/profile' ||
-      path === '/order' ||
-      path === '/verify'
-    ) {
+    if (protectedRoutes.includes(path)) {
       return NextResponse.next();
     } else {
       return NextResponse.redirect(new URL('/home', req.url).toString());
