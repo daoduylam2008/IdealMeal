@@ -218,20 +218,20 @@ function Main({ hasPreorder }) {
         <span className={`${styles.giant}`}>
           {hasPreorder ? 'Available!' : 'List Founded'}
         </span>
+        <span className="h4 relative my-6 max-sm:text-sm">
+          {hasPreorder
+            ? '“Scroll down to preorder your dishes \\^o^/”'
+            : '“Go to home to change your dishes;)”'}
+          <Image
+            className={`absolute -bottom-24 -right-28 max-sm:-right-20 max-sm:scale-75 ${styles.gif} ${!hasPreorder && 'hidden'}`}
+            src={'/arrow.gif'}
+            unoptimized={true}
+            alt="arrow-gif"
+            width={150}
+            height={(150 * 772) / 826}
+          />
+        </span>
       </div>
-      <span className="detail h4 relative my-6 max-sm:text-sm">
-        {hasPreorder
-          ? '“Scroll down to preorder your dishes \\^o^/”'
-          : '“Go to home to change your dishes;)”'}
-        <Image
-          className={`absolute -bottom-24 -right-28 max-sm:-right-20 max-sm:scale-75 ${styles.gif} ${!hasPreorder && 'hidden'}`}
-          src={'/arrow.gif'}
-          unoptimized={true}
-          alt="arrow-gif"
-          width={150}
-          height={(150 * 772) / 826}
-        />
-      </span>
 
       <div
         id="indicator"

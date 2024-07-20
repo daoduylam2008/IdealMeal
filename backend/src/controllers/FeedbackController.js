@@ -6,6 +6,7 @@ class FeedbackController {
   }
   async queryStudent(req, res) {
     const querytParams = req.query;
+    const page = querytParams?.page && Number.parseInt(querytParams.page);
     const id = Number.parseInt(querytParams.id);
     let data = [];
     if (querytParams.w) {
@@ -28,7 +29,10 @@ class FeedbackController {
             },
           },
         },
-      ]);
+        { $limit: page * 2 || 15 },
+      ]).then((data) =>
+        page ? [data[data.length - 2], data[data.length - 1]] : data
+      );
     } else if (querytParams.m) {
       const year = Number.parseInt(querytParams.y);
       const month = Number.parseInt(querytParams.m);
@@ -42,7 +46,10 @@ class FeedbackController {
             },
           },
         },
-      ]);
+        { $limit: page * 2 || 15 },
+      ]).then((data) =>
+        page ? [data[data.length - 2], data[data.length - 1]] : data
+      );
     } else {
       const year = Number.parseInt(querytParams.y);
       data = await Feedback.aggregate([
@@ -55,12 +62,16 @@ class FeedbackController {
             },
           },
         },
-      ]);
+        { $limit: page * 2 || 15 },
+      ]).then((data) =>
+        page ? [data[data.length - 2], data[data.length - 1]] : data
+      );
     }
     res.json(data);
   }
   async queryDate(req, res) {
     const querytParams = req.query;
+    const page = querytParams?.page;
     let data = [];
     if (querytParams.w) {
       const weekOfYear = Number.parseInt(querytParams.w) - 1;
@@ -81,7 +92,10 @@ class FeedbackController {
             },
           },
         },
-      ]);
+        { $limit: page * 2 || 15 },
+      ]).then((data) =>
+        page ? [data[data.length - 2], data[data.length - 1]] : data
+      );
     } else if (querytParams.m) {
       const year = Number.parseInt(querytParams.y);
       const month = Number.parseInt(querytParams.m);
@@ -94,7 +108,10 @@ class FeedbackController {
             },
           },
         },
-      ]);
+        { $limit: page * 2 || 15 },
+      ]).then((data) =>
+        page ? [data[data.length - 2], data[data.length - 1]] : data
+      );
     } else {
       const year = Number.parseInt(querytParams.y);
       data = await Feedback.aggregate([
@@ -106,7 +123,10 @@ class FeedbackController {
             },
           },
         },
-      ]);
+        { $limit: page * 2 || 15 },
+      ]).then((data) =>
+        page ? [data[data.length - 2], data[data.length - 1]] : data
+      );
     }
     res.json(data);
   }

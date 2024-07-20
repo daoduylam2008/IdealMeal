@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:ideal_meal/API/RequestAPI.dart';
 import 'package:ideal_meal/responsive_layout/mobile_layout/mobile_layout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,17 +14,18 @@ class LoginView extends StatefulWidget {
 
 class _LoginView extends State<LoginView> {
   bool _showPassword = true;
+  bool visible = false;
 
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late Future<bool> isLogin;
 
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    usernameController.dispose();
+    emailController.dispose();
     passwordController.dispose();
     super.dispose();
   }
@@ -32,16 +33,24 @@ class _LoginView extends State<LoginView> {
   Future<void> signIn() async {
     final SharedPreferences prefs = await _prefs;
     const bool _isLogin = true;
+    var log = await login(emailController.text, passwordController.text);
 
-    setState(() {
-      isLogin = prefs.setBool('isLogin', _isLogin).then((bool success) {
-        return isLogin;
+    if (log == true) {
+      setState(() {
+        visible = false;
+        isLogin = prefs.setBool('isLogin', _isLogin).then((bool success) {
+          return isLogin;
+        });
       });
-    });
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const MobileScaffold()),
-    );
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const MobileScaffold()),
+      );
+    } else {
+      setState(() {
+        visible = true;
+      });
+    }
   }
 
   @override
@@ -64,7 +73,7 @@ class _LoginView extends State<LoginView> {
                       height: 59,
                       width: constraints.maxWidth * 369 / 430,
                       child: TextField(
-                        controller: usernameController,
+                        controller: emailController,
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
                           filled: true,
@@ -124,7 +133,12 @@ class _LoginView extends State<LoginView> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 60),
+                    const SizedBox(height: 20),
+                    Visibility(
+                        visible: visible,
+                        child: Text("Your email or password is wrong",
+                            style: font(18, Colors.red, FontWeight.normal))),
+                    const SizedBox(height: 30),
                     InkWell(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20)),

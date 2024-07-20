@@ -6,15 +6,15 @@ services:
       - 1111:1111
     develop:
       watch:
+        - path: ./backend/src
+          target: /app/src
+          action: sync
         - path: ./backend/package.json
           action: rebuild
         - path: ./backend/next.config.mjs
           action: rebuild
         - path: ./backend/package-lock.json
           action: rebuild
-        - path: ./backend/src
-          target: /app/src
-          action: sync
     depends_on:
       - server
       - mongodb

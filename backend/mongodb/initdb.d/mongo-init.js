@@ -13,9 +13,11 @@ db.createUser({
 
 db.createCollection("meals");
 db.createCollection("users");
+db.createCollection("feedbacks");
 
 db.meals.createIndex({ date: 1 });
 db.users.createIndex({ student_id: 1, "meals.date": 1 });
+db.feedbacks.createIndex({ student_id: 1, date: 1 });
 
 const specificMeals = [
   "Xúc xích lúc lắc",
@@ -35,6 +37,7 @@ const specificMeals = [
 ];
 const randomData = [];
 const users = [];
+const feedback = [];
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -58,13 +61,13 @@ for (let i = 1; i < 1000; i++) {
   if (day.getDay() !== 0 && day.getDay() !== 6) {
     const dishes = [];
     if (Math.round(Math.random())) {
-      const randomArray = shuffleArray(specificMeals)
+      const randomArray = shuffleArray(specificMeals);
       for (let j = 0; j < 3; j++) {
         dishes.push(randomArray[j]);
       }
       randomData.push({ date: day, dish_ids: dishes });
     } else {
-      const randomArray = shuffleArray(specificMeals)
+      const randomArray = shuffleArray(specificMeals);
       for (let j = 0; j < 2; j++) {
         dishes.push(randomArray[j]);
       }
@@ -84,8 +87,21 @@ for (let i = 1; i < 24; i++) {
   }
 }
 
+for (let i = 0; i < 1; i++) {
+  for (let j = 0; j < users[i].meals.length; j++) {
+    feedback.push({
+      student_id: users[i].student_id,
+      date: users[i].meals[j].date,
+      dish_id: users[i].meals[j].dish_id,
+      rate: Math.floor(Math.random() * 5 + 1),
+      text: "",
+    });
+  }
+}
+
 db.meals.insertMany(randomData);
 db.users.insertMany(users);
+db.feedbacks.insertMany(feedback);
 
 db.createCollection("otps", {
   timeseries: {
@@ -94,15 +110,6 @@ db.createCollection("otps", {
     granularity: "seconds",
   },
   expireAfterSeconds: 0,
-});
-
-db.createCollection("feedbacks");
-db.feedbacks.insertOne({
-  student_id: 100101,
-  date: new Date(2024, 6, 3),
-  dish_id: "Phở bò",
-  rate: 5,
-  text: "Delicious!",
 });
 
 // db.createCollection("selections");
