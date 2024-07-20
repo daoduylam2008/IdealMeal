@@ -8,9 +8,10 @@ import 'package:ideal_meal/constant.dart';
 Future<Map<String, dynamic>> fetchCalendar(String student_id) async {
   var body = {"id": student_id};
 
-  final uri = Uri.http(URL, MEAL, body);
+  final uri = Uri.parse(URL_BACKEND + MEAL);
+  final newUri = uri.replace(queryParameters: body);
 
-  var response = await http.get(uri);
+  var response = await http.get(newUri);
   var meal = jsonDecode(response.body);
 
   if (response.statusCode == 200) {
@@ -21,7 +22,7 @@ Future<Map<String, dynamic>> fetchCalendar(String student_id) async {
 }
 
 Future<List<Map<String, dynamic>>> fetchOrder() async {
-  final response = await http.get(Uri.parse('http://localhost:1111/order'));
+  final response = await http.get(Uri.parse(URL_BACKEND+ORDER));
   var order = jsonDecode(response.body);
 
   if (response.statusCode == 200) {

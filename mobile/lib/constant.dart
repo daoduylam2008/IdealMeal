@@ -28,9 +28,11 @@ const overlayLinearColor = LinearGradient(
     ]);
 
 // constants path/url to server
-const URL = "localhost:1111";
+const URL_BACKEND = "http://localhost:1111";
+const URL_SERVER = "http://localhost:8000";
 const MEAL = "/calendar";
 const ORDER = "/order";
+const LOGIN = "/api/auth/login";
 
 // convert Datetime to "DD/MM/YYYY"
 String dateToString(DateTime date) {

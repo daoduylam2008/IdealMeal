@@ -27,6 +27,7 @@ class _Settings extends State<Settings> {
         return isLogin;
       });
     });
+    Navigator.pop(context);
     Phoenix.rebirth(context);
   }
 
@@ -38,6 +39,7 @@ class _Settings extends State<Settings> {
 
   @override
   void initState() {
+    super.initState();
     isLogin = _prefs.then((pref) {
       return pref.getBool('isLogin') ?? true;
     });
@@ -113,9 +115,6 @@ class _Settings extends State<Settings> {
 
   @override
   Widget build(context) {
-    setState(() {
-      user = userTest;
-    });
     return FutureBuilder(
         future: isLogin,
         builder: (context, snapshot) {

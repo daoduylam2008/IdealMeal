@@ -14,7 +14,7 @@ import 'screens/ProfileView.dart';
 
 class MobileScaffold extends StatefulWidget {
   const MobileScaffold({super.key});
-
+  
   @override
   State<MobileScaffold> createState() => _MobileScaffold();
 }
