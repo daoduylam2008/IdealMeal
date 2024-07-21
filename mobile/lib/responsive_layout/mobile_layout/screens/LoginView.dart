@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_meal/API/RequestAPI.dart';
 import 'package:ideal_meal/responsive_layout/mobile_layout/mobile_layout.dart';
-import 'package:ideal_meal/responsive_layout/mobile_layout/screens/UserView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:ideal_meal/constant.dart';

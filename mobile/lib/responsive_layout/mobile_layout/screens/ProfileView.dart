@@ -72,7 +72,7 @@ class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Show student's name firstly
-                    Text(student.name,
+                    Text("student.name",
                         style: font(20, Colors.black, FontWeight.bold)),
                     // Show student's information
                     Row(children: [
@@ -88,7 +88,7 @@ class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
                                     15,
                                     myGrey,
                                     FontWeight.normal)),
-                            Text(student.room,
+                            Text("student.room",
                                 style: font(20, Colors.black, FontWeight.bold)),
                           ],
                         ),
@@ -105,7 +105,7 @@ class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
                                     15,
                                     myGrey,
                                     FontWeight.normal)),
-                            Text(student.cls,
+                            Text("student.cls",
                                 style: font(20, Colors.black, FontWeight.bold))
                           ],
                         ),
