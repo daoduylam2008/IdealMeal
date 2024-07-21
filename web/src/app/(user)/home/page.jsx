@@ -49,7 +49,7 @@ export default function Home() {
     <div className="flex h-full flex-col lg:landscape:flex-row">
       {todayDish.dish_id && todayDish.dish_id !== 'Không ăn' && (
         <div
-          className={`hidden flex-row border-b-2 max-sm:flex`}
+          className={`hidden flex-row border-b-2 transition-[border-color] duration-300 max-sm:flex`}
           onClick={todayDish.dish_id && handleOpenTodayModal}
         >
           <div className="h-28 flex-1 overflow-hidden border-r-2 px-4 py-3 transition-[border-color] duration-300">
@@ -69,7 +69,7 @@ export default function Home() {
           </div>
 
           <div className="flex h-28 w-auto flex-row-reverse">
-            <header className="h-auto w-12 items-center justify-center border-b-0 border-l-2">
+            <header className="h-auto w-12 items-center justify-center border-b-0 border-l-2 transition-[border-color] duration-300">
               <h2 className="m-0 [writing-mode:vertical-lr]">Qrcode</h2>
             </header>
 
