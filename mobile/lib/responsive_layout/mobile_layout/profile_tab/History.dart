@@ -17,7 +17,7 @@ class _History extends State<History> {
   void initState() {
     super.initState();
 
-    data = fetchCalendar("100101");
+    data = fetchCalendar();
   }
 
   @override

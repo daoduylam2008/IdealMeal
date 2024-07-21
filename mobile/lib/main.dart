@@ -7,8 +7,6 @@ import 'responsive_layout/tablet_layout/tablet_layout.dart';
 import 'responsive_layout/desktop_layout/desktop_layout.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
   runApp(Phoenix(child: const MyApp()));
 }
 

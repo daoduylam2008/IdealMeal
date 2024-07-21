@@ -24,6 +24,7 @@ class _HomeView extends State<HomeView> with TickerProviderStateMixin {
   int qrWidth = 0;
 
   late AnimationController _animationController;
+  late Future<Map<String, dynamic>> data;
 
   @override
   void initState() {
@@ -33,6 +34,7 @@ class _HomeView extends State<HomeView> with TickerProviderStateMixin {
     _animationController.addListener(() => setState(() {}));
     _animationController.repeat();
 
+    data = fetchCalendar();
   }
 
   final commentController = TextEditingController();
@@ -40,6 +42,7 @@ class _HomeView extends State<HomeView> with TickerProviderStateMixin {
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
+    _animationController.dispose();
     commentController.dispose();
     super.dispose();
   }
@@ -87,26 +90,26 @@ class _HomeView extends State<HomeView> with TickerProviderStateMixin {
                         SizedBox(
                           height: 150,
                           child: TextField(
-                            cursorColor: Colors.black,
-                            keyboardType: TextInputType.multiline,
-                            minLines: 7,
-                            maxLines: 7,
-                            controller: commentController,
-                            decoration: InputDecoration(
-                              fillColor: const Color.fromRGBO(231, 231, 231, .5),
-                              enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15))),
-                              focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15))),
-                              hintText: 'Your feedback (Optional)',
-                              hintStyle: font(20, myGrey, FontWeight.normal),
-                              filled: true,
-                            )
-                          ),
+                              cursorColor: Colors.black,
+                              keyboardType: TextInputType.multiline,
+                              minLines: 7,
+                              maxLines: 7,
+                              controller: commentController,
+                              decoration: InputDecoration(
+                                fillColor:
+                                    const Color.fromRGBO(231, 231, 231, .5),
+                                enabledBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15))),
+                                focusedBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15))),
+                                hintText: 'Your feedback (Optional)',
+                                hintStyle: font(20, myGrey, FontWeight.normal),
+                                filled: true,
+                              )),
                         ),
                         SizedBox(height: maxWidth * 10 / 430),
                         RatingBar(
@@ -150,7 +153,7 @@ class _HomeView extends State<HomeView> with TickerProviderStateMixin {
                           ),
                           const Spacer(),
                           SizedBox(
-                            child: Row(
+                              child: Row(
                             children: [
                               Image.asset("assets/icons/tick.png",
                                   fit: BoxFit.contain),
@@ -166,6 +169,7 @@ class _HomeView extends State<HomeView> with TickerProviderStateMixin {
           }),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     Map<String, dynamic> qrData = {"id": "", "meal": ""};
@@ -174,12 +178,11 @@ class _HomeView extends State<HomeView> with TickerProviderStateMixin {
       return Scaffold(
         backgroundColor: const Color.fromRGBO(242, 242, 242, 1),
         body: FutureBuilder<Map<String, dynamic>>(
-            future: fetchCalendar("100101"),
+            future: data,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 try {
-                  dish =
-                      snapshot.data![widget.datetime.dayDate(today)].toString();
+                  dish = snapshot.data![dateToYYYYMMDD(DateTime.now())].toString();
                 } catch (error) {
                   dish = "";
                 }
@@ -248,26 +251,27 @@ class _HomeView extends State<HomeView> with TickerProviderStateMixin {
               } else if (snapshot.hasError) {
                 return Text(snapshot.error.toString());
               }
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      RotationTransition(
-                        turns: Tween(begin: 0.0, end: 1.0).animate(_animationController),
-                        child: const GradientCircularProgressIndicator(
-                          radius: 30,
-                          gradientColors: [
-                            Colors.white,
-                            Color.fromRGBO(45, 154, 255, .9),
-                            Color.fromRGBO(255, 51, 112, .9),
-                          ] ,
-                          strokeWidth: 4.0,
-                        ),
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    RotationTransition(
+                      turns: Tween(begin: 0.0, end: 1.0)
+                          .animate(_animationController),
+                      child: const GradientCircularProgressIndicator(
+                        radius: 30,
+                        gradientColors: [
+                          Colors.white,
+                          Color.fromRGBO(45, 154, 255, .9),
+                          Color.fromRGBO(255, 51, 112, .9),
+                        ],
+                        strokeWidth: 4.0,
                       ),
-                      const Text("Please connect to internet"),
-                    ],
-                  ),
-                );
+                    ),
+                    const Text("Please connect to internet"),
+                  ],
+                ),
+              );
             }),
         floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.white.withOpacity(.9),
