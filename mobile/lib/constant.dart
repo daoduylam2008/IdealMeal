@@ -33,8 +33,10 @@ const URL_SERVER = "http://localhost:8000";
 const MEAL = "/calendar";
 const ORDER = "/order";
 const LOGIN = "/api/auth/login";
+const PROFILE = "/api/auth/profile";
+const REFRESH = "/api/auth/refresh";
 
-// convert Datetime to "DD/MM/YYYY"
+// convert DateTime to "DD/MM/YYYY"
 String dateToString(DateTime date) {
   String month = "${date.month}";
   String day = "${date.day}";
@@ -54,11 +56,16 @@ String dateToString(DateTime date) {
   return "$day/$month/${date.year}";
 }
 
-// convert "YYYY/MM/DD" to Datetime
+// convert "YYYY/MM/DD" to DateTime
 DateTime YYYYMMDDtoDate(String date) {
   List d = date.split("/");
 
   return DateTime(int.parse(d[0]), int.parse(d[1]), int.parse(d[2]));
+}
+
+// convert DateTime to "" "YYYY/MM/DD"
+String dateToYYYYMMDD(DateTime date) {
+  return "${date.year}/${date.month}/${date.day}";
 }
 
 // Date transform
@@ -89,147 +96,49 @@ TextStyle font(double size, Color color, FontWeight weight) {
 class Student {
   final String id;
   final String name;
-  final String birth;
-  final String gender;
-  final String phone;
-  final String cls;
-  final String address;
-  final String room;
   final String email;
+  final String? created_at;
+  final String? updated_at;
 
-  Student(
-      {required this.id,
-      required this.name,
-      required this.birth,
-      required this.gender,
-      required this.phone,
-      required this.cls,
-      required this.address,
-      required this.room,
-      required this.email});
+  Student({required this.id, required this.name, required this.email, required this.created_at, required this.updated_at});
 
   factory Student.fromJson(Map<String, dynamic> json) {
     return switch (json) {
-      {
-        'id': String id,
-        'name': String name,
-        'birth': String birth,
-        'gender': String gender,
-        'phone': String phone,
-        'class': String cls,
-        'address': String address,
-        'room': String room,
-        'email': String email
-      } =>
-        Student(
-            id: id,
-            name: name,
-            birth: birth,
-            gender: gender,
-            phone: phone,
-            cls: cls,
-            address: address,
-            room: room,
-            email: email),
+      {'id': String id, 'name': String name, 'email': String email} =>
+        Student(id: id, name: name, email: email, created_at: null, updated_at: null),
       _ => throw const FormatException('Failed to load student.')
     };
   }
 }
 
 class User {
-  final String id;
-  final String username;
+  final int id;
+  final String name;
   final String phone;
-  String password;
+  final String birth;
+  final String room_id;
 
-  User({
-    required this.id,
-    required this.username,
-    required this.phone,
-    required this.password,
-  });
+  User(
+      {required this.id,
+      required this.name,
+      required this.phone,
+      required this.room_id,
+      required this.birth});
 
   factory User.fromJson(Map<String, dynamic> json) {
     return switch (json) {
       {
-        'id': String id,
-        "username": String username,
+        'student_id': int id,
+        "name": String name,
         "phone": String phone,
-        "password": String password,
+        "room_id": String room_id,
+        "birth": String birth
       } =>
-        User(id: id, username: username, phone: phone, password: password),
+        User(id: id, name: name, phone: phone, room_id: room_id, birth: birth),
       _ => throw const FormatException('Failed to load user.')
     };
   }
 }
-
-class Meal {
-  final String student_id;
-  final String monday;
-  final String tuesday;
-  final String wednesday;
-  final String thursday;
-  final String friday;
-
-  Meal(
-      {required this.student_id,
-      required this.monday,
-      required this.tuesday,
-      required this.wednesday,
-      required this.thursday,
-      required this.friday});
-
-  Map<String, String> toMap() {
-    return {
-      'student_id': student_id,
-      'Monday': monday,
-      'Tuesday': tuesday,
-      "Wednesday": wednesday,
-      "Thursday": thursday,
-      'Friday': friday,
-    };
-  }
-
-  factory Meal.fromJson(Map<String, dynamic> json) {
-    return switch (json) {
-      {
-        'student_id': String id,
-        'Monday': String monday,
-        'Tuesday': String tuesday,
-        "Wednesday": String wednesday,
-        "Thursday": String thursday,
-        'Friday': String friday,
-      } =>
-        Meal(
-            student_id: id,
-            monday: monday,
-            tuesday: tuesday,
-            wednesday: wednesday,
-            thursday: thursday,
-            friday: friday),
-      _ => throw const FormatException('Failed to load album.'),
-    };
-  }
-}
-
-// Test
-var studentTest = Student(
-  id: "100112",
-  name: "Đào Duy Lâm",
-  birth: "31/08/2008",
-  gender: "boy",
-  phone: "0909687714",
-  cls: "10A01",
-  address: "64 Nguyễn Bá Tòng, Phường Tân Thành, Quận Tân Phú",
-  room: "D4116",
-  email: "daoduylam2020@gmail.com",
-);
-
-var userTest = User(
-    id: "100112",
-    username: "Đào Duy Lâm",
-    password: "Lamdao",
-    phone: "090968714");
 
 DateTime firstDate() {
   var todayDate = DateTime.now();

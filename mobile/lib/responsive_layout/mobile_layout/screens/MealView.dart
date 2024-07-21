@@ -15,16 +15,14 @@ class _MealView extends State<MealView> with TickerProviderStateMixin {
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();
 
-  User user = userTest;
-
-  late Future orderMeal;
+  late Future<Map<String, dynamic>> calendarMeal;
   late AnimationController _animationController;
 
 
   @override
   void initState() {
     super.initState();
-    orderMeal = fetchOrder();
+    calendarMeal = fetchCalendar();
 
     _animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
@@ -33,20 +31,23 @@ class _MealView extends State<MealView> with TickerProviderStateMixin {
   }
 
   @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         return FutureBuilder(
-            future: orderMeal,
-            builder: (context, snapshot) {
-              String searchMeal() {
-                DateTime now = DateTime.now();
-                DateTime today = DateTime(now.year, now.month, now.day);
-
-                return "";
-              }
-
-              if (snapshot.hasData) {
+            future: calendarMeal,
+            builder: (context, snapshot_2) {
+              if (snapshot_2.hasData) {
+                String searchMeal(DateTime date) {
+                  String todayString = dateToYYYYMMDD(date);
+                  return snapshot_2.data![todayString].toString();
+                }
                 return Container(
                   color: appBarBackground,
                   child: Container(
@@ -115,11 +116,6 @@ class _MealView extends State<MealView> with TickerProviderStateMixin {
                                 color: Colors.grey,
                               ),
                               const SizedBox(height: 9),
-                              Text("Name",
-                                  style: font(15, myGrey, FontWeight.normal)),
-                              Text(user.username,
-                                  style:
-                                      font(20, Colors.black, FontWeight.bold)),
                               Text("Date",
                                   style: font(15, myGrey, FontWeight.normal)),
                               Text(dateToString(_focusedDay),
@@ -127,7 +123,7 @@ class _MealView extends State<MealView> with TickerProviderStateMixin {
                                       font(20, Colors.black, FontWeight.bold)),
                               Text("Dish",
                                   style: font(15, myGrey, FontWeight.normal)),
-                              Text("${searchMeal()}",
+                              Text("${searchMeal(_focusedDay)}",
                                   style:
                                       font(20, Colors.black, FontWeight.bold)),
                               const SizedBox(height: 34),
@@ -143,26 +139,27 @@ class _MealView extends State<MealView> with TickerProviderStateMixin {
                       )),
                 );
               }
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  RotationTransition(
-                    turns: Tween(begin: 0.0, end: 1.0).animate(_animationController),
-                    child: const GradientCircularProgressIndicator (
-                      radius: 30,
-                      gradientColors: [
-                        Colors.white,
-                        Color.fromRGBO(45, 154, 255, .9),
-                        Color.fromRGBO(255, 51, 112, .9),
-                      ] ,
-                      strokeWidth: 4.0,
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    RotationTransition(
+                      turns: Tween(begin: 0.0, end: 1.0)
+                          .animate(_animationController),
+                      child: const GradientCircularProgressIndicator(
+                        radius: 30,
+                        gradientColors: [
+                          Colors.white,
+                          Color.fromRGBO(45, 154, 255, .9),
+                          Color.fromRGBO(255, 51, 112, .9),
+                        ],
+                        strokeWidth: 4.0,
+                      ),
                     ),
-                  ),
-                  const Text("Please connect to internet"),
-                ],
-              ),
-            );
+                    const Text("Please connect to internet"),
+                  ],
+                ),
+              );
             });
       },
     );

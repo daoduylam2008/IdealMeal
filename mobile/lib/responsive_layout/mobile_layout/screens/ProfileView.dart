@@ -14,7 +14,6 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileView extends State<ProfileView> with TickerProviderStateMixin {
-  Student student = studentTest;
   TabController? tabController;
   int _selection = 0;
 

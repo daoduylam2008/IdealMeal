@@ -7,14 +7,14 @@ class CardWidget extends StatelessWidget {
   const CardWidget({
     super.key, 
     required this.name,
-    required this.cls,
-    required this.address,
+    // required this.cls,
+    // required this.address,
     required this.birth
   });
 
   final String name;
-  final String address;
-  final String cls;
+  // final String address;
+  // final String cls;
   final String birth;
 
   @override
@@ -70,13 +70,13 @@ class CardWidget extends StatelessWidget {
                     ]
                   ),
                   ),
-                  RichText(text: TextSpan(
-                    children: [
-                      TextSpan(text: "Lớp:  ", style: font(16, Colors.black, FontWeight.bold)),
-                      TextSpan(text: cls, style: font(16, Colors.black, FontWeight.normal)),
-                    ]
-                  ),
-                  ),
+                  // RichText(text: TextSpan(
+                  //   children: [
+                  //     TextSpan(text: "Lớp:  ", style: font(16, Colors.black, FontWeight.bold)),
+                  //     TextSpan(text: cls, style: font(16, Colors.black, FontWeight.normal)),
+                  //   ]
+                  // ),
+                  // ),
                   RichText(text: TextSpan(
                     children: [
                       TextSpan(text: "Ngày sinh:  ", style: font(16, Colors.black, FontWeight.bold)),
@@ -84,16 +84,16 @@ class CardWidget extends StatelessWidget {
                     ]
                   ),
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                    Text("Địa chỉ:  ", style: font(16, Colors.black, FontWeight.bold)),
-                    SizedBox(width: fitWidth(200), child: Column(
-                      children: [
-                        Text(address, softWrap: true, maxLines: 5, overflow: TextOverflow.clip, style: font(16, Colors.black, FontWeight.normal),),
-                      ],
-                    ))
-                  ],)
+                  // Row(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //   Text("Địa chỉ:  ", style: font(16, Colors.black, FontWeight.bold)),
+                  //   SizedBox(width: fitWidth(200), child: Column(
+                  //     children: [
+                  //       Text(address, softWrap: true, maxLines: 5, overflow: TextOverflow.clip, style: font(16, Colors.black, FontWeight.normal),),
+                  //     ],
+                  //   ))
+                  // ],)
                 ],
               )
             ],

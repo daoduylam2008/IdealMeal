@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:ideal_meal/API/ResponseApi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:ideal_meal/constant.dart';
@@ -14,9 +15,9 @@ class Settings extends StatefulWidget {
 }
 
 class _Settings extends State<Settings> {
-  var user = userTest;
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late Future<bool> isLogin;
+  late Future<User> user;
 
   Future<void> signOut() async {
     final SharedPreferences prefs = await _prefs;
@@ -43,6 +44,7 @@ class _Settings extends State<Settings> {
     isLogin = _prefs.then((pref) {
       return pref.getBool('isLogin') ?? true;
     });
+    user = fetchProfile() ;
   }
 
   Widget _view() {
@@ -56,13 +58,6 @@ class _Settings extends State<Settings> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Password",
-                  style: font(15, const Color.fromRGBO(150, 150, 150, 1),
-                      FontWeight.normal)),
-              const SizedBox(height: 7),
-              Text("●" * user.password.length,
-                  style: const TextStyle(fontSize: 15)),
-              const SizedBox(height: 20),
               InkWell(
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
                   onTap: () {
