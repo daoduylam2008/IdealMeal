@@ -61,5 +61,5 @@ export const useUpdateProfile = (setError, email, phone) => {
       }
     },
   });
-  return { handleCheckBeforeUpdate, handleUpdate };
+  return { handleCheckBeforeUpdate, isPending: handleUpdate.isPending };
 };

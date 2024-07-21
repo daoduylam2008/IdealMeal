@@ -14,15 +14,10 @@ export const handleCloseModal = ({ id }) => {
 export default function Modal({ id, action, header, children, ...btn }) {
   const handleClose = (e) => {
     e.preventDefault();
-    const modal = document.getElementById(id);
-    modal.classList.add(styles.close);
-    setTimeout(() => {
-      modal.classList.remove(styles.close);
-      modal.close();
-    }, 300);
+    handleCloseModal({ id });
   };
   return (
-    <dialog id={id} className={`${styles.modal}`}>
+    <dialog id={id} className={`${styles.modal}`} onCancel={handleClose}>
       <form action={action}>
         <div className="absolute right-0 top-0 flex justify-end">
           <button onClick={handleClose} title="close-dialog">

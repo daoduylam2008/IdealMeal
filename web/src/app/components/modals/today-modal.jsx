@@ -2,6 +2,7 @@
 import Modal from './modal-proto';
 import FeedbackModal from './feedback-modal';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { handleCloseModal } from './modal-proto';
 import { sendedFeedback } from '@/app/utils/controllers/actions';
 import { createFeedback } from '@/app/utils/controllers/actions';
 import { useState } from 'react';
@@ -31,8 +32,7 @@ function TodayModal(props) {
     },
   });
   const handleOpenFeedback = () => {
-    const modal = document.getElementById('today-modal');
-    modal.close();
+    handleCloseModal({ id: 'today-modal' });
     if (!hasSendedFeedback.data) {
       const feedbackModal = document.getElementById('feedback-modal');
       feedbackModal.showModal();

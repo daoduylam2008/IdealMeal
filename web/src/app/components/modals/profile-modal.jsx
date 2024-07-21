@@ -23,7 +23,7 @@ function ProfileModal({ phone, email }) {
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
 
-  const { handleUpdate, handleCheckBeforeUpdate } = useUpdateProfile(
+  const { isPending, handleCheckBeforeUpdate } = useUpdateProfile(
     setError,
     email,
     phone,
@@ -35,7 +35,7 @@ function ProfileModal({ phone, email }) {
       header={'Profile'}
       action={handleSubmit((data) => handleCheckBeforeUpdate(data))}
       content={'Save profile info'}
-      isLoading={handleUpdate.isPending}
+      isLoading={isPending}
     >
       <div>
         <label htmlFor="phone">Phone</label>
