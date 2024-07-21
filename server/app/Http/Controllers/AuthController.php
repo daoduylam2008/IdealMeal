@@ -279,4 +279,9 @@ class AuthController extends Controller
         DB::table("admin_token")->where("ip_address","=",$request->ip())->delete();
         return response()->json(["msg"=>"Token deleted"]);
     }
+    public function checkTokenAdmin(Request $request){
+        return response()->json(["msg"=>"Verified token"]);
+    }
+
+    
 }

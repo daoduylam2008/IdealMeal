@@ -45,8 +45,10 @@ Route::group([
 ], function (){
     Route::post("admin",[AuthController::class,'admin']);
     Route::post("account",[AdminController::class,'register']);
-    Route::post("refreshTokenAdmin",[AuthController::class,'refreshTokenAdmin'])->middleware("token");
-    Route::post("deleteTokenAdmin",[AuthController::class,'deleteTokenAdmin'])->middleware("token");
+    Route::get("refreshTokenAdmin",[AuthController::class,'refreshTokenAdmin'])->middleware("token");
+    Route::get("deleteTokenAdmin",[AuthController::class,'deleteTokenAdmin'])->middleware("token");
+    Route::get("check",[AuthController::class,'checkTokenAdmin'])->middleware("token");
+    Route::get("show",[AdminController::class,'show'])->middleware("token");
     Route::get("teachers",[TeachersController::class,'show'])->middleware("token");
     Route::post("exchange",[TeachersController::class,'exchange'])->middleware("token");
     Route::post("trash",[TeachersController::class,'trash'])->middleware("token");
@@ -54,11 +56,3 @@ Route::group([
     
 });
 
-Route::group([
-    'middleware' => ['web'],
-    "prefix" => "auth",
-], function () {
-    Route::get("test",[AdminController::class,'show']);
-
-    Route::get("exit/{id}",[AdminController::class,'exit']);
-});

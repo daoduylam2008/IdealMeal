@@ -11,26 +11,6 @@ class AdminController extends Controller
 {
 
 
-     /**
-     * Show the profile for the given user.
-     */
-    public function show(Request $request) 
-    {
-        $deviceId= $this->randomCharacter();
-
-        $request->session()->put($deviceId,"ideal meal"); 
-
-        return response()->json($deviceId);
-
-        // $request->session()->flush();         
- 
-    }
-    public function exit($id,Request $request){
-        $request->session()->forget($id);
-        return response()->json([
-            "msg" => "Logged out successfully",
-        ]);
-    }
 
     public function register(){
         $validated = request(['email','password','name']);
@@ -38,5 +18,17 @@ class AdminController extends Controller
         return response()->json([
             "msg" => "Registered successfully",
         ]);
+    }
+    public function show (Request $request){
+        $ip_address = $request->ip();
+
+        $email = DB::table('admin_token')->where('ip_address','=',$ip_address)->first()->email;
+        $userName = DB::table('admins')->where('email','=',$email)->first()->name;
+
+        return response()->json([
+            'email' => $email,
+            'userName' => $userName,
+        ]);
+        
     }
 }

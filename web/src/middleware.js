@@ -8,6 +8,7 @@ import {
   RequestCookies,
 } from 'next/dist/server/web/spec-extension/cookies';
 
+
 /**
  * Copy cookies from the Set-Cookie header of the response to the Cookie header of the request,
  * so that it will appear to SSR/RSC as if the user already has the new cookies.
