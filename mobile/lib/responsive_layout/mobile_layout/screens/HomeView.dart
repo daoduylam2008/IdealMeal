@@ -172,7 +172,7 @@ class _HomeView extends State<HomeView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> qrData = {"id": "", "meal": ""};
+    // Map<String, dynamic> qrData = {"id": "", "meal": ""};
 
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
