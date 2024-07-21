@@ -1,6 +1,6 @@
 'use client';
 import { ArrowButton } from './components/buttons/buttons';
-import { LoginModal } from './components/modals/modals';
+import LoginModal from './components/modals/login-modal';
 import Header from './components/header';
 
 export default function Home() {

@@ -1,9 +1,9 @@
 .button {
-  @apply h-12 w-auto rounded border-2 border-border bg-light transition-all duration-300 hover:bg-border disabled:opacity-50;
+  @apply h-12 w-auto rounded border-2 border-border bg-light transition-[background-color] duration-300 hover:bg-border disabled:opacity-50;
 }
 
 .button1 {
-  @apply my-10 rounded bg-back bg-gradient-to-tr from-cyan-500 to-pink-500 transition-all duration-300 hover:rounded-xl disabled:opacity-50;
+  @apply my-10 rounded bg-gradient-to-tr from-cyan-500 to-pink-500 transition-[border-radius] duration-300 hover:rounded-xl disabled:opacity-50;
 }
 
 .button1:hover .button2 {
@@ -16,13 +16,13 @@
   @apply ml-0 mr-3;
 }
 .button2 {
-  @apply m-0.5 flex h-12 w-auto items-center justify-center rounded-sm bg-back transition-all duration-300;
+  @apply m-0.5 flex h-12 w-auto items-center justify-center rounded-sm bg-back transition-[background-color,border-radius] duration-300;
 }
 .buttonlogin3 {
   background-clip: text;
   -moz-background-clip: text;
   -webkit-background-clip: text;
-  @apply ml-4 bg-gradient-to-r from-cyan-500 to-pink-500 text-lg font-bold text-transparent max-sm:text-base;
+  @apply ml-4 bg-gradient-to-r from-cyan-500 to-pink-500 text-lg font-bold text-transparent max-sm:text-base transition-[margin] duration-300;
 }
 .button3 {
   background-clip: text;

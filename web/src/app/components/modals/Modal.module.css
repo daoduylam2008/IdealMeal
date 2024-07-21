@@ -1,29 +1,3 @@
-.button1 {
-  @apply rounded bg-back bg-gradient-to-tr from-cyan-500 to-pink-500 transition-all duration-300 hover:rounded-xl;
-}
-.button1:hover .button2 {
-  @apply rounded-[0.6rem];
-}
-.button1:hover .button2 svg {
-  @apply opacity-100;
-}
-.button1:hover .button2 .buttonlogin3 {
-  @apply ml-0 mr-3;
-}
-.button2 {
-  @apply m-0.5 flex h-12 w-auto items-center justify-center rounded-sm bg-back transition-all duration-300;
-}
-.buttonlogin3 {
-  @apply ml-4 bg-gradient-to-r from-cyan-500 to-pink-500 text-lg font-bold text-transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-.button3 {
-  @apply bg-gradient-to-r from-cyan-500 to-pink-500 text-lg font-bold text-transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-
 .modal {
   @apply relative w-[400px] rounded-xl border-2 border-border bg-back bg-center max-sm:mx-0 max-sm:mb-0 max-sm:h-[calc(100vh-7rem)] max-sm:w-full max-sm:rounded-b-none;
 }

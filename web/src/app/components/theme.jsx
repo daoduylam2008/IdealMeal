@@ -14,14 +14,14 @@ export default function ThemeDialog({
   const themes = ['dark', 'light'];
   return (
     <div
-      className={`z-10 flex max-h-0 w-48 flex-col items-stretch overflow-hidden rounded border-2 border-border bg-back opacity-0 transition-all duration-300 ${isThemeSelectionOpen && '!max-h-44 opacity-100'}`}
+      className={`z-10 flex max-h-0 w-48 flex-col items-stretch overflow-hidden rounded border-2 border-border bg-back opacity-0 transition-[max-height,opacity] duration-300 ${isThemeSelectionOpen && '!max-h-44 opacity-100'}`}
       onClick={handleExpandThemeMenu}
     >
       {mounted && (
         <>
           <div>
             <div
-              className="hover-wrapper flex h-14 items-center justify-center px-5 py-3 transition-all duration-300 hover:bg-light max-sm:h-12"
+              className="hover-wrapper flex h-14 items-center justify-center px-5 py-3 transition-[background-color] duration-300 hover:bg-light max-sm:h-12"
               onClick={() => setTheme('system')}
             >
               <span
@@ -38,7 +38,7 @@ export default function ThemeDialog({
                 <Hr />
               </div>
               <div
-                className="hover-wrapper flex h-14 items-center justify-center px-5 py-3 transition-all duration-300 hover:bg-light max-sm:h-12"
+                className="hover-wrapper flex h-14 items-center justify-center px-5 py-3 transition-[background-color] duration-300 hover:bg-light max-sm:h-12"
                 onClick={() => setTheme(e)}
               >
                 <span

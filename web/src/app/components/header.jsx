@@ -128,7 +128,7 @@ function Header({ children, menu }) {
   };
   return (
     <>
-      <header className="fixed top-0 z-20 w-full justify-between bg-back transition-all duration-300">
+      <header className="fixed top-0 z-20 w-full justify-between">
         {menu ? (
           <>
             <div className="flex items-center">
@@ -141,7 +141,7 @@ function Header({ children, menu }) {
               <h1 className="sm:ml-0">Ideal Meal</h1>
             </div>
             <div
-              className="flex w-12 items-center justify-center self-stretch transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0.5 sm:hidden"
+              className="flex w-12 items-center justify-center self-stretch transition-transform duration-300 hover:-translate-y-0.5 active:translate-y-0.5 sm:hidden"
               onClick={handleExpandThemeMenu}
             >
               <Theme className={`stroke-main !stroke-2`} />
@@ -174,7 +174,7 @@ function Header({ children, menu }) {
             <div
               id="main-content"
               className={
-                `h-full w-full overflow-x-hidden scroll-smooth transition-all duration-300 max-sm:pb-12 sm:ml-14 ` +
+                `h-full w-full overflow-x-hidden scroll-smooth transition-[margin-left] duration-300 max-sm:pb-12 sm:ml-14 ` +
                 `${isExpand && 'lg:landscape:!ml-64'}`
               }
             >

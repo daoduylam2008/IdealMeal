@@ -60,15 +60,15 @@ export default function SideBar({
     <div className="flex h-full flex-row overflow-hidden max-sm:flex-col-reverse">
       <div
         className={
-          'pointer-events-none fixed z-20 h-full w-full transition-all duration-300 max-sm:hidden ' +
+          'pointer-events-none fixed z-20 h-full w-full transition-[backdrop-filter,-webkit-backdrop-filter] duration-300 max-sm:hidden ' +
           `${isTabletExpand && 'pointer-events-auto backdrop-brightness-75'}`
         }
         onClick={() => setIsTabletExpand(false)}
       ></div>
       <nav
         className={
-          'fixed bottom-0 left-0 z-20 flex w-14 flex-col border-r-2 border-border bg-back transition-all duration-300 max-sm:h-12 max-sm:w-full max-sm:flex-row max-sm:justify-around max-sm:border-r-0 max-sm:border-t-2 sm:top-14 ' +
-          `${isExpand && 'lg:landscape:w-64 lg:landscape:pt-4'} ${isTabletExpand && '!border-border sm:w-64 sm:pt-4'}`
+          'fixed bottom-0 left-0 z-20 flex w-14 flex-col border-r-2 border-border bg-back transition-[border-color,width,padding-top,background-color] duration-300 max-sm:h-12 max-sm:w-full max-sm:flex-row max-sm:justify-around max-sm:border-r-0 max-sm:border-t-2 sm:top-14 ' +
+          `${isExpand && 'lg:landscape:w-64 lg:landscape:pt-4'} ${isTabletExpand && 'sm:w-64 sm:pt-4'}`
         }
         // style={{
         //   transition:
@@ -82,26 +82,26 @@ export default function SideBar({
             title={Icon.alt}
             onClick={() => setIsTabletExpand(false)}
             className={
-              `flex h-14 items-stretch justify-stretch px-3 transition-all duration-300 max-sm:h-[calc(3rem-2px)] max-sm:flex-1 ` +
+              `flex h-14 items-stretch justify-stretch px-3 transition-[padding] duration-300 max-sm:h-[calc(3rem-2px)] max-sm:flex-1 ` +
               `${isExpand && 'lg:landscape:px-5'} ${isTabletExpand && 'sm:px-5'}`
             }
           >
             <div
               className={
-                `hover-icon my-1 flex flex-1 items-center overflow-hidden rounded-xl bg-back transition-all duration-300 max-sm:justify-center ` +
+                `hover-icon my-1 flex flex-1 items-center overflow-hidden rounded-xl transition-[background-color] duration-300 max-sm:justify-center ` +
                 `${isExpand & (pathname === Icon.href) && 'lg:landscape:bg-light'} ${isTabletExpand & (pathname === Icon.href) && 'sm:bg-light'} ` +
                 `${isExpand && 'hover:lg:landscape:bg-light'} ${isTabletExpand && 'hover:sm:bg-light'}`
               }
             >
               <div
                 className={
-                  `mx-1 flex w-auto items-center justify-center transition-all duration-300 ` +
+                  `mx-1 flex w-auto items-center justify-center transition-[margin] duration-300 ` +
                   `${isExpand && 'lg:landscape:!mx-3'} ${isTabletExpand && 'sm:!mx-3'}`
                 }
               >
                 <Icon.component
                   className={
-                    `transition-all duration-300 ${pathname === Icon.href ? 'stroke-main' : 'stroke-dark'} ` +
+                    `transition-[stroke,stroke-width] duration-300 ${pathname === Icon.href ? 'stroke-main' : 'stroke-dark'} ` +
                     `${isExpand && 'lg:landscape:!stroke-main lg:landscape:!stroke-2'} ${isTabletExpand && 'sm:!stroke-main sm:!stroke-2'}`
                   }
                 />
@@ -128,13 +128,13 @@ export default function SideBar({
           </div>
           <div
             className={
-              `relative flex h-14 items-stretch justify-stretch px-3 transition-all duration-300 max-sm:h-[calc(3rem-2px)] max-sm:flex-1 ` +
+              `relative flex h-14 items-stretch justify-stretch px-3 transition-[padding] duration-300 max-sm:h-[calc(3rem-2px)] max-sm:flex-1 ` +
               `${isExpand && 'lg:landscape:px-5'} ${isTabletExpand && 'sm:px-5'}`
             }
           >
             <div
               className={
-                `my-1 flex flex-1 cursor-pointer items-center justify-between overflow-hidden rounded-xl bg-back transition-all duration-300 max-sm:justify-center ` +
+                `my-1 flex flex-1 cursor-pointer items-center justify-between overflow-hidden rounded-xl transition-[background-color] duration-300 max-sm:justify-center ` +
                 `${isExpand && 'hover:lg:landscape:bg-light'} ${isTabletExpand && 'hover:sm:bg-light'}`
               }
               onClick={handleExpandThemeMenu}
@@ -142,13 +142,13 @@ export default function SideBar({
               <div className={`flex justify-between`}>
                 <div
                   className={
-                    `mx-1 flex w-auto items-center justify-center transition-all duration-300 ` +
+                    `mx-1 flex w-auto items-center justify-center transition-[margin] duration-300 ` +
                     `${isExpand && 'lg:landscape:!mx-3'} ${isTabletExpand && 'sm:!mx-3'}`
                   }
                 >
                   <Theme
                     className={
-                      `stroke-main transition-all duration-300 ` +
+                      `stroke-main transition-[stroke-width] duration-300 ` +
                       `${isExpand && 'lg:landscape:!stroke-2'} ${isTabletExpand && 'sm:!stroke-2'}`
                     }
                   />
@@ -159,7 +159,7 @@ export default function SideBar({
               </div>
               <div
                 className={
-                  `flex h-6 w-6 items-center justify-center transition-all duration-300 ` +
+                  `flex h-6 w-6 items-center justify-center transition-[margin,transform] duration-300 ` +
                   `${isExpand && `lg:landscape:!mx-12 ${isThemeSelectionOpen && 'lg:landscape:rotate-180'}`} ${isTabletExpand && `sm:!mx-12 ${isThemeSelectionOpen && 'sm:rotate-180'}`}`
                 }
               >
@@ -179,17 +179,29 @@ export default function SideBar({
             </div>
           </div>
           <div
-            className={`flex h-14 items-stretch justify-stretch ${isExpand && 'lg:landscape:px-5'} ${isTabletExpand && 'sm:px-5'} px-3 transition-all duration-300 max-sm:h-[calc(3rem-2px)] max-sm:flex-1`}
+            className={
+              `flex h-14 items-stretch justify-stretch px-3 transition-[padding] duration-300 max-sm:h-[calc(3rem-2px)] max-sm:flex-1 ` +
+              `${isExpand && 'lg:landscape:px-5'} ${isTabletExpand && 'sm:px-5'}`
+            }
           >
             <div
-              className={`hover-icon my-1 flex flex-1 cursor-pointer items-center overflow-hidden rounded-xl bg-back transition-all duration-300 max-sm:justify-center ${isExpand && 'hover:lg:landscape:bg-light'} ${isTabletExpand && 'hover:sm:bg-light'}`}
+              className={
+                `hover-icon my-1 flex flex-1 cursor-pointer items-center overflow-hidden rounded-xl transition-[background-color] duration-300 max-sm:justify-center ` +
+                `${isExpand && 'hover:lg:landscape:bg-light'} ${isTabletExpand && 'hover:sm:bg-light'}`
+              }
               onClick={() => logout()}
             >
               <div
-                className={`${isExpand && 'lg:landscape:!mx-3'} ${isTabletExpand && 'sm:!mx-3'} mx-1 flex w-auto items-center justify-center transition-all duration-300`}
+                className={
+                  `mx-1 flex w-auto items-center justify-center transition-[margin] duration-300 ` +
+                  `${isExpand && 'lg:landscape:!mx-3'} ${isTabletExpand && 'sm:!mx-3'}`
+                }
               >
                 <Logout
-                  className={`stroke-main transition-all duration-300 ${isExpand && 'lg:landscape:!stroke-2'} ${isTabletExpand && 'sm:!stroke-2'}`}
+                  className={
+                    `stroke-main transition-[stroke-width] duration-300 ` +
+                    `${isExpand && 'lg:landscape:!stroke-2'} ${isTabletExpand && 'sm:!stroke-2'}`
+                  }
                 />
               </div>
               <span className={`h2 ml-1 font-semibold max-sm:hidden`}>
@@ -200,7 +212,7 @@ export default function SideBar({
         </div>
         <Indicator
           className={clsx(
-            'absolute transition-all duration-300 max-sm:-translate-x-[calc(1/3*100vw)] max-sm:translate-y-9 max-sm:-rotate-90 sm:translate-y-5',
+            'absolute transition-transform duration-300 max-sm:-translate-x-[calc(1/3*100vw)] max-sm:translate-y-9 max-sm:-rotate-90 sm:translate-y-5',
             {
               'max-sm:-translate-x-[calc(1/3*100vw)] max-sm:translate-y-11 max-sm:-rotate-90 sm:translate-y-5':
                 pathname === '/home',

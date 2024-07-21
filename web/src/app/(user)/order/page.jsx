@@ -2,15 +2,13 @@
 
 import Image from 'next/image';
 import styles from './Order.module.css';
-
-import { Hr, Loader } from '@/app/components/icons';
-import { preorder } from '@/app/utils/controllers/actions';
-import { getOrderList } from '@/app/utils/controllers/actions';
-import { ColorfulButton } from '@/app/components/buttons/buttons';
-import { IsSidebarExpandContext } from '@/app/components/header';
 import { useEffect, useState, useContext } from 'react';
+import { IsSidebarExpandContext } from '@/app/components/header';
+import { ColorfulButton } from '@/app/components/buttons/buttons';
+import { getOrderList } from '@/app/utils/controllers/actions';
 import { usePreorder } from '@/app/hooks/usePreorder';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Hr, Loader } from '@/app/components/icons';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Order() {
   const mealQuery = useQuery({
@@ -18,8 +16,10 @@ export default function Order() {
     queryFn: () => getOrderList(),
   });
   return mealQuery.isLoading ? (
-    <div className="flex min-h-full flex-1 flex-col items-center space-y-5 bg-back px-5 py-10 transition-all duration-300 sm:space-y-10">
-      <Loader />
+    <div className="flex h-full flex-1 flex-col items-center px-5 py-10">
+      <div className="flex-1 content-center">
+        <Loader />
+      </div>
     </div>
   ) : mealQuery.data[0] ? (
     <Preorder meals={mealQuery.data} />
@@ -88,10 +88,7 @@ function Preorder({ meals }) {
   };
 
   return (
-    <div
-      id="order"
-      className="flex min-h-full flex-col items-stretch bg-back py-10 transition-all duration-300"
-    >
+    <div id="order" className="flex h-full flex-col items-stretch py-10">
       <Main hasPreorder={true} />
       {meals.map((e, i) => {
         return (
@@ -106,7 +103,7 @@ function Preorder({ meals }) {
                 dateStyle: 'medium',
               })}`}
             </span>
-            <div className="choices mx-5 w-[calc(100vw-6rem)] max-w-2xl rounded border-2 border-border transition-all duration-300 max-sm:w-full">
+            <div className="choices mx-5 w-[calc(100vw-6rem)] max-w-2xl rounded border-2 border-border transition-[border-color] duration-300 max-sm:w-full">
               {e.dish_ids.map((dish, j) => {
                 return (
                   <div
@@ -118,7 +115,7 @@ function Preorder({ meals }) {
                       });
                     }}
                   >
-                    <div className="hover-wrapper flex h-14 items-center justify-center transition-all duration-300 hover:bg-light max-sm:h-12 sm:h-16">
+                    <div className="hover-wrapper flex items-center justify-center transition-[background-color] duration-300 hover:bg-light h-12 sm:h-14">
                       <span
                         className={`h3 pointer-events-none font-semibold ${typeof orderList[i] === 'undefined' ? 'text-main' : orderList[i] === j ? 'text-main' : '!text-dark'} sm:text-xl`}
                       >
@@ -132,7 +129,7 @@ function Preorder({ meals }) {
                 );
               })}
               <div
-                className="hover-wrapper flex h-14 items-center justify-center transition-all duration-300 hover:bg-light max-sm:h-12"
+                className="hover-wrapper flex h-12 items-center justify-center transition-[background-color] duration-300 hover:bg-light sm:h-14"
                 onClick={() => {
                   setOrderList((prev) => {
                     const newOrderList = { ...prev, [i]: e.dish_ids.length };
@@ -175,12 +172,13 @@ function Main({ hasPreorder }) {
       x += (lFollowX - x) / 30;
       y += (lFollowY - y) / 30;
 
-      const gradient = document.querySelector('.gradient');
-      if (gradient) {
-        gradient.style.transform = hasPreorder
-          ? `translateX(${x}px) translateY(calc(${y - 60}px + 1px * (var(--scroll) * 5)))`
-          : `translateX(${x}px) translateY(${y}px)`;
-      }
+      document.querySelectorAll('.parallax').forEach((parallax, i) => {
+        if (parallax) {
+          parallax.style.transform = hasPreorder
+            ? `translateX(${x}px) translateY(calc(${y - 60}px + 1px * (var(--scroll) * 5)))`
+            : `translateX(${x / (i ? 4 : 1)}px) translateY(${y / (i ? 4 : 1)}px)`;
+        }
+      });
       frame = window.requestAnimationFrame(handleMovement);
     }
     handleMovement();
@@ -189,48 +187,49 @@ function Main({ hasPreorder }) {
     };
   });
   const handleEffect = (e) => {
-    document.querySelectorAll('.gradient').forEach((txt) => {
-      if (e.view.innerWidth >= 1024 && e.view.innerWidth > e.view.innerHeight) {
-        lFollowX = isExpand
-          ? (e.clientX - 256 - (e.view.innerWidth - 256) / 2) / 10
-          : (e.clientX - 56 - (e.view.innerWidth - 56) / 2) / 10;
-        lFollowY = (e.clientY - 56 - (e.view.innerHeight - 56) / 2) / 10;
-        txt.style.transform = `translateX(${x}px) translateY(${y}px)`;
-      }
-    });
+    if (e.view.innerWidth >= 1024 && e.view.innerWidth > e.view.innerHeight) {
+      lFollowX = isExpand
+        ? (e.clientX - 256 - (e.view.innerWidth - 256) / 2) / 10
+        : (e.clientX - 56 - (e.view.innerWidth - 56) / 2) / 10;
+      lFollowY = (e.clientY - 56 - (e.view.innerHeight - 56) / 2) / 10;
+    }
   };
 
   return (
     <div
       onMouseMove={handleEffect}
-      className="flex min-h-full flex-col items-stretch justify-stretch overflow-hidden transition-all duration-300"
+      className="flex min-h-full flex-col items-stretch justify-stretch overflow-hidden"
     >
       <div
-        className={`${styles.bgClip} gradient pointer-events-none relative -ml-[50%] flex w-[200%] flex-1 flex-col items-center justify-center bg-gradient-to-tr from-cyan-500 from-30% to-pink-500 to-70%`}
+        className={`${styles.bgClip} parallax pointer-events-none relative -ml-[50%] mt-24 flex w-[200%] flex-1 flex-col items-center justify-center bg-gradient-to-tr from-cyan-500 from-30% to-pink-500 to-70%`}
       >
         <div
           id={`${styles.backdrop}`}
           className="absolute left-0 top-0 z-10 h-full w-full bg-back opacity-0"
         ></div>
-        <span className={`${styles.giant}`}>
+        <span className={`${styles.giant} mb-72`}>
           {hasPreorder ? 'Preorder' : 'No Preorder'}
         </span>
-        <span className={`${styles.giant}`}>
-          {hasPreorder ? 'Available!' : 'List Founded'}
-        </span>
-        <span className="h4 relative my-6 max-sm:text-sm">
-          {hasPreorder
-            ? '“Scroll down to preorder your dishes \\^o^/”'
-            : '“Go to home to change your dishes;)”'}
-          <Image
-            className={`absolute -bottom-24 -right-28 max-sm:-right-20 max-sm:scale-75 ${styles.gif} ${!hasPreorder && 'hidden'}`}
-            src={'/arrow.gif'}
-            unoptimized={true}
-            alt="arrow-gif"
-            width={150}
-            height={(150 * 772) / 826}
-          />
-        </span>
+        <div
+          className={`${styles.bgClip} parallax pointer-events-none absolute inset-0 flex flex-1 flex-col items-center justify-center bg-gradient-to-tr from-cyan-500 from-30% to-pink-500 to-70% max-md:-mt-20 max-sm:-mt-24`}
+        >
+          <span className={`${styles.giant}`}>
+            {hasPreorder ? 'Available!' : 'List Founded'}
+          </span>
+          <span className="h4 parallax relative my-6 max-sm:text-sm">
+            {hasPreorder
+              ? '“Scroll down to preorder your dishes \\^o^/”'
+              : '“Go to home to change your dishes;)”'}
+            <Image
+              className={`absolute -bottom-24 -right-28 max-sm:-right-20 max-sm:scale-75 ${styles.gif} ${!hasPreorder && 'hidden'}`}
+              src={'/arrow.gif'}
+              unoptimized={true}
+              alt="arrow-gif"
+              width={150}
+              height={(150 * 772) / 826}
+            />
+          </span>
+        </div>
       </div>
 
       <div

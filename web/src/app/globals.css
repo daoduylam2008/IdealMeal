@@ -146,7 +146,7 @@
 
   /* Header */
   header {
-    @apply flex h-14 items-center border-b-2 border-solid border-border max-sm:h-12;
+    @apply flex h-14 items-center border-b-2 border-border max-sm:h-12 transition-[border-color] duration-300;
   }
   header h1 {
     @apply ml-3 font-bold;

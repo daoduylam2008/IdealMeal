@@ -1,5 +1,10 @@
 'use client';
 import styles from './Calendar.module.css';
+import TodayModal from '@/app/components/modals/today-modal';
+import { useState, useEffect, useContext } from 'react';
+import { IsSidebarExpandContext } from '@/app/components/header';
+import { useCalendar } from '@/app/hooks/useCalendar';
+import { useUpdateMeals } from '@/app/hooks/useUpdateMeals';
 import {
   ForwardArrow,
   Modify,
@@ -9,11 +14,6 @@ import {
   Loader,
   Qr,
 } from '@/app/components/icons';
-import { useState, useEffect, useContext } from 'react';
-import { IsSidebarExpandContext } from '@/app/components/header';
-import { useCalendar } from '@/app/hooks/useCalendar';
-import { useUpdateMeals } from '@/app/hooks/useUpdateMeals';
-import TodayModal from '@/app/components/modals/today-modal';
 
 export default function Home() {
   const now = new Date();
@@ -47,8 +47,11 @@ export default function Home() {
 
   return (
     <div className="flex h-full flex-col lg:landscape:flex-row">
-      <div className="hidden flex-row border-b-2 border-border max-sm:flex">
-        <div className="h-28 flex-1 overflow-hidden border-r-2 border-border bg-back px-4 py-3">
+      <div
+        className={`hidden flex-row border-b-2 border-border max-sm:${todayDish.dish_id && todayDish.dish_id !== 'Không ăn' && 'flex'}`}
+        onClick={todayDish.dish_id && handleOpenTodayModal}
+      >
+        <div className="h-28 flex-1 overflow-hidden border-r-2 border-border px-4 py-3 transition-[border-color] duration-300">
           <p>Date</p>
           <div className="flex flex-nowrap">
             <span className="h3 overflow-hidden text-ellipsis whitespace-nowrap">
@@ -59,12 +62,12 @@ export default function Home() {
           <p>Your set</p>
           <div className="flex flex-nowrap">
             <span className="h3 overflow-hidden text-ellipsis whitespace-nowrap">
-              {todayDish.dish_id || ''}
+              {todayDish.dish_id || 'Không ăn'}
             </span>
           </div>
         </div>
 
-        <div className="flex h-28 w-auto flex-row-reverse bg-back">
+        <div className="flex h-28 w-auto flex-row-reverse">
           <header className="h-auto w-12 items-center justify-center border-b-0 border-l-2">
             <h2 className="m-0 [writing-mode:vertical-lr]">Qrcode</h2>
           </header>
@@ -78,11 +81,11 @@ export default function Home() {
       <div className={`flex flex-1 flex-col items-stretch`}>
         <div>
           <div
-            className={`flex h-14 items-center justify-between border-b-2 border-border bg-back transition-all duration-300 max-sm:h-12`}
+            className={`flex h-14 items-center justify-between border-b-2 border-border transition-[border-color] duration-300 max-sm:h-12`}
           >
             <div className="flex items-center">
               <div
-                className="flex h-[calc(3.5rem-2px)] w-[calc(3.5rem-2px)] rotate-180 items-center justify-center transition-all duration-300 hover:scale-125 max-sm:h-[calc(3rem-2px)] max-sm:w-[calc(3rem-2px)] lg:landscape:hidden"
+                className="flex h-[calc(3.5rem-2px)] w-[calc(3.5rem-2px)] rotate-180 items-center justify-center transition-transform duration-300 hover:scale-125 max-sm:h-[calc(3rem-2px)] max-sm:w-[calc(3rem-2px)] lg:landscape:hidden"
                 onClick={() => {
                   setSelectedIndex(null);
                   setTime(
@@ -100,7 +103,7 @@ export default function Home() {
                 })}
               </h2>
               <div
-                className="hidden h-[calc(3.5rem-2px)] w-[calc(3.5rem-2px)] rotate-180 items-center justify-center transition-all duration-300 hover:scale-125 max-sm:h-[calc(3rem-2px)] max-sm:w-[calc(3rem-2px)] lg:landscape:flex"
+                className="hidden h-[calc(3.5rem-2px)] w-[calc(3.5rem-2px)] rotate-180 items-center justify-center transition-transform duration-300 hover:scale-125 max-sm:h-[calc(3rem-2px)] max-sm:w-[calc(3rem-2px)] lg:landscape:flex"
                 onClick={() => {
                   setSelectedIndex(null);
                   setTime(
@@ -112,7 +115,7 @@ export default function Home() {
                 <ForwardArrow />
               </div>
               <div
-                className="flex h-[calc(3.5rem-2px)] w-[calc(3.5rem-2px)] items-center justify-center transition-all duration-300 hover:scale-125 max-sm:h-[calc(3rem-2px)] max-sm:w-[calc(3rem-2px)]"
+                className="flex h-[calc(3.5rem-2px)] w-[calc(3.5rem-2px)] items-center justify-center transition-transform duration-300 hover:scale-125 max-sm:h-[calc(3rem-2px)] max-sm:w-[calc(3rem-2px)]"
                 onClick={() => {
                   setSelectedIndex(null);
                   setTime(
@@ -126,7 +129,7 @@ export default function Home() {
             </div>
             {order.isPending ? (
               <div
-                className="flex h-[calc(3.5rem-2px)] w-[calc(3.5rem-2px)] items-center justify-center transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0.5 max-sm:h-[calc(3rem-2px)] max-sm:w-[calc(3rem-2px)]"
+                className="flex h-[calc(3.5rem-2px)] w-[calc(3.5rem-2px)] items-center justify-center max-sm:h-[calc(3rem-2px)] max-sm:w-[calc(3rem-2px)]"
                 onClick={handleUpdateMeal}
               >
                 <Loader />
@@ -134,14 +137,14 @@ export default function Home() {
             ) : isEdit ? (
               <div className="flex">
                 <div
-                  className="flex h-[calc(3.5rem-2px)] w-[calc(3.5rem-2px)] items-center justify-center transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0.5 max-sm:h-[calc(3rem-2px)] max-sm:w-[calc(3rem-2px)]"
+                  className="flex h-[calc(3.5rem-2px)] w-[calc(3.5rem-2px)] items-center justify-center transition-transform duration-300 hover:-translate-y-0.5 active:translate-y-0.5 max-sm:h-[calc(3rem-2px)] max-sm:w-[calc(3rem-2px)]"
                   onClick={handleUpdateMeal}
                 >
                   <Save />
                 </div>
 
                 <div
-                  className="flex h-[calc(3.5rem-2px)] w-[calc(3.5rem-2px)] items-center justify-center transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0.5 max-sm:h-[calc(3rem-2px)] max-sm:w-[calc(3rem-2px)]"
+                  className="flex h-[calc(3.5rem-2px)] w-[calc(3.5rem-2px)] items-center justify-center transition-transform duration-300 hover:-translate-y-0.5 active:translate-y-0.5 max-sm:h-[calc(3rem-2px)] max-sm:w-[calc(3rem-2px)]"
                   onClick={() => toggleEdit()}
                 >
                   <Cancel />
@@ -149,7 +152,7 @@ export default function Home() {
               </div>
             ) : (
               <div
-                className="flex h-[calc(3.5rem-2px)] w-[calc(3.5rem-2px)] items-center justify-center transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0.5 max-sm:h-[calc(3rem-2px)] max-sm:w-[calc(3rem-2px)] max-sm:scale-90"
+                className="flex h-[calc(3.5rem-2px)] w-[calc(3.5rem-2px)] items-center justify-center transition-transform duration-300 hover:-translate-y-0.5 active:translate-y-0.5 max-sm:h-[calc(3rem-2px)] max-sm:w-[calc(3rem-2px)] max-sm:scale-90"
                 onClick={() => toggleEdit()}
               >
                 <Modify />
@@ -157,12 +160,12 @@ export default function Home() {
             )}
           </div>
 
-          <div className="grid h-8 w-full grid-cols-5 grid-rows-1 border-b-2 border-border bg-back transition-all duration-300">
+          <div className="grid h-8 w-full grid-cols-5 grid-rows-1 border-b-2 border-border transition-[border-color] duration-300">
             {['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map((e, i) => {
               return (
                 <div
                   key={e}
-                  className={`flex items-center justify-center transition-all duration-300 ${i % 5 !== 4 && 'border-r-2 border-border'}`}
+                  className={`flex items-center justify-center transition-[border-color] duration-300 ${i % 5 !== 4 && 'border-r-2 border-border'}`}
                 >
                   <span className="p">{e}</span>
                 </div>
@@ -173,7 +176,7 @@ export default function Home() {
 
         <div className="flex w-full flex-1">
           <div
-            className={`z-0 grid w-full grid-cols-5 ${calendar.length === 4 ? 'grid-rows-4' : 'grid-rows-5'} min-h-0 bg-border`}
+            className={`z-0 grid w-full grid-cols-5 ${calendar.length === 4 ? 'grid-rows-4' : 'grid-rows-5'} min-h-0`}
           >
             {calendar.map((week, weekIndex) =>
               week.map(({ date, isThisMonth, meal, selection }, day) => {
@@ -264,7 +267,7 @@ function CalendarBox({
           : handleOpenDialog
       }
       className={
-        `relative flex flex-col items-stretch justify-between overflow-visible border-border bg-back px-2 pb-0.5 pt-1 transition-all duration-300 hover:shadow-[inset_0px_0px_15px_var(--shadow)] sm:px-3 sm:py-2 ` +
+        `relative flex flex-col items-stretch justify-between overflow-visible border-border px-2 pb-0.5 pt-1 transition-[box-shadow,border-color] duration-300 hover:shadow-[inset_0px_0px_15px_var(--shadow)] sm:px-3 sm:py-2 ` +
         `${weekIndex !== lastWeekIndex && 'border-b-2'} ${day % 5 !== 4 && 'border-r-2'} ${isNow && `${styles.nowBox}`}`
       }
       id={mounted ? date.toString() : undefined}

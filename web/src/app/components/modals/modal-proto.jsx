@@ -15,7 +15,7 @@ export default function Modal({ id, action, header, children, ...btn }) {
           <button onClick={handleClose} title="close-dialog">
             <div className={`${styles.cancelButton1} p-8`}>
               <div
-                className={`${styles.cancelButton2} transition-all duration-300`}
+                className={`${styles.cancelButton2} transition-transform duration-300`}
               >
                 <Cancel />
               </div>
