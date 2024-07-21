@@ -49,7 +49,7 @@
 @layer components {
   /* Box */
   .box {
-    @apply mb-14 flex h-auto w-[400px] flex-col items-center rounded-xl border-2 border-border bg-back px-12 pb-14 pt-12;
+    @apply mb-14 flex h-auto w-[400px] flex-col items-center rounded-xl border-2 bg-back px-12 pb-14 pt-12;
   }
   .box h2 {
     @apply mb-6 text-2xl font-bold;
@@ -125,6 +125,11 @@
 }
 
 @layer base {
+  *,
+  ::before,
+  ::after {
+    @apply border-border;
+  }
   /* Color */
   h1 {
     @apply text-xl font-bold text-main sm:text-2xl;
@@ -146,7 +151,7 @@
 
   /* Header */
   header {
-    @apply flex h-14 items-center border-b-2 border-border max-sm:h-12 transition-[border-color] duration-300;
+    @apply flex h-14 items-center border-b-2 transition-[border-color] duration-300 max-sm:h-12;
   }
   header h1 {
     @apply ml-3 font-bold;
@@ -158,7 +163,7 @@
 
   /* Input */
   input {
-    @apply mb-3 h-12 w-auto min-w-72 rounded border-2 border-border bg-back px-3 text-main;
+    @apply mb-3 h-12 w-auto min-w-72 rounded border-2 bg-back px-3 text-main;
   }
   label:has(+ input) {
     @apply text-sm text-dark;
@@ -166,7 +171,7 @@
   /* Input */
 
   textarea {
-    @apply mb-3 w-auto min-w-72 overflow-x-hidden rounded border-2 border-border bg-back px-3 py-2 text-main;
+    @apply mb-3 w-auto min-w-72 overflow-x-hidden rounded border-2 bg-back px-3 py-2 text-main;
   }
   /* Feedback placeholder */
   textarea::-webkit-input-placeholder {
@@ -256,5 +261,4 @@
   html::-webkit-scrollbar-thumb:hover {
     background: var(--main) !important;
   }
-
 }

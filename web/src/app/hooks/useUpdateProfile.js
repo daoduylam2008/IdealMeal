@@ -3,8 +3,9 @@
 import { useMutation } from '@tanstack/react-query';
 import { useQueryClient } from '@tanstack/react-query';
 import { updateProfile } from '../utils/controllers/actions';
+import { handleCloseModal } from '../components/modals/modal-proto';
 
-export const useUpdateProfile = (setError, handleClose, email, phone) => {
+export const useUpdateProfile = (setError, email, phone) => {
   const queryClient = useQueryClient();
   const handleCheckBeforeUpdate = (data) => {
     if (data.email === email || data.phone === phone) {
@@ -13,7 +14,7 @@ export const useUpdateProfile = (setError, handleClose, email, phone) => {
       } else if (data.phone !== phone) {
         handleUpdate.mutate({ phone: data.phone });
       } else {
-        handleClose();
+        handleCloseModal({ id: 'profile-modal' });
       }
     } else {
       handleUpdate.mutate(data);
@@ -54,7 +55,7 @@ export const useUpdateProfile = (setError, handleClose, email, phone) => {
     onSettled: (res) => {
       if (res.ok) {
         queryClient.invalidateQueries(['profile']);
-        handleClose();
+        handleCloseModal({ id: 'profile-modal' });
       } else {
         throw 'Un';
       }

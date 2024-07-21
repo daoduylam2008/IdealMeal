@@ -67,7 +67,7 @@ export default function SideBar({
       ></div>
       <nav
         className={
-          'fixed bottom-0 left-0 z-20 flex w-14 flex-col border-r-2 border-border bg-back transition-[border-color,width,padding-top,background-color] duration-300 max-sm:h-12 max-sm:w-full max-sm:flex-row max-sm:justify-around max-sm:border-r-0 max-sm:border-t-2 sm:top-14 ' +
+          'fixed bottom-0 left-0 z-20 flex w-14 flex-col border-r-2 bg-back transition-[border-color,width,padding-top,background-color] duration-300 max-sm:h-12 max-sm:w-full max-sm:flex-row max-sm:justify-around max-sm:border-r-0 max-sm:border-t-2 sm:top-14 ' +
           `${isExpand && 'lg:landscape:w-64 lg:landscape:pt-4'} ${isTabletExpand && 'sm:w-64 sm:pt-4'}`
         }
         // style={{

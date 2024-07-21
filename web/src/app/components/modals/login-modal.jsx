@@ -28,12 +28,6 @@ function LoginModal() {
       }
     },
   });
-
-  const handleClose = (e) => {
-    e.preventDefault();
-    const modal = document.getElementById('login-modal');
-    modal.close();
-  };
   // Validation
   const schema = z.object({
     email: z.string().email({ message: 'Invalid Email' }),

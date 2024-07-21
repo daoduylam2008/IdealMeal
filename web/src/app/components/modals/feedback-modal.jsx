@@ -3,6 +3,7 @@ import Modal from './modal-proto';
 import styles from './Modal.module.css';
 import StatusModal from './status-modal';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { handleCloseModal } from './modal-proto';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Star } from '../icons';
@@ -27,13 +28,7 @@ function FeedbackModal({ date, dish_id, countDown, handleSend, setClose }) {
     setValue,
     getValues,
   } = useForm({ resolver: zodResolver(schema), defaultValues: { rate: 0 } });
-  const handleClose = (e) => {
-    if (e) {
-      e.preventDefault();
-    }
-    const modal = document.getElementById('feedback-modal');
-    modal.close();
-  };
+
   const handleChange = (e) => {
     const stars = document.querySelectorAll('.star');
     if (getValues('rate')) {
@@ -51,7 +46,7 @@ function FeedbackModal({ date, dish_id, countDown, handleSend, setClose }) {
   };
 
   if (handleSend.isSuccess) {
-    handleClose();
+    handleCloseModal({ id: 'feedback-modal' });
     const statusModal = document.getElementById('status-modal');
     statusModal.showModal();
     statusModal.addEventListener('close', () => {
@@ -68,7 +63,7 @@ function FeedbackModal({ date, dish_id, countDown, handleSend, setClose }) {
         isLoading={handleSend.isPending}
       >
         <div
-          className={`flex -mt-5 h-20 flex-row-reverse items-stretch justify-between ${styles.stars}`}
+          className={`-mt-5 flex h-20 flex-row-reverse items-stretch justify-between ${styles.stars}`}
         >
           {[...Array(5).keys()].map((e) => (
             <div

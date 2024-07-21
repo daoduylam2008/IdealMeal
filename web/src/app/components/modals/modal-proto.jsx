@@ -2,11 +2,24 @@ import styles from './Modal.module.css';
 import { ColorfulButton } from '../buttons/buttons';
 import { Cancel } from '../icons';
 
+export const handleCloseModal = ({ id }) => {
+  const modal = document.getElementById(id);
+  modal.classList.add(styles.close);
+  setTimeout(() => {
+    modal.classList.remove(styles.close);
+    modal.close();
+  }, 300);
+};
+
 export default function Modal({ id, action, header, children, ...btn }) {
   const handleClose = (e) => {
     e.preventDefault();
     const modal = document.getElementById(id);
-    modal.close();
+    modal.classList.add(styles.close);
+    setTimeout(() => {
+      modal.classList.remove(styles.close);
+      modal.close();
+    }, 300);
   };
   return (
     <dialog id={id} className={`${styles.modal}`}>

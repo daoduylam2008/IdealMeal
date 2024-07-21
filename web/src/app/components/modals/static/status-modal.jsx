@@ -14,7 +14,7 @@ function StatusModal({ msg, btnMsg }) {
     <div className={`${styles.modal} `}>
       <div className="mx-10 mt-7 flex flex-col items-stretch">
         <h1>Status</h1>
-        <div className="rounded border-2 border-border p-5">
+        <div className="rounded border-2 p-5">
           <div className="flex flex-col items-center justify-center">
             <span className="h4 text-center">{msg}</span>
           </div>

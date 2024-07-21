@@ -103,7 +103,10 @@ function VerifyModal() {
             </div>
           </div>
 
-          <ColorfulButton content={'Next'} isLoading={handleVerify.isPending || handleVerify.isSuccess} />
+          <ColorfulButton
+            content={'Next'}
+            isLoading={handleVerify.isPending || handleVerify.isSuccess}
+          />
         </div>
       </form>
     </div>

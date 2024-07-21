@@ -34,8 +34,8 @@ function Profile() {
   return (
     <>
       <div className="flex min-h-full flex-col items-center space-y-5 px-5 py-10 sm:space-y-10">
-        <div className="relative flex w-[calc(100vw-6rem)] max-w-2xl flex-col items-center rounded border-2 border-border transition-[border-color] duration-300 max-sm:w-full">
-          <span className="absolute -top-5 h-32 w-32 rounded-full border-2 border-border bg-light transition-colors duration-300 max-sm:h-[6.5rem] max-sm:w-[6.5rem]"></span>
+        <div className="relative flex w-full max-w-2xl flex-col items-center rounded border-2 transition-[border-color] duration-300">
+          <span className="absolute -top-5 h-32 w-32 rounded-full border-2 bg-light transition-colors duration-300 max-sm:h-[6.5rem] max-sm:w-[6.5rem]"></span>
           <div className="my-3 flex justify-between self-stretch px-1 py-3.5 sm:my-4 sm:px-7 sm:py-5">
             <div className="flex-1 text-center">
               <p className="mb-1">Room</p>
@@ -56,7 +56,7 @@ function Profile() {
             </span>
           </div>
         </div>
-        <div className="w-[calc(100vw-6rem)] max-w-2xl rounded border-2 border-border transition-[border-color] duration-300 max-sm:w-full">
+        <div className="w-full max-w-2xl rounded border-2 transition-[border-color] duration-300">
           <div className="flex items-center justify-between">
             <span className="h2 ml-9 py-4 sm:py-5">Details</span>
             <div
@@ -111,7 +111,7 @@ function Profile() {
           </div>
         </div>
 
-        <div className="w-[calc(100vw-6rem)] max-w-2xl rounded border-2 border-border transition-[border-color] duration-300 max-sm:w-full">
+        <div className="w-full max-w-2xl rounded border-2 transition-[border-color] duration-300">
           <div className="flex items-center justify-between">
             <span className="h2 ml-9 py-4 sm:py-5">Account</span>
             <div
@@ -144,7 +144,7 @@ function Profile() {
             </div>
           </div>
         </div>
-        <div className="flex w-[calc(100vw-6rem)] max-w-2xl flex-col max-sm:w-full">
+        <div className="flex w-full max-w-2xl flex-col">
           <ColorfulButton content={'Logout'} handleClick={() => logout()} />
         </div>
       </div>

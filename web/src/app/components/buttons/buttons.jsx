@@ -29,9 +29,7 @@ export const ColorfulButton = ({
 export const ArrowButton = ({ content, handleClick, className }) => (
   <button className={`${styles.button1}`} onClick={handleClick}>
     <div className={`${styles.button2} ${className}`}>
-      <span className={`${styles.buttonlogin3}`}>
-        {content}
-      </span>
+      <span className={`${styles.buttonlogin3}`}>{content}</span>
       <Arrow />
     </div>
   </button>

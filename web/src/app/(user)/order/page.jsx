@@ -103,7 +103,7 @@ function Preorder({ meals }) {
                 dateStyle: 'medium',
               })}`}
             </span>
-            <div className="choices mx-5 w-[calc(100vw-6rem)] max-w-2xl rounded border-2 border-border transition-[border-color] duration-300 max-sm:w-full">
+            <div className="choices mx-5 w-[calc(100vw-6rem)] max-w-2xl rounded border-2 transition-[border-color] duration-300 max-sm:w-full">
               {e.dish_ids.map((dish, j) => {
                 return (
                   <div
@@ -115,7 +115,7 @@ function Preorder({ meals }) {
                       });
                     }}
                   >
-                    <div className="hover-wrapper flex items-center justify-center transition-[background-color] duration-300 hover:bg-light h-12 sm:h-14">
+                    <div className="hover-wrapper flex h-12 items-center justify-center transition-[background-color] duration-300 hover:bg-light sm:h-14">
                       <span
                         className={`h3 pointer-events-none font-semibold ${typeof orderList[i] === 'undefined' ? 'text-main' : orderList[i] === j ? 'text-main' : '!text-dark'} sm:text-xl`}
                       >

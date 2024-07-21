@@ -1,5 +1,5 @@
 .button {
-  @apply h-12 w-auto rounded border-2 border-border bg-light transition-[background-color] duration-300 hover:bg-border disabled:opacity-50;
+  @apply h-12 w-auto rounded border-2 bg-light transition-[background-color] duration-300 hover:bg-border disabled:opacity-50;
 }
 
 .button1 {
@@ -22,7 +22,7 @@
   background-clip: text;
   -moz-background-clip: text;
   -webkit-background-clip: text;
-  @apply ml-4 bg-gradient-to-r from-cyan-500 to-pink-500 text-lg font-bold text-transparent max-sm:text-base transition-[margin] duration-300;
+  @apply ml-4 bg-gradient-to-r from-cyan-500 to-pink-500 text-lg font-bold text-transparent transition-[margin] duration-300 max-sm:text-base;
 }
 .button3 {
   background-clip: text;

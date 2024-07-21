@@ -396,7 +396,7 @@ export const Hr = () => (
         className="fill-border transition-all duration-300"
       />
     </svg>
-    <div className="h-0 flex-1 border-y-[1px] border-border transition-all duration-300"></div>
+    <div className="h-0 flex-1 border-y-[1px] transition-all duration-300"></div>
     <svg
       className="absolute right-[-2px]"
       width="10"

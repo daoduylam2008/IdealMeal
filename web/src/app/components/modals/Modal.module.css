@@ -1,5 +1,5 @@
 .modal {
-  @apply relative w-[400px] rounded-xl border-2 border-border bg-back bg-center max-sm:mx-0 max-sm:mb-0 max-sm:h-[calc(100vh-7rem)] max-sm:w-full max-sm:rounded-b-none;
+  @apply relative w-[400px] rounded-xl border-2 bg-back max-sm:mx-0 max-sm:mb-0 max-sm:h-[calc(100%-7rem)] max-sm:w-full max-sm:rounded-b-none;
 }
 .modal h1 {
   @apply mb-5 text-center max-sm:text-left;
@@ -12,14 +12,6 @@
 }
 .modal input {
   @apply min-w-0;
-}
-.modal::backdrop {
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
-}
-.modal::-ms-backdrop {
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
 }
 .modal:-internal-dialog-in-top-layer {
   @apply max-sm:max-h-full max-sm:max-w-full;
@@ -37,17 +29,68 @@
   @apply !fill-light;
 }
 
-@keyframes blowUpModal {
-  0% {
-    transform: scale(1);
+.cancelButton1:hover .cancelButton2 {
+  @apply scale-110;
+}
+
+.modal[open] {
+  animation: open 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.modal.close {
+  animation: close 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes open {
+  from {
+    transform: translateY(50%) scale(0.75);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
     opacity: 1;
   }
-  100% {
-    transform: scale(0);
+}
+@keyframes close {
+  to {
+    transform: translateY(50%) scale(0.75);
     opacity: 0;
   }
 }
 
-.cancelButton1:hover .cancelButton2 {
-  @apply scale-110;
+.modal[open]::backdrop {
+  animation: backdrop-fade 300ms ease forwards;
+}
+.modal[open]::-ms-backdrop {
+  animation: backdrop-fade 300ms ease forwards;
+}
+@keyframes backdrop-fade {
+  from {
+    -webkit-backdrop-filter: blur(0px);
+    backdrop-filter: blur(0px);
+    opacity: 0;
+  }
+  to {
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    opacity: 1;
+  }
+}
+.modal.close::backdrop {
+  animation: backdrop-unfade 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.modal.close::-ms-backdrop {
+  animation: backdrop-unfade 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+@keyframes backdrop-unfade {
+  from {
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    opacity: 1;
+  }
+  to {
+    -webkit-backdrop-filter: blur(0px);
+    backdrop-filter: blur(0px);
+    opacity: 0;
+  }
 }

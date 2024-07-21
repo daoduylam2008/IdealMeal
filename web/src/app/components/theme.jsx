@@ -14,7 +14,7 @@ export default function ThemeDialog({
   const themes = ['dark', 'light'];
   return (
     <div
-      className={`z-10 flex max-h-0 w-48 flex-col items-stretch overflow-hidden rounded border-2 border-border bg-back opacity-0 transition-[max-height,opacity] duration-300 ${isThemeSelectionOpen && '!max-h-44 opacity-100'}`}
+      className={`z-10 flex max-h-0 w-48 flex-col items-stretch overflow-hidden rounded border-2 bg-back opacity-0 transition-[max-height,opacity] duration-300 ${isThemeSelectionOpen && '!max-h-44 opacity-100'}`}
       onClick={handleExpandThemeMenu}
     >
       {mounted && (

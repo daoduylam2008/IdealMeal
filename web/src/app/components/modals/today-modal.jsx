@@ -46,7 +46,7 @@ function TodayModal(props) {
         action={handleOpenFeedback}
         content={hasSendedFeedback.data ? 'Okay' : 'Any feedback?'}
       >
-        <div className="relative h-[calc(100vw-5rem-4px)] rounded border-2 border-border p-5 sm:h-80">
+        <div className="relative h-[calc(100vw-5rem-4px)] rounded border-2 p-5 sm:h-80">
           <div className="absolute inset-0 flex flex-col items-stretch justify-stretch">
             <div className="flex flex-1 items-center justify-center">
               <Qr className="m-10" />

@@ -23,16 +23,8 @@ function ProfileModal({ phone, email }) {
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
 
-  const handleClose = (e) => {
-    if (e) {
-      e.preventDefault();
-    }
-    const modal = document.getElementById('profile-modal');
-    modal.close();
-  };
   const { handleUpdate, handleCheckBeforeUpdate } = useUpdateProfile(
     setError,
-    handleClose,
     email,
     phone,
   );

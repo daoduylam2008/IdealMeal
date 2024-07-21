@@ -48,10 +48,10 @@ export default function Home() {
   return (
     <div className="flex h-full flex-col lg:landscape:flex-row">
       <div
-        className={`hidden flex-row border-b-2 border-border max-sm:${todayDish.dish_id && todayDish.dish_id !== 'Không ăn' && 'flex'}`}
+        className={`hidden flex-row border-b-2 max-sm:${todayDish.dish_id && todayDish.dish_id !== 'Không ăn' && 'flex'}`}
         onClick={todayDish.dish_id && handleOpenTodayModal}
       >
-        <div className="h-28 flex-1 overflow-hidden border-r-2 border-border px-4 py-3 transition-[border-color] duration-300">
+        <div className="h-28 flex-1 overflow-hidden border-r-2 px-4 py-3 transition-[border-color] duration-300">
           <p>Date</p>
           <div className="flex flex-nowrap">
             <span className="h3 overflow-hidden text-ellipsis whitespace-nowrap">
@@ -81,7 +81,7 @@ export default function Home() {
       <div className={`flex flex-1 flex-col items-stretch`}>
         <div>
           <div
-            className={`flex h-14 items-center justify-between border-b-2 border-border transition-[border-color] duration-300 max-sm:h-12`}
+            className={`flex h-14 items-center justify-between border-b-2 transition-[border-color] duration-300 max-sm:h-12`}
           >
             <div className="flex items-center">
               <div
@@ -160,12 +160,12 @@ export default function Home() {
             )}
           </div>
 
-          <div className="grid h-8 w-full grid-cols-5 grid-rows-1 border-b-2 border-border transition-[border-color] duration-300">
+          <div className="grid h-8 w-full grid-cols-5 grid-rows-1 border-b-2 transition-[border-color] duration-300">
             {['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map((e, i) => {
               return (
                 <div
                   key={e}
-                  className={`flex items-center justify-center transition-[border-color] duration-300 ${i % 5 !== 4 && 'border-r-2 border-border'}`}
+                  className={`flex items-center justify-center transition-[border-color] duration-300 ${i % 5 !== 4 && 'border-r-2'}`}
                 >
                   <span className="p">{e}</span>
                 </div>
@@ -200,7 +200,9 @@ export default function Home() {
                               now.getFullYear(),
                               now.getMonth(),
                               now.getDate() + 2,
-                            ) && e.target.id,
+                            ) && date.toString() !== selectedIndex
+                            ? e.target.id
+                            : null,
                         );
                     }}
                     day={day}
@@ -267,7 +269,7 @@ function CalendarBox({
           : handleOpenDialog
       }
       className={
-        `relative flex flex-col items-stretch justify-between overflow-visible border-border px-2 pb-0.5 pt-1 transition-[box-shadow,border-color] duration-300 hover:shadow-[inset_0px_0px_15px_var(--shadow)] sm:px-3 sm:py-2 ` +
+        `relative flex flex-col items-stretch justify-between overflow-visible px-2 pb-0.5 pt-1 transition-[box-shadow,border-color] duration-300 hover:shadow-[inset_0px_0px_15px_var(--shadow)] sm:px-3 sm:py-2 ` +
         `${weekIndex !== lastWeekIndex && 'border-b-2'} ${day % 5 !== 4 && 'border-r-2'} ${isNow && `${styles.nowBox}`}`
       }
       id={mounted ? date.toString() : undefined}
@@ -327,11 +329,26 @@ function CalendarDialog({
       });
     }
   };
+  // useEffect(() => {
+  //   const dialog = document.getElementById('selection-dialog');
+  //   dialog.animate([{ opacity: 1 }], {
+  //     duration: 300,
+  //     easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+  //     fill: 'forwards',
+  //   });
+  //   return () =>
+  //     dialog.animate([{ opacity: 0 }], {
+  //       duration: 300,
+  //       easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+  //       fill: 'forwards',
+  //     });
+  // });
   return (
     <div
+      id="selection-dialog"
       className={
-        `absolute z-10 min-w-48 flex-col items-stretch justify-center rounded border-2 border-border bg-back shadow-sm lg:landscape:w-72 ` +
-        `${isLastWeek ? 'bottom-[calc(100%-1.5rem)] sm:bottom-[calc(100%-2rem)]' : `-top-0.5`} ${day % 5 === 3 || day % 5 === 4 ? 'right-full' : `left-full ${day % 5 === 2 ? 'max-sm:-left-1/2' : ''}`}`
+        `absolute z-10 min-w-48 flex-col items-stretch justify-center rounded border-2 bg-back shadow-sm lg:landscape:w-72 ` +
+        `${isLastWeek ? 'bottom-[calc(100%-1.5rem)] sm:bottom-[calc(100%-2rem)]' : `-top-0.5`} ${day % 5 === 3 || day % 5 === 4 ? 'right-full' : `left-full ${day % 5 === 2 ? 'max-sm:-left-1/2' : ''}`} `
       }
     >
       {selection.map((e, i) => (
