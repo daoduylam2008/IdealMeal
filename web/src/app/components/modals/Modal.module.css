@@ -1,5 +1,5 @@
 .modal {
-  @apply relative w-[400px] rounded-xl border-2 bg-back max-sm:mx-0 max-sm:mb-0 max-sm:h-[calc(100%-7rem)] max-sm:w-full max-sm:rounded-b-none;
+  @apply fixed w-[400px] rounded-xl border-2 bg-back max-sm:mx-0 max-sm:mb-0 max-sm:h-[calc(100%-7rem)] max-sm:w-full max-sm:rounded-b-none;
 }
 .modal h1 {
   @apply mb-5 text-center max-sm:text-left;
@@ -43,17 +43,17 @@
 
 @keyframes open {
   from {
-    transform: translateY(50%) scale(0.75);
+    transform: translateY(50%);
     opacity: 0;
   }
   to {
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
     opacity: 1;
   }
 }
 @keyframes close {
   to {
-    transform: translateY(50%) scale(0.75);
+    transform: translateY(50%);
     opacity: 0;
   }
 }
