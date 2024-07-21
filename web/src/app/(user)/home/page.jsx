@@ -47,36 +47,38 @@ export default function Home() {
 
   return (
     <div className="flex h-full flex-col lg:landscape:flex-row">
-      <div
-        className={`hidden flex-row border-b-2 max-sm:${todayDish.dish_id && todayDish.dish_id !== 'Không ăn' && 'flex'}`}
-        onClick={todayDish.dish_id && handleOpenTodayModal}
-      >
-        <div className="h-28 flex-1 overflow-hidden border-r-2 px-4 py-3 transition-[border-color] duration-300">
-          <p>Date</p>
-          <div className="flex flex-nowrap">
-            <span className="h3 overflow-hidden text-ellipsis whitespace-nowrap">
-              {`${new Date().getFullYear()}/${new Date().getMonth() + 1}/${new Date().getDate()}`}
-            </span>
+      {todayDish.dish_id && todayDish.dish_id !== 'Không ăn' && (
+        <div
+          className={`hidden flex-row border-b-2 max-sm:flex`}
+          onClick={todayDish.dish_id && handleOpenTodayModal}
+        >
+          <div className="h-28 flex-1 overflow-hidden border-r-2 px-4 py-3 transition-[border-color] duration-300">
+            <p>Date</p>
+            <div className="flex flex-nowrap">
+              <span className="h3 overflow-hidden text-ellipsis whitespace-nowrap">
+                {`${new Date().getFullYear()}/${new Date().getMonth() + 1}/${new Date().getDate()}`}
+              </span>
+            </div>
+
+            <p>Your set</p>
+            <div className="flex flex-nowrap">
+              <span className="h3 overflow-hidden text-ellipsis whitespace-nowrap">
+                {todayDish.dish_id || 'Không ăn'}
+              </span>
+            </div>
           </div>
 
-          <p>Your set</p>
-          <div className="flex flex-nowrap">
-            <span className="h3 overflow-hidden text-ellipsis whitespace-nowrap">
-              {todayDish.dish_id || 'Không ăn'}
-            </span>
+          <div className="flex h-28 w-auto flex-row-reverse">
+            <header className="h-auto w-12 items-center justify-center border-b-0 border-l-2">
+              <h2 className="m-0 [writing-mode:vertical-lr]">Qrcode</h2>
+            </header>
+
+            <div className="flex w-28 flex-1 scale-90 items-center justify-center p-3">
+              <Qr />
+            </div>
           </div>
         </div>
-
-        <div className="flex h-28 w-auto flex-row-reverse">
-          <header className="h-auto w-12 items-center justify-center border-b-0 border-l-2">
-            <h2 className="m-0 [writing-mode:vertical-lr]">Qrcode</h2>
-          </header>
-
-          <div className="flex w-28 flex-1 scale-90 items-center justify-center p-3">
-            <Qr />
-          </div>
-        </div>
-      </div>
+      )}
 
       <div className={`flex flex-1 flex-col items-stretch`}>
         <div>
