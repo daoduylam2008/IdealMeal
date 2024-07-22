@@ -130,6 +130,31 @@ class FeedbackController {
     }
     res.json(data);
   }
+
+  async statistics(req, res) {
+    const querytParams = req.query;
+    const year = querytParams?.y && Number.parseInt(querytParams.y);
+    const data = await Feedback.aggregate([
+      {
+        $match: {
+          date: {
+            $gte: new Date(year, 1, 1),
+            $lte: new Date(year, 11, 31),
+          },
+        },
+      },
+      {
+        $group: {
+          _id: {
+            $month: "$date",
+          },
+          avgRate: { $avg: "$rate" },
+        },
+      },
+      { $sort: { _id: 1 } },
+    ]);
+    res.json(data);
+  }
 }
 
 module.exports = new FeedbackController();
