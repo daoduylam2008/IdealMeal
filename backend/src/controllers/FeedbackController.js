@@ -138,20 +138,25 @@ class FeedbackController {
       {
         $match: {
           date: {
-            $gte: new Date(year, 1, 1),
-            $lte: new Date(year, 11, 31),
+            $gte: new Date(year - 1, 8, 1),
+            $lte: new Date(year, 4, 31),
           },
         },
       },
       {
         $group: {
           _id: {
-            $month: "$date",
+            month: {
+              $month: "$date",
+            },
+            year: {
+              $year: "$date",
+            },
           },
           avgRate: { $avg: "$rate" },
         },
       },
-      { $sort: { _id: 1 } },
+      { $sort: { "_id.year": 1, "_id.month": 1 } },
     ]);
     res.json(data);
   }
