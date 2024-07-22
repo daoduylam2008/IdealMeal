@@ -2,6 +2,10 @@ const User = require("../models/User");
 const Meal = require("../models/Meal");
 
 class OrderController {
+  async create(req, res) {
+    await Meal.insertMany(req.body.meals);
+    res.json({ ok: true });
+  }
   async show(req, res) {
     const now = new Date();
     const id = Number.parseInt(req.query.id);

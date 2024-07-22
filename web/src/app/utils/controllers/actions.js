@@ -183,12 +183,14 @@ export const getOrderList = async () => {
 
 export const createFeedback = async (data) => {
   await dbConnect();
-  const { name } = await instance.get('/profile').data;
-  await Feedback.create({
-    student_id: id,
-    name,
-    ...data,
+  await instance.get('/profile').then(async (res) => {
+    await Feedback.create({
+      student_id: id,
+      name: res.data.name,
+      ...data,
+    });
   });
+
   return { ok: true };
 };
 
