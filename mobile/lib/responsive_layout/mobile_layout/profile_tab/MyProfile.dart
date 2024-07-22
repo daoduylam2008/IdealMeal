@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:ideal_meal/API/ResponseAPi.dart';
 import 'package:ideal_meal/constant.dart';
 import 'package:ideal_meal/responsive_layout/mobile_layout/Widget/CardWidget.dart';
@@ -13,7 +12,6 @@ class MyProfile extends StatefulWidget {
 
 class _MyProfile extends State<MyProfile> {
   late Future<User> profile;
-  late Future<List<Map<String, dynamic>>> order;
   late Future<Student> me;
 
   @override
@@ -21,7 +19,7 @@ class _MyProfile extends State<MyProfile> {
     super.initState();
 
     profile = fetchProfile();
-    order = fetchOrder();
+    me = fetchMe();
   }
 
   @override
