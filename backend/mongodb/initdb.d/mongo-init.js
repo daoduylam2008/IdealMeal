@@ -90,6 +90,7 @@ for (let i = 1; i < 24; i++) {
 for (let i = 0; i < 1; i++) {
   for (let j = 0; j < users[i].meals.length; j++) {
     feedback.push({
+      name:'XXXX XXXX XXXX',
       student_id: users[i].student_id,
       date: users[i].meals[j].date,
       dish_id: users[i].meals[j].dish_id,
