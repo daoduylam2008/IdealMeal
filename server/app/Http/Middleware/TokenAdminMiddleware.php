@@ -18,7 +18,6 @@ class TokenAdminMiddleware
     {
         $token= $request->bearerToken();
         
-        
 
         $adminToken = DB::table("admin_token")?->where("token","=",$token);
 
