@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ideal_meal/constant.dart';
-import 'package:ideal_meal/DataTester.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

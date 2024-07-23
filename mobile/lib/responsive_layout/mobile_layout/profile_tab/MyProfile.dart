@@ -1,7 +1,10 @@
+import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_meal/API/ResponseAPi.dart';
 import 'package:ideal_meal/constant.dart';
 import 'package:ideal_meal/responsive_layout/mobile_layout/Widget/CardWidget.dart';
+import 'package:ideal_meal/responsive_layout/mobile_layout/Widget/CircularProgressIndicator.dart';
+import 'package:ideal_meal/responsive_layout/mobile_layout/profile_tab/EditProfile.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({super.key});
@@ -10,16 +13,28 @@ class MyProfile extends StatefulWidget {
   State<MyProfile> createState() => _MyProfile();
 }
 
-class _MyProfile extends State<MyProfile> {
+class _MyProfile extends State<MyProfile> with TickerProviderStateMixin {
   late Future<User> profile;
   late Future<Student> me;
+  late AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    _animationController.addListener(() => setState(() {}));
+    _animationController.repeat();
 
     profile = fetchProfile();
     me = fetchMe();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -45,9 +60,9 @@ class _MyProfile extends State<MyProfile> {
                             children: [
                               CardWidget(
                                   name: snapshot_1.data!.name,
-                                  // cls: studentTest.cls,
+                                  cls: cls(snapshot_1.data!.id),
                                   // address: studentTest.address,
-                                  birth: snapshot_1.data!.birth),
+                                  birth: birth(snapshot_1.data!.birth)),
                               SizedBox(
                                   height: constraints.maxHeight * 20 / 440),
                               SizedBox(
@@ -80,8 +95,29 @@ class _MyProfile extends State<MyProfile> {
                                         const Color.fromRGBO(150, 150, 150, 1),
                                         FontWeight.normal)),
                                 Text(snapshot_2.data!.email,
-                                    style:
-                                        font(20, Colors.black, FontWeight.bold))
+                                    style: font(
+                                        20, Colors.black, FontWeight.bold)),
+                                SizedBox(height: 30),
+                                InkWell(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(20)),
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: ((context) => EditProfile())));
+                                    },
+                                    child: BlurryContainer(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(20)),
+                                        width: constraints.maxWidth * 368 / 430,
+                                        height: 62,
+                                        color: const Color.fromRGBO(
+                                            231, 231, 231, .5),
+                                        child: Center(
+                                            child: Text("Edit profile",
+                                                style: font(20, Colors.black,
+                                                    FontWeight.normal))))),
                               ],
                             ),
                           )
@@ -90,7 +126,27 @@ class _MyProfile extends State<MyProfile> {
                     );
                   }));
                 }
-                return CircularProgressIndicator();
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      RotationTransition(
+                        turns: Tween(begin: 0.0, end: 1.0)
+                            .animate(_animationController),
+                        child: const GradientCircularProgressIndicator(
+                          radius: 30,
+                          gradientColors: [
+                            Colors.white,
+                            Color.fromRGBO(45, 154, 255, .9),
+                            Color.fromRGBO(255, 51, 112, .9),
+                          ],
+                          strokeWidth: 4.0,
+                        ),
+                      ),
+                      const Text("Loading..."),
+                    ],
+                  ),
+                );
               });
         });
   }

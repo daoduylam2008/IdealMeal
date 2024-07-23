@@ -156,7 +156,7 @@ class _MealView extends State<MealView> with TickerProviderStateMixin {
                         strokeWidth: 4.0,
                       ),
                     ),
-                    const Text("Please connect to internet"),
+                    const Text("Loading..."),
                   ],
                 ),
               );

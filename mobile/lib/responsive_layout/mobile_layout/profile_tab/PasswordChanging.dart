@@ -36,12 +36,10 @@ class _PasswordChanging extends State<PasswordChanging> {
     Widget yesButton = TextButton(
       child: Text("Yes", style: font(17, Colors.black, FontWeight.normal)),
       onPressed: () {
-        setState(() {
+        setState(() async {
           Navigator.pop(context);
           Navigator.pop(context);
-          user = user.then((user) {
-            return user;
-          });
+
           Phoenix.rebirth(context);
         });
       },
@@ -114,6 +112,7 @@ class _PasswordChanging extends State<PasswordChanging> {
                         height: 59,
                         width: constraints.maxWidth * 368 / 430,
                         child: TextField(
+                            style: font(20, Colors.black, FontWeight.normal) ,
                             controller: oldPassController,
                             cursorColor: Colors.black,
                             obscureText: _showOldPassword,
@@ -155,6 +154,7 @@ class _PasswordChanging extends State<PasswordChanging> {
                         height: 59,
                         width: constraints.maxWidth * 368 / 430,
                         child: TextField(
+                            style: font(20, Colors.black, FontWeight.normal) ,
                             controller: newPassController,
                             cursorColor: Colors.black,
                             obscureText: _showNewPassword,
@@ -196,6 +196,7 @@ class _PasswordChanging extends State<PasswordChanging> {
                         height: 59,
                         width: constraints.maxWidth * 368 / 430,
                         child: TextField(
+                            style: font(20, Colors.black, FontWeight.normal) ,
                             controller: confirmPassController,
                             cursorColor: Colors.black,
                             obscureText: _showConfirmPassword,

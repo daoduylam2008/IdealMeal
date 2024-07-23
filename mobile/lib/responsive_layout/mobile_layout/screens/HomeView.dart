@@ -182,7 +182,8 @@ class _HomeView extends State<HomeView> with TickerProviderStateMixin {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 try {
-                  dish = snapshot.data![dateToYYYYMMDD(DateTime.now())].toString();
+                  dish =
+                      snapshot.data![dateToYYYYMMDD(DateTime.now())].toString();
                 } catch (error) {
                   dish = "";
                 }
@@ -268,7 +269,7 @@ class _HomeView extends State<HomeView> with TickerProviderStateMixin {
                         strokeWidth: 4.0,
                       ),
                     ),
-                    const Text("Please connect to internet"),
+                    const Text("Loading..."),
                   ],
                 ),
               );
