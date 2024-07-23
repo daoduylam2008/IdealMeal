@@ -40,9 +40,9 @@ class _MobileScaffold extends State<MobileScaffold> {
               } else {
                 if (snapshot.data == true) {
                   return const UserView();
-                } else {
-                  return const LoginView();
                 }
+                return const LoginView();
+                
               }
           }
         });

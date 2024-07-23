@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_meal/constant.dart';
-import 'package:ideal_meal/DataTester.dart';
-import 'package:ideal_meal/responsive_layout/mobile_layout/mobile_layout.dart';
 import 'desktop_home.dart';
 import 'desktop_profile.dart';
 

@@ -34,7 +34,11 @@ const MEAL = "/calendar";
 const ORDER = "/order";
 const LOGIN = "/api/auth/login";
 const PROFILE = "/api/auth/profile";
+const ME = "/api/auth/me";
 const REFRESH = "/api/auth/refresh";
+const EMAIL = "/api/auth/email";
+const PASS = "/api/auth/pass";
+const PHONE = "/api/auth/phone";
 
 // convert DateTime to "DD/MM/YYYY"
 String dateToString(DateTime date) {
@@ -93,24 +97,6 @@ TextStyle font(double size, Color color, FontWeight weight) {
   ));
 }
 
-class Student {
-  final String id;
-  final String name;
-  final String email;
-  final String? created_at;
-  final String? updated_at;
-
-  Student({required this.id, required this.name, required this.email, required this.created_at, required this.updated_at});
-
-  factory Student.fromJson(Map<String, dynamic> json) {
-    return switch (json) {
-      {'id': String id, 'name': String name, 'email': String email} =>
-        Student(id: id, name: name, email: email, created_at: null, updated_at: null),
-      _ => throw const FormatException('Failed to load student.')
-    };
-  }
-}
-
 class User {
   final int id;
   final String name;
@@ -138,6 +124,51 @@ class User {
       _ => throw const FormatException('Failed to load user.')
     };
   }
+}
+
+class Student {
+  final String name;
+  final String email;
+  final int student_id;
+  final String? created_at;
+  final String? updated_at;
+
+  Student(
+      {required this.name,
+      required this.email,
+      required this.student_id,
+      required this.created_at,
+      required this.updated_at});
+
+  factory Student.fromJson(Map<String, dynamic> json) {
+    return switch (json) {
+      {
+        "name": String name,
+        "email": String email,
+        "student_id": int student_id,
+        "created_at": String? created_at,
+        "updated_at": String? updated_at
+      } =>
+        Student(
+            name: name,
+            email: email,
+            student_id: student_id,
+            created_at: created_at,
+            updated_at: updated_at),
+      _ => throw const FormatException('Failed to load student.')
+    };
+  }
+}
+
+String cls(int student_id) {
+  String id = student_id.toString();
+  String cl = id[0] + id[1] + "A" + id[2] + id[3];
+  return cl;
+}
+
+String birth(String date) {
+  var d = date.split("-");
+  return "${d[2]}/${d[1]}/${d[0]}";
 }
 
 DateTime firstDate() {

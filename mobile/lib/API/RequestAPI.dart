@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:ideal_meal/API/TokenChecking.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ideal_meal/constant.dart';
 
@@ -43,9 +44,9 @@ Future<String> refreshToken() async {
     return pref.getString('token') ?? "none";
   });
 
-  final response = await http.post(Uri.parse(URL_SERVER + REFRESH), body: {
-    "token": (await token).toString(),
-  });
+  final response = await http.post(
+      headers: {"Authorization": "Bearer " + (await token).toString()},
+      Uri.parse(URL_SERVER + REFRESH));
 
   if (response.statusCode == 200) {
     final SharedPreferences prefs = await _prefs;
@@ -55,9 +56,60 @@ Future<String> refreshToken() async {
       return token;
     });
     return jsonDecode(response.body)["access_token"];
-  } else if (response.statusCode == 500) {
-    return token;
   } else {
     return token;
+  }
+}
+
+Future<void> changeEmail(String email) async {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  var token = _prefs.then((pref) {
+    return pref.getString('token') ?? "none";
+  });
+
+  if (isExpired(await token)) {
+    await refreshToken();
+  }
+  token = _prefs.then((pref) {
+    return pref.getString('token') ?? "none";
+  });
+  final response = await http.post(
+      headers: {"Authorization": "Bearer " + (await token).toString()},
+      Uri.parse(URL_SERVER + REFRESH),
+      body: {"email": email});
+
+  if (response.statusCode == 200) {
+  } else if (response.statusCode == 500) {
+    throw Exception("Email or phone is already existed");
+  } else {
+    throw Exception("Error to change email");
+  }
+}
+
+Future<void> changePhone(String phone) async {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  var token = _prefs.then((pref) {
+    return pref.getString('token') ?? "none";
+  });
+
+  if (isExpired(await token)) {
+    await refreshToken();
+  }
+  token = _prefs.then((pref) {
+    return pref.getString('token') ?? "none";
+  });
+
+  final response = await http.post(
+      headers: {"Authorization": "Bearer " + (await token).toString()},
+      Uri.parse(URL_SERVER + REFRESH),
+      body: {"phone": phone});
+
+  if (response.statusCode == 200) {
+  } else if (response.statusCode == 500) {
+    throw Exception("Email or phone is already existed");
+  } else {
+    throw Exception("Error to change email");
   }
 }

@@ -111,7 +111,7 @@ class _LoginView extends State<LoginView> {
                                   _showPassword = !_showPassword;
                                 });
                               },
-                              icon: (_showPassword == false)
+                              icon: (_showPassword == true)
                                   ? const Icon(Icons.visibility_off)
                                   : const Icon(Icons.visibility)),
                           filled: true,
