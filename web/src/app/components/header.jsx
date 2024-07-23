@@ -3,10 +3,12 @@ import { Menu, Theme } from './icons';
 import { useState, useEffect, createContext } from 'react';
 import SideBar from './sidebar';
 import ThemeDialog from './theme';
+import { useRouter } from 'next/navigation';
 
 export const IsSidebarExpandContext = createContext(true);
 
 function Header({ children, menu }) {
+  const router = useRouter();
   const [isExpand, setIsExpand] = useState(true);
   const [isTabletExpand, setIsTabletExpand] = useState(false);
   const [isThemeSelectionOpen, setIsThemeSelectionOpen] = useState(false);
@@ -138,7 +140,9 @@ function Header({ children, menu }) {
               >
                 <Menu />
               </div>
-              <h1 className="sm:ml-0">Ideal Meal</h1>
+              <h1 className="sm:ml-0" onClick={() => router.push('/home')}>
+                Ideal Meal
+              </h1>
             </div>
             <div
               className="flex w-12 items-center justify-center self-stretch transition-transform duration-300 hover:-translate-y-0.5 active:translate-y-0.5 sm:hidden"
@@ -159,7 +163,7 @@ function Header({ children, menu }) {
             </div>
           </>
         ) : (
-          <h1>Ideal Meal</h1>
+          <h1 onClick={() => router.push('/home')}>Ideal Meal</h1>
         )}
       </header>
 

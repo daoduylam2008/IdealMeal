@@ -176,7 +176,7 @@ function Main({ hasPreorder }) {
         if (parallax) {
           parallax.style.transform = hasPreorder
             ? `translateX(${x / (i ? 4 : 1)}px) translateY(calc(${(y - 60) / (i ? 4 : 1)}px + 1px * (var(--scroll) * 5)))`
-            : `translateX(${x / (i ? 4 : 1)}px) translateY(${y / (i ? 4 : 1)}px)`;
+            : `translateX(${x / (i ? 4 : 1)}px) translateY(${(y - 10) / (i ? 4 : 1)}px)`;
         }
       });
       frame = window.requestAnimationFrame(handleMovement);
@@ -198,7 +198,7 @@ function Main({ hasPreorder }) {
   return (
     <div
       onMouseMove={handleEffect}
-      className="flex min-h-[100vh] flex-col items-stretch justify-stretch overflow-hidden"
+      className={`flex flex-col items-stretch justify-stretch overflow-hidden ${hasPreorder?'min-h-[100vh]':'h-full'}`}
     >
       <div
         className={`${styles.bgClip} parallax pointer-events-none relative -ml-[50%] mt-24 flex w-[200%] flex-1 flex-col items-center justify-center bg-gradient-to-tr from-cyan-500 from-30% to-pink-500 to-70%`}
