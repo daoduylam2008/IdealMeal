@@ -76,15 +76,6 @@ class CalendarController {
       return recursiveBinarySearch(arr, x, start, mid - 1);
     else return recursiveBinarySearch(arr, x, mid + 1, end);
   }
-
-  async create(req, res) {
-    try {
-      await Meal.insertMany(req.body);
-      res.json({ ok: true });
-    } catch (error) {
-      res.json({ ok: false });
-    }
-  }
 }
 
 module.exports = new CalendarController();

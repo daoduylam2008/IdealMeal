@@ -175,7 +175,7 @@ function Main({ hasPreorder }) {
       document.querySelectorAll('.parallax').forEach((parallax, i) => {
         if (parallax) {
           parallax.style.transform = hasPreorder
-            ? `translateX(${x}px) translateY(calc(${y - 60}px + 1px * (var(--scroll) * 5)))`
+            ? `translateX(${x / (i ? 4 : 1)}px) translateY(calc(${(y - 60) / (i ? 4 : 1)}px + 1px * (var(--scroll) * 5)))`
             : `translateX(${x / (i ? 4 : 1)}px) translateY(${y / (i ? 4 : 1)}px)`;
         }
       });
@@ -198,7 +198,7 @@ function Main({ hasPreorder }) {
   return (
     <div
       onMouseMove={handleEffect}
-      className="flex min-h-full flex-col items-stretch justify-stretch overflow-hidden"
+      className="flex min-h-[100vh] flex-col items-stretch justify-stretch overflow-hidden"
     >
       <div
         className={`${styles.bgClip} parallax pointer-events-none relative -ml-[50%] mt-24 flex w-[200%] flex-1 flex-col items-center justify-center bg-gradient-to-tr from-cyan-500 from-30% to-pink-500 to-70%`}
