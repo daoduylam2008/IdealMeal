@@ -63,18 +63,8 @@ Future<String> refreshToken() async {
 }
 
 Future<void> changeEmail(String email) async {
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  String token = await getToken();
 
-  var token = _prefs.then((pref) {
-    return pref.getString('token') ?? "none";
-  });
-
-  if (isExpired(await token)) {
-    await refreshToken();
-  }
-  token = _prefs.then((pref) {
-    return pref.getString('token') ?? "none";
-  });
   final response = await http.post(
       headers: {"Authorization": "Bearer " + (await token).toString()},
       Uri.parse(URL_SERVER + REFRESH),
@@ -89,18 +79,7 @@ Future<void> changeEmail(String email) async {
 }
 
 Future<void> changePhone(String phone) async {
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
-  var token = _prefs.then((pref) {
-    return pref.getString('token') ?? "none";
-  });
-
-  if (isExpired(await token)) {
-    await refreshToken();
-  }
-  token = _prefs.then((pref) {
-    return pref.getString('token') ?? "none";
-  });
+  String token = await getToken();
 
   final response = await http.post(
       headers: {"Authorization": "Bearer " + (await token).toString()},
@@ -115,11 +94,9 @@ Future<void> changePhone(String phone) async {
   }
 }
 
-Future<void> sendFeedback(String text, int rate) async {
-  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  Future<String> token = _prefs.then((pref) {
-    return pref.getString("token") ?? "";
-  });
+Future<void> sendFeedback(
+    String text, int rate, DateTime date, String dish_id) async {
+  String token = await getToken();
 
   var user = await fetchProfile();
 
@@ -131,4 +108,10 @@ Future<void> sendFeedback(String text, int rate) async {
     "rate": rate,
     "text": text,
   };
+
+  final response = await http.post(
+      headers: {"Authorization": "Bearer " + (await token).toString()},
+      Uri.parse(URL_SERVER + REFRESH),
+      body: body);
+  print(response);
 }

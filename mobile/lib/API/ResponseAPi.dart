@@ -1,7 +1,5 @@
 import 'package:http/http.dart' as http;
-import 'package:ideal_meal/API/RequestAPI.dart';
 import 'package:ideal_meal/API/TokenChecking.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dart:async';
 import 'dart:convert';
@@ -50,20 +48,11 @@ Future<User> fetchProfile() async {
   and basically it is noting in preference will return "none"
   software, in subsequent, may log out and refresh the token
   """;
+  String token = await getToken();
 
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
-  var token = _prefs.then((pref) {
-    return pref.getString('token') ?? "none";
-  });
-
-  if (isExpired(await token)) {
-    token = refreshToken();
-  }
-
-  final response = await http.get(uri,
-      headers: {"Authorization": "Bearer " + (await token).toString()});
-
+  final response = await http
+      .get(uri, headers: {"Authorization": "Bearer " + (await token).toString()});
+      
   if (response.statusCode == 200) {
     if (token != "none") {
       return User.fromJson(jsonDecode(response.body));
@@ -90,19 +79,10 @@ Future<Student> fetchMe() async {
   and basically it is noting in preference will return "none"
   software, in subsequent, may log out and refresh the token
   """;
+  String token = await getToken();
 
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
-  var token = _prefs.then((pref) {
-    return pref.getString('token') ?? "none";
-  });
-
-  if (isExpired(await token)) {
-    token = refreshToken();
-  }
-
-  final response = await http.get(uri,
-      headers: {"Authorization": "Bearer " + (await token).toString()});
+  final response = await http
+      .get(uri, headers: {"Authorization": "Bearer " + (token).toString()});
 
   if (response.statusCode == 200) {
     if (token != "none") {

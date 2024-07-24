@@ -200,6 +200,7 @@ class _HomeView extends State<HomeView> with TickerProviderStateMixin {
                     height: constraints.maxWidth * frameWidth / 430);
                 // qrcode image
                 var qrcode = QrImageView(
+                  // backgroundColor: Colors.white,
                   gapless: false,
                   data: dish,
                   version: QrVersions.auto,
