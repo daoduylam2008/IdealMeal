@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:ideal_meal/API/ResponseAPI.dart';
 import 'package:ideal_meal/API/TokenChecking.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ideal_meal/constant.dart';
@@ -112,4 +113,22 @@ Future<void> changePhone(String phone) async {
   } else {
     throw Exception("Error to change email");
   }
+}
+
+Future<void> sendFeedback(String text, int rate) async {
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  Future<String> token = _prefs.then((pref) {
+    return pref.getString("token") ?? "";
+  });
+
+  var user = await fetchProfile();
+
+  var body = {
+    "id": user.id,
+    "name": user.name,
+    "date": date,
+    "dish_id": dish_id,
+    "rate": rate,
+    "text": text,
+  };
 }

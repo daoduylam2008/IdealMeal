@@ -28,10 +28,12 @@ const overlayLinearColor = LinearGradient(
     ]);
 
 // constants path/url to server
-const URL_BACKEND = "http://localhost:1111";
-const URL_SERVER = "http://localhost:8000";
+const URL_BACKEND = "http://localhost:1111"; // host for backend
+const URL_SERVER = "http://localhost:8000"; // host for server
+
 const MEAL = "/calendar";
 const ORDER = "/order";
+
 const LOGIN = "/api/auth/login";
 const PROFILE = "/api/auth/profile";
 const ME = "/api/auth/me";
@@ -88,6 +90,7 @@ String iconPath(String name) {
   return "assets/icons/$name icon.png";
 }
 
+// Default font style
 TextStyle font(double size, Color color, FontWeight weight) {
   return GoogleFonts.inter(
       textStyle: TextStyle(
@@ -156,6 +159,42 @@ class Student {
             created_at: created_at,
             updated_at: updated_at),
       _ => throw const FormatException('Failed to load student.')
+    };
+  }
+}
+
+class Meal {
+  final List<dynamic> dish_ids;
+  final DateTime date;
+
+  Meal({required this.dish_ids, required this.date});
+
+  factory Meal.fromJson(Map<String, dynamic> json) {
+    return switch (json) {
+      {
+        "dish_ids": List<dynamic> dish_ids,
+        "date": DateTime date,
+      } =>
+        Meal(dish_ids: dish_ids, date: date),
+      _ => throw const FormatException("Failed to load meal.")
+    };
+  }
+}
+
+class Order {
+  final String dish_id;
+  final DateTime date;
+
+  Order({required this.dish_id, required this.date});
+
+  factory Order.fromJson(Map<String, dynamic> json) {
+    return switch (json) {
+      {
+        "dish_id": String dish_id,
+        "date": DateTime date,
+      } =>
+        Order(dish_id: dish_id, date: date),
+        _ => throw FormatException("Failed to load order")
     };
   }
 }
