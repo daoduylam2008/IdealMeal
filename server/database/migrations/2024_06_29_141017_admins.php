@@ -40,6 +40,12 @@ return new class extends Migration
             $table->index("email");
         }); 
 
+        Schema::create('password_reset_tokens', function (Blueprint $table) {
+            $table->string('email')->primary();
+            $table->string('token');
+            $table->timestamp('expired_at')->nullable();
+        });
+
     }
 
     /**
@@ -50,5 +56,6 @@ return new class extends Migration
         Schema::dropIfExists('admins');
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('admin_token');
+        Schema::dropIfExists('password_reset_tokens');
     }
 };

@@ -7,8 +7,6 @@ use DB;
 
 class AdminToken extends Controller
 {
-
-
     /***
      * 
      *  void randomCharacter

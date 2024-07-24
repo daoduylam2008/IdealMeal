@@ -4,11 +4,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FileDownloader;
+use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthJwtController;
 use App\Http\Controllers\MealDaysController;
-use App\Http\Controllers\TeachersController;
 use App\Http\Controllers\StudentsController;
+use App\Http\Controllers\TeachersController;
 
 
 Route::group(['prefix'=>"auth","namespace"=>"App\Http\Controllers"],function(){
@@ -45,6 +46,7 @@ Route::group([
 ], function (){
     Route::post("admin",[AuthController::class,'admin']);
     Route::post("account",[AdminController::class,'register']);
+    Route::post("resetPassword",[AdminController::class,'resetPassword']);
     Route::get("refreshTokenAdmin",[AuthController::class,'refreshTokenAdmin'])->middleware("token");
     Route::get("deleteTokenAdmin",[AuthController::class,'deleteTokenAdmin'])->middleware("token");
     Route::get("check",[AuthController::class,'checkTokenAdmin'])->middleware("token");
@@ -53,6 +55,4 @@ Route::group([
     Route::post("exchange",[TeachersController::class,'exchange'])->middleware("token");
     Route::post("trash",[TeachersController::class,'trash'])->middleware("token");
     Route::post("edit",[TeachersController::class,'edit'])->middleware("token");
-    
 });
-

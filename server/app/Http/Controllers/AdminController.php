@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
-
-
-
     public function register(){
         $validated = request(['email','password','name']);
         DB::table("admins")->insert(['name' => $validated['name'],"email" =>$validated['email'],"password" =>Hash::make($validated['password'])]);
@@ -29,6 +26,22 @@ class AdminController extends Controller
             'email' => $email,
             'userName' => $userName,
         ]);
-        
     }
+    public function resetPassword(){
+        $validated = request(['email','password']);
+
+        if(
+            DB::table("admin")?->where("email",'=',$validated['email'])->exists() 
+        ){
+            DB::table("admins")?->where("email",'=',$validated['email'])->update(['password' => Hash::make($validated['password'])]);
+            return response()->json([
+                "msg" => "Password reset successfully",
+            ]);
+        }else{
+            return response()->json([
+                "msg" => "Email not found",
+            ]);
+        }
+    }
+    
 }
