@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:ideal_meal/API/ResponseAPi.dart';
+import 'package:ideal_meal/API/Order.dart';
 import 'package:ideal_meal/constant.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:ideal_meal/responsive_layout/mobile_layout/Widget/CircularProgressIndicator.dart';
@@ -13,7 +15,7 @@ class OrderView extends StatefulWidget {
 
 class _OrderView extends State<OrderView> with TickerProviderStateMixin {
   late AnimationController _animationController;
-  late Future<List<Map<String, dynamic>>> orderMeal;
+  late Future<String> orderMeal;
 
   @override
   void initState() {
@@ -23,7 +25,14 @@ class _OrderView extends State<OrderView> with TickerProviderStateMixin {
     _animationController.addListener(() => setState(() {}));
     _animationController.repeat();
 
-    orderMeal = fetchOrder();
+    orderMeal = getOrder();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+
+    super.dispose();
   }
 
   // Check if user submitted or not
@@ -70,7 +79,7 @@ class _OrderView extends State<OrderView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Map<String, dynamic>>>(
+    return FutureBuilder<String>(
         future: orderMeal,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -87,8 +96,12 @@ class _OrderView extends State<OrderView> with TickerProviderStateMixin {
                         child: ListView.builder(
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {
-                            var meal = snapshot.data![index]["dish_ids"];
-                            var date = snapshot.data![index]["date"];
+                            var data = jsonDecode(snapshot.data!)
+                                .cast<String>()
+                                .toList();
+                            var meal = data["dish_ids"];
+                            var date = data["date"];
+                            print(data);
 
                             return index == 0
                                 ? Container()
@@ -136,8 +149,7 @@ class _OrderView extends State<OrderView> with TickerProviderStateMixin {
                                                   ],
                                                 ),
                                                 DropdownButtonFormField2(
-                                                    value: snapshot.data![index]
-                                                        [meal],
+                                                    value: data["dish_ids"],
                                                     buttonStyleData:
                                                         const ButtonStyleData(
                                                       padding:
@@ -163,18 +175,21 @@ class _OrderView extends State<OrderView> with TickerProviderStateMixin {
                                                     decoration: InputDecoration(
                                                         labelStyle: TextStyle(
                                                             color: Colors.black,
-                                                            fontSize:
-                                                                constraints.maxWidth *
-                                                                    20 /
-                                                                    430),
+                                                            fontSize: constraints
+                                                                    .maxWidth *
+                                                                20 /
+                                                                430),
                                                         hintText:
                                                             "Select your dish",
                                                         hintStyle: TextStyle(
                                                             color: const Color.fromRGBO(
                                                                 200, 200, 200, 1),
-                                                            fontSize:
-                                                                constraints.maxWidth * 20 / 430,
-                                                            fontWeight: FontWeight.normal),
+                                                            fontSize: constraints
+                                                                    .maxWidth *
+                                                                20 /
+                                                                430,
+                                                            fontWeight:
+                                                                FontWeight.normal),
                                                         fillColor: const Color.fromRGBO(243, 243, 243, 1),
                                                         filled: true,
                                                         border: const OutlineInputBorder(borderSide: BorderSide(width: 0, style: BorderStyle.none), borderRadius: BorderRadius.all(Radius.circular(15)))),

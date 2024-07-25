@@ -38,7 +38,7 @@ Future<bool> login(String email, String password) async {
   }
 }
 
-Future<String> refreshToken() async {
+Future<void> refreshToken() async {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   var token = _prefs.then((pref) {
@@ -51,14 +51,14 @@ Future<String> refreshToken() async {
 
   if (response.statusCode == 200) {
     final SharedPreferences prefs = await _prefs;
+
+    var newToken = jsonDecode(response.body)["access_token"].toString();
+
     token = prefs
-        .setString('token', jsonDecode(response.body)["access_token"])
+        .setString('token', newToken)
         .then((bool success) {
       return token;
     });
-    return jsonDecode(response.body)["access_token"];
-  } else {
-    return token;
   }
 }
 

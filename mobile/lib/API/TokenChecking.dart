@@ -13,7 +13,10 @@ Future<String> getToken() async {
     return pref.getString("token") ?? "";
   });
   if (isExpired(await token)) {
-    token = refreshToken();
+    refreshToken();
+    token = _prefs.then((pref) {
+      return pref.getString("token") ?? "";
+    });
   }
 
   return token;
