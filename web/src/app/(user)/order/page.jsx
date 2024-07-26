@@ -148,7 +148,10 @@ function Preorder({ meals }) {
         );
       })}
       <div className="flex w-[calc(100vw-6rem)] max-w-2xl flex-col items-stretch justify-start self-center max-sm:w-full max-sm:px-5">
-        <div className="flex flex-col items-stretch" onClick={handleOrder}>
+        <div
+          className="flex flex-col items-stretch max-sm:mb-32"
+          onClick={handleOrder}
+        >
           <ColorfulButton content={'Submit'} />
         </div>
 
@@ -198,7 +201,7 @@ function Main({ hasPreorder }) {
   return (
     <div
       onMouseMove={handleEffect}
-      className={`flex flex-col items-stretch justify-stretch overflow-hidden ${hasPreorder?'min-h-[100vh]':'h-full'}`}
+      className={`flex flex-col items-stretch justify-stretch overflow-hidden ${hasPreorder ? 'min-h-[100vh]' : 'h-full'}`}
     >
       <div
         className={`${styles.bgClip} parallax pointer-events-none relative -ml-[50%] mt-24 flex w-[200%] flex-1 flex-col items-center justify-center bg-gradient-to-tr from-cyan-500 from-30% to-pink-500 to-70%`}
