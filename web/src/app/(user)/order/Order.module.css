@@ -1,6 +1,6 @@
 .giant {
   /* font-size: 120px; */
-  letter-spacing: calc(1em * (var(--scroll) * 0.975 / 100 + 0.025));
+  letter-spacing: calc(3em * (var(--scroll) * 0.975 / 100 + 0.025));
   /* letter-spacing: calc(var(--scroll) * 1em); */
   @apply whitespace-nowrap text-5xl font-bold text-main sm:text-6xl md:text-8xl;
   -webkit-text-fill-color: var(--back);
