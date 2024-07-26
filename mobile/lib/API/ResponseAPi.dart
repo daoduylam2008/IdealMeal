@@ -8,16 +8,30 @@ import 'package:ideal_meal/constant.dart';
 
 Future<Map<String, dynamic>> fetchCalendar() async {
   var user = await fetchProfile();
-  var body = {"id": (await user.id).toString()};
+  var body = {"id": (user.id).toString()};
 
   final uri = Uri.parse(URL_BACKEND + MEAL);
   final newUri = uri.replace(queryParameters: body);
   String token = await getToken();
 
-  final response = await http.get(newUri,
-      headers: {"Authorization": "Bearer " + (await token).toString()});
+  final response =
+      await http.get(newUri, headers: {"Authorization": "Bearer $token"});
   final meal = jsonDecode(response.body);
 
+  if (response.statusCode == 200) {
+    return meal;
+  } else {
+    throw Exception("Failed to load json file");
+  }
+}
+
+Future<List<dynamic>> fetchOrder() async {
+  final uri = Uri.parse(URL_BACKEND + ORDER);
+  String token = await getToken();
+
+  final response =
+      await http.get(uri, headers: {"Authorization": "Bearer $token"});
+  final meal = jsonDecode(response.body);
   if (response.statusCode == 200) {
     return meal;
   } else {
@@ -37,8 +51,8 @@ Future<User> fetchProfile() async {
   """;
   String token = await getToken();
 
-  final response = await http.get(uri,
-      headers: {"Authorization": "Bearer " + (await token).toString()});
+  final response =
+      await http.get(uri, headers: {"Authorization": "Bearer $token"});
 
   if (response.statusCode == 200) {
     if (token != "none") {
@@ -68,9 +82,8 @@ Future<Student> fetchMe() async {
   """;
   String token = await getToken();
 
-  final response = await http
-      .get(uri, headers: {"Authorization": "Bearer " + (token).toString()});
-
+  final response =
+      await http.get(uri, headers: {"Authorization": "Bearer $token"});
   if (response.statusCode == 200) {
     if (token != "none") {
       return Student.fromJson(jsonDecode(response.body));

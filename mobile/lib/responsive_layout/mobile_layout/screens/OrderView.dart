@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:ideal_meal/API/Order.dart';
+import 'package:ideal_meal/API/RequestAPI.dart';
+import 'package:ideal_meal/API/ResponseAPI.dart';
 import 'package:ideal_meal/constant.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:ideal_meal/responsive_layout/mobile_layout/Widget/CircularProgressIndicator.dart';
@@ -15,17 +14,22 @@ class OrderView extends StatefulWidget {
 
 class _OrderView extends State<OrderView> with TickerProviderStateMixin {
   late AnimationController _animationController;
-  late Future<String> orderMeal;
+  late Future<List<dynamic>> orderMeal;
+  final Map<String, String> submitData = {};
 
   @override
   void initState() {
     super.initState();
+    orderMeal = fetchOrder();
+    orderMeal.then((value) {
+      value.map((element) => submitData[element["date"]] = "");
+    });
+
+    print(submitData);
     _animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
     _animationController.addListener(() => setState(() {}));
     _animationController.repeat();
-
-    orderMeal = getOrder();
   }
 
   @override
@@ -36,8 +40,6 @@ class _OrderView extends State<OrderView> with TickerProviderStateMixin {
   }
 
   // Check if user submitted or not
-  bool onRead = false;
-
   var buttonColor = linearColor;
 
   // Alert for pop-up window for user to confirm their selections
@@ -77,204 +79,183 @@ class _OrderView extends State<OrderView> with TickerProviderStateMixin {
     );
   }
 
+  Widget orderView(BoxConstraints constraints, AsyncSnapshot snapshot) {
+    return Container(
+      color: appBarBackground,
+      width: constraints.maxWidth,
+      height: constraints.maxHeight,
+      child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        SizedBox(
+          height: constraints.maxHeight * 560 / 649,
+          child: ListView.builder(
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              var data = snapshot.data!;
+              var meal = data[index]["dish_ids"];
+              var date = DateTime.parse(data[index]["date"]);
+              // print(meal[0].runtimeType);
+
+              return Container(
+                padding: const EdgeInsets.only(top: 8, bottom: 8),
+                child: Center(
+                  child: Stack(
+                    children: [
+                      Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                        alignment: Alignment.center,
+                        width: constraints.maxWidth * 397 / 430,
+                        height: 130,
+                        padding: EdgeInsets.only(
+                          left: constraints.maxWidth * 16 / 430,
+                          right: constraints.maxWidth * 16 / 430,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                    "${dateToDay(date)}, ${dateToString(date)}",
+                                    style: font(constraints.maxWidth * 20 / 430,
+                                        Colors.black, FontWeight.normal)),
+                              ],
+                            ),
+                            // DropdownButtonFormField2(
+                            //     value: meal,
+                            //     buttonStyleData:
+                            //         const ButtonStyleData(
+                            //       padding:
+                            //           EdgeInsets.all(0),
+                            //       decoration:
+                            //           BoxDecoration(),
+                            //       height: 25,
+                            //     ),
+                            //     iconStyleData:
+                            //         const IconStyleData(
+                            //       icon: Icon(
+                            //           Icons.expand_more),
+                            //     ),
+                            //     dropdownStyleData: const DropdownStyleData(
+                            //         decoration: BoxDecoration(
+                            //             color: Colors.white,
+                            //             borderRadius:
+                            //                 BorderRadius.all(
+                            //                     Radius.circular(
+                            //                         15)))),
+                            //     menuItemStyleData:
+                            //         const MenuItemStyleData(),
+                            //     decoration: InputDecoration(
+                            //         labelStyle: TextStyle(
+                            //             color: Colors.black,
+                            //             fontSize: constraints
+                            //                     .maxWidth *
+                            //                 20 /
+                            //                 430),
+                            //         hintText:
+                            //             "Select your dish",
+                            //         hintStyle: TextStyle(
+                            //             color: const Color.fromRGBO(
+                            //                 200, 200, 200, 1),
+                            //             fontSize: constraints
+                            //                     .maxWidth *
+                            //                 20 /
+                            //                 430,
+                            //             fontWeight: FontWeight.normal),
+                            //         fillColor: const Color.fromRGBO(243, 243, 243, 1),
+                            //         filled: true,
+                            //         border: const OutlineInputBorder(borderSide: BorderSide(width: 0, style: BorderStyle.none), borderRadius: BorderRadius.all(Radius.circular(15)))),
+                            //     items: (meal).map<DropdownMenuItem<Object>>((item) {
+                            //       return DropdownMenuItem<String>(
+                            //           value:
+                            //               item.toString(),
+                            //           child: Text(item));
+                            //     }).toList(),
+                            //     onChanged: (dynamic newValue) {
+                            //       setState(() {
+                            //         // TODO:
+                            //       });
+                            //     }),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        Container(
+          width: constraints.maxWidth,
+          height: constraints.maxHeight * (1 - 560 / 649),
+          clipBehavior: Clip.antiAlias,
+          decoration: const BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(17), topRight: Radius.circular(17)),
+          ),
+          child: Container(
+            padding: const EdgeInsets.only(top: 12),
+            alignment: Alignment.bottomCenter,
+            margin: const EdgeInsets.only(top: 5), // ***
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(17), topRight: Radius.circular(17)),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Color.fromRGBO(0, 0, 0, 0.1),
+                  blurRadius: 8,
+                  spreadRadius: 1,
+                )
+              ],
+            ),
+            child: Column(children: [
+              InkWell(
+                  hoverDuration: const Duration(seconds: 5),
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  onTapDown: (details) {
+                    setState(() {
+                      buttonColor = overlayLinearColor;
+                    });
+                  },
+                  onTapUp: (details) {
+                    setState(() {
+                      buttonColor = linearColor;
+                      showAlertDialog(context);
+                    });
+                  },
+                  child: Container(
+                      width: constraints.maxWidth * 368 / 430,
+                      height: constraints.maxHeight * 65 / 649,
+                      decoration: BoxDecoration(
+                        gradient: buttonColor,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20)),
+                      ),
+                      child: Center(
+                          child: Text("Submit",
+                              style:
+                                  font(20, Colors.white, FontWeight.normal))))),
+            ]),
+          ),
+        )
+      ]),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<String>(
+    return FutureBuilder(
         future: orderMeal,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return LayoutBuilder(builder: (context, constraints) {
-              return Container(
-                color: appBarBackground,
-                width: constraints.maxWidth,
-                height: constraints.maxHeight,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: constraints.maxHeight * 560 / 649,
-                        child: ListView.builder(
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            var data = jsonDecode(snapshot.data!)
-                                .cast<String>()
-                                .toList();
-                            var meal = data["dish_ids"];
-                            var date = data["date"];
-                            print(data);
-
-                            return index == 0
-                                ? Container()
-                                : Container(
-                                    padding: const EdgeInsets.only(
-                                        top: 8, bottom: 8),
-                                    child: Center(
-                                      child: Stack(
-                                        children: [
-                                          Container(
-                                            decoration: const BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(20))),
-                                            alignment: Alignment.center,
-                                            width: constraints.maxWidth *
-                                                397 /
-                                                430,
-                                            height: 130,
-                                            padding: EdgeInsets.only(
-                                              left: constraints.maxWidth *
-                                                  16 /
-                                                  430,
-                                              right: constraints.maxWidth *
-                                                  16 /
-                                                  430,
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                        "${dateToDay(date)}, ${dateToString(date)}",
-                                                        style: font(
-                                                            constraints
-                                                                    .maxWidth *
-                                                                20 /
-                                                                430,
-                                                            Colors.black,
-                                                            FontWeight.normal)),
-                                                  ],
-                                                ),
-                                                DropdownButtonFormField2(
-                                                    value: data["dish_ids"],
-                                                    buttonStyleData:
-                                                        const ButtonStyleData(
-                                                      padding:
-                                                          EdgeInsets.all(0),
-                                                      decoration:
-                                                          BoxDecoration(),
-                                                      height: 25,
-                                                    ),
-                                                    iconStyleData:
-                                                        const IconStyleData(
-                                                      icon: Icon(
-                                                          Icons.expand_more),
-                                                    ),
-                                                    dropdownStyleData: const DropdownStyleData(
-                                                        decoration: BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius:
-                                                                BorderRadius.all(
-                                                                    Radius.circular(
-                                                                        15)))),
-                                                    menuItemStyleData:
-                                                        const MenuItemStyleData(),
-                                                    decoration: InputDecoration(
-                                                        labelStyle: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: constraints
-                                                                    .maxWidth *
-                                                                20 /
-                                                                430),
-                                                        hintText:
-                                                            "Select your dish",
-                                                        hintStyle: TextStyle(
-                                                            color: const Color.fromRGBO(
-                                                                200, 200, 200, 1),
-                                                            fontSize: constraints
-                                                                    .maxWidth *
-                                                                20 /
-                                                                430,
-                                                            fontWeight:
-                                                                FontWeight.normal),
-                                                        fillColor: const Color.fromRGBO(243, 243, 243, 1),
-                                                        filled: true,
-                                                        border: const OutlineInputBorder(borderSide: BorderSide(width: 0, style: BorderStyle.none), borderRadius: BorderRadius.all(Radius.circular(15)))),
-                                                    items: (meal).map((items) {
-                                                      return DropdownMenuItem(
-                                                          value:
-                                                              items.toString(),
-                                                          child: Text(items
-                                                              .toString()));
-                                                    }).toList(),
-                                                    onChanged: (dynamic newValue) {
-                                                      setState(() {
-                                                        // TODO:
-                                                      });
-                                                    }),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: constraints.maxWidth,
-                        height: constraints.maxHeight * (1 - 560 / 649),
-                        clipBehavior: Clip.antiAlias,
-                        decoration: const BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(17),
-                              topRight: Radius.circular(17)),
-                        ),
-                        child: Container(
-                          padding: const EdgeInsets.only(top: 12),
-                          alignment: Alignment.bottomCenter,
-                          margin: const EdgeInsets.only(top: 5), // ***
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(17),
-                                topRight: Radius.circular(17)),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromRGBO(0, 0, 0, 0.1),
-                                blurRadius: 8,
-                                spreadRadius: 1,
-                              )
-                            ],
-                          ),
-                          child: Column(children: [
-                            InkWell(
-                                hoverDuration: const Duration(seconds: 5),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(20)),
-                                onTapDown: (details) {
-                                  setState(() {
-                                    buttonColor = overlayLinearColor;
-                                  });
-                                },
-                                onTapUp: (details) {
-                                  setState(() {
-                                    buttonColor = linearColor;
-                                    showAlertDialog(context);
-                                  });
-                                },
-                                child: Container(
-                                    width: constraints.maxWidth * 368 / 430,
-                                    height: constraints.maxHeight * 65 / 649,
-                                    decoration: BoxDecoration(
-                                      gradient: buttonColor,
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(20)),
-                                    ),
-                                    child: Center(
-                                        child: Text("Submit",
-                                            style: font(20, Colors.white,
-                                                FontWeight.normal))))),
-                          ]),
-                        ),
-                      )
-                    ]),
-              );
+              return orderView(constraints, snapshot);
             });
           }
           return Center(

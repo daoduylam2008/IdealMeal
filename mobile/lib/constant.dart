@@ -176,14 +176,14 @@ class Order {
         "date": DateTime date,
       } =>
         Order(dish_id: dish_id, date: date),
-        _ => throw FormatException("Failed to load order")
+        _ => throw const FormatException("Failed to load order")
     };
   }
 }
 
 String cls(int student_id) {
   String id = student_id.toString();
-  String cl = id[0] + id[1] + "A" + id[2] + id[3];
+  String cl = "${id[0]}${id[1]}A${id[2]}${id[3]}";
   return cl;
 }
 

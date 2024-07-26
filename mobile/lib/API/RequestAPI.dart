@@ -7,8 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ideal_meal/constant.dart';
 
 Future<bool> login(String email, String password) async {
-  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  Future<String> token = _prefs.then((pref) {
+  Future<SharedPreferences> prefs0 = SharedPreferences.getInstance();
+  Future<String> token = prefs0.then((pref) {
     return pref.getString("token") ?? "";
   });
 
@@ -20,7 +20,7 @@ Future<bool> login(String email, String password) async {
   if (response.statusCode == 200) {
     // If the server did return a 201 CREATED response,
     // then parse the JSON.
-    final SharedPreferences prefs = await _prefs;
+    final SharedPreferences prefs = await prefs0;
     token = prefs
         .setString('token', jsonDecode(response.body)["access_token"])
         .then((bool success) {
@@ -39,18 +39,18 @@ Future<bool> login(String email, String password) async {
 }
 
 Future<void> refreshToken() async {
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  final Future<SharedPreferences> prefs0 = SharedPreferences.getInstance();
 
-  var token = _prefs.then((pref) {
+  var token = prefs0.then((pref) {
     return pref.getString('token') ?? "none";
   });
 
   final response = await http.post(
-      headers: {"Authorization": "Bearer " + (await token).toString()},
+      headers: {"Authorization": "Bearer ${await token}"},
       Uri.parse(URL_SERVER + REFRESH));
 
   if (response.statusCode == 200) {
-    final SharedPreferences prefs = await _prefs;
+    final SharedPreferences prefs = await prefs0;
 
     var newToken = jsonDecode(response.body)["access_token"].toString();
 
@@ -66,7 +66,7 @@ Future<void> changeEmail(String email) async {
   String token = await getToken();
 
   final response = await http.post(
-      headers: {"Authorization": "Bearer " + (await token).toString()},
+      headers: {"Authorization": "Bearer $token"},
       Uri.parse(URL_SERVER + REFRESH),
       body: {"email": email});
 
