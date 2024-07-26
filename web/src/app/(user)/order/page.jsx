@@ -149,13 +149,13 @@ function Preorder({ meals }) {
       })}
       <div className="flex w-[calc(100vw-6rem)] max-w-2xl flex-col items-stretch justify-start self-center max-sm:w-full max-sm:px-5">
         <div
-          className="flex flex-col items-stretch max-sm:mb-32"
+          className="flex flex-col items-stretch"
           onClick={handleOrder}
         >
           <ColorfulButton content={'Submit'} />
         </div>
 
-        <div className="-mt-8">
+        <div className="-mt-8 max-sm:mb-32">
           <p className="!text-red-600">{error}</p>
         </div>
       </div>
